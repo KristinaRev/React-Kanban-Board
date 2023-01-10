@@ -1,0 +1,37 @@
+[
+	{
+			"id": "329786054548905",
+			"title": "Add Unit tests",
+			"description": "Cover application with Unit tests",
+			"created": "2021-09-27T11:10:37.552Z",
+			"status": "backlog"
+	},
+	{
+			"id": "37302620983060905",
+			"title": "Fix Save to collection icon",
+			"description": "Icon in 'Save to collection' component is broken now, we need to fix it",
+			"created": "2021-09-27T11:11:42.182Z",
+			"status": "backlog"
+	},
+	{
+			"id": "8996234665258984",
+			"title": "Add user section to settings",
+			"description": "There should be a user section in setting where users can edit their profile data: name, phone, email, etc.",
+			"created": "2021-09-27T11:13:57.611Z",
+			"status": "backlog"
+	},
+	{
+			"id": "15694889400239302",
+			"title": "Update API routes",
+			"description": "Update API routes to use the newest versions",
+			"created": "2021-09-27T11:14:58.972Z",
+			"status": "inProgress"
+	},
+	{
+			"id": "45652229644291793",
+			"title": "Implement loader",
+			"description": "Fetching data from server takes some time. We need to implement a loader so user can see that data fetching is in progress.",
+			"created": "2021-09-27T11:16:47.091Z",
+			"status": "done"
+	}
+]

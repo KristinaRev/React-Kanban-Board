@@ -1,0 +1,57 @@
+.wrapper {
+	background: #fff;
+	border-radius: 8px;
+	padding: 20px;
+}
+
+.header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.title {
+	margin: 0;
+}
+
+.createdAt {
+	color: #737373;
+	font-style: italic;
+}
+
+.status {
+	color: #fff;
+	background: #465571;
+	font-weight: bold;
+	margin: 0;
+	padding: 8px 20px;
+	border-radius: 20px;
+}
+
+.label {
+	margin-bottom: 10px;
+}
+
+.select {
+	padding: 8px;
+	border-radius: 8px;
+}
+
+.homeLink {
+	display: block;
+	margin: 20px 0;
+	text-decoration: none;
+	color: #737373;
+}
+
+.homeLink:hover {
+	color: #000;
+}
+
+.emptyState {
+	text-align: center;
+}
+
+.emptyStateIcon {
+	width: 200px;
+}

@@ -1,0 +1,32 @@
+.footer {
+	min-height: 50px;
+	background: #465571;
+	color: #fff;
+	display: flex;
+	padding: 0 20px;
+	align-items: center;
+}
+
+.counts {
+	display: flex;
+}
+
+.count {
+	position: relative;
+	margin-right: 30px;
+}
+
+.count + .count::before {
+	content: '';
+	display: block;
+	background: #fff;
+	width: 1px;
+	height: 100%;
+	position: absolute;
+	left: -15px;
+	top: 0;
+}
+
+.copy {
+	margin-left: auto;
+}
