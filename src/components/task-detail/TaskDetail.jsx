@@ -1,64 +1,68 @@
 import { useParams, Link } from 'react-router-dom'
+import { useState } from 'react'
 import { LIST_TYPES, LIST_COPY, LIST_COLORS } from '../../config'
 import { formatDate } from '../../utils'
 import notFoundIcon from '../../assets/not-found.svg'
 import css from './TaskDetail.module.css'
-import data from '../../mock.json'
+import { ReactComponent as CloseDetails } from '../../assets/closeDetails.svg';
 
-const TaskDetail = (props) => {
+const TaskDetail = ({ tasks, setTasks }) => {
 
-	const {id} = useParams();
-	const task = data[id];
-	const {tasks, setTasks} = props
 
-	const handleChange = (e) => {
+	const { taskId } = useParams();
+    const task = JSON.parse(window.localStorage.getItem('tasks')).find(task => task.id === taskId)
+
+    const [description, setDescription] = useState(task.description ? task.description : "This task has no description");
+
+	const addDescription = () => {
+		const tasksCopy = tasks.map(el => {
+		  if (el.id === task.id) {
+			el.description = description
+		  }
+		  return el
+		})
+		setTasks(tasksCopy);
+	  }
+
+	  const handleChange = (e) => {
 		const newStatus = e.target.value
 		const updatedTasks = tasks.map(task => {
-			if (task.id === task) {
+			if (task.id === taskId) {
 				return {...task, status: newStatus}
 			}
 			return task
 		})
 		setTasks(updatedTasks)
 	}
-
-	const renderTaskDetails = () => {
-		return (
+	
+	  return (
+		<div >
+		  {task ? (
 			<>
-				<div className={css.header}>
-					<h2 className={css.title}>{task.title}</h2>
-					<p className={css.status} style={{background: LIST_COLORS[task.status]}}>{LIST_COPY[task.status]}</p>
-				</div>
-				<p className={css.createdAt}>Created at: {formatDate(task.created)}</p>
-				<p>Description: {task.description || '(no description)'}</p>
-				<p className={css.label}>Change status:</p>
-				<select className={css.select} onChange={handleChange} value={task.status}>
-					{Object.values(LIST_TYPES).map(list => {
-						return <option key={list} value={list}>{LIST_COPY[list]}</option>
-					})}
-				</select>
-			</>
-		)
-	}
-
-	const renderEmptyState = () => {
-		return (
-			<div className={css.emptyState}>
-				<h2>Task with ID <em>123</em> was not found</h2>
-				<img className={css.emptyStateIcon} src={notFoundIcon} alt='' />
+			<div className={css.header}>
+				<h2 className={css.title}>{task.title}</h2>
+				<p className={css.status} style={{background: LIST_COLORS[task.status]}}>{LIST_COPY[task.status]}</p>
 			</div>
-		)
-	}
-
-	return (
-		<>
-			<Link to='/' className={css.homeLink}>&#8592; Back</Link>
-			<div className={css.wrapper}>
-				{task ? renderTaskDetails() : renderEmptyState()}
-			</div>
+			<p className={css.createdAt}>Created at: {formatDate(task.created)}</p>
+			<p>Description: {task.description || '(no description)'}</p>
+			<p className={css.label}>Change status:</p>
+			<select className={css.select} onChange={handleChange} value={task.status}>
+				{Object.values(LIST_TYPES).map(list => {
+					return <option key={list} value={list}>{LIST_COPY[list]}</option>
+				})}
+			</select>
 		</>
-	)
-}
-
-export default TaskDetail
+		  ) : (<div  >
+			<h2 >Task with ID {taskId} not found</h2>
+			<Link to='/'>
+			  <CloseDetails  />
+			</Link>
+		  </div>
+		  )
+		  }
+		</div >
+	  );
+	}
+	
+	export default TaskDetail;
 

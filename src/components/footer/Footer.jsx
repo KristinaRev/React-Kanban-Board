@@ -17,7 +17,7 @@ function Footer(props) {
 				})}
 			</div>
 			<div className={css.copy}>
-				Created by <a href='https://github.com/ytokarevskaya' target='_blank' rel='noreferrer'>@ytokarevskaya</a>
+				Created by <a href='https://github.com/KristinaRev' target='_blank' rel='noreferrer'>Kris Kipper</a> , 2023
 			</div>
 		</footer>
 	)
