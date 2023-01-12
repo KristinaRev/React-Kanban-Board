@@ -1,13 +1,21 @@
-
 import Board from '../board/Board'
 import css from './Main.module.css'
 
+import { Routes, Route } from "react-router-dom";
+import TaskDetail from '../task-detail/TaskDetail';
+
 const Main = (props) => {
+
+
 	return (
+		
 		<main className={css.main}>
-			<Board {...props} />
-				
+			<Routes>
+				<Route exact path={'/'} element ={<Board {...props}/>}/>
+				<Route path={'/tasks/:id'} element={<TaskDetail {...props}/>}/>
+			</Routes>
 		</main>
+		
 	)
 }
 

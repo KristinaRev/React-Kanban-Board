@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { LIST_TYPES, LIST_COLORS } from '../../config'
 import FormAddNewTask from '../forms/FormAddNewTask'
 import css from './List.module.css'
+import { Link } from 'react-router-dom'
 
 const List = props => {
 	const {type, title, tasks, addNewTask} = props
@@ -21,7 +22,9 @@ const List = props => {
 			<h2 className={css.listTitle}>{title}</h2>
 			{tasks.length? 
 				tasks.map(task =>
+					<Link  to={`/tasks/${task.id}`}>
 						<div className={css.task} style={{background: LIST_COLORS[task.status]}}>{task.title}</div>
+					</Link>
 					
 			) : 
 				<p>No tasks added yet</p>

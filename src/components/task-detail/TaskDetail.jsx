@@ -1,19 +1,20 @@
-import { useRouteMatch, Link } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 import { LIST_TYPES, LIST_COPY, LIST_COLORS } from '../../config'
 import { formatDate } from '../../utils'
 import notFoundIcon from '../../assets/not-found.svg'
 import css from './TaskDetail.module.css'
+import data from '../../mock.json'
 
 const TaskDetail = (props) => {
-	const match = useRouteMatch()
-	const {taskId} = match.params
+
+	const {id} = useParams();
+	const task = data[id];
 	const {tasks, setTasks} = props
-	const task = tasks.find(task => task.id === taskId)
 
 	const handleChange = (e) => {
 		const newStatus = e.target.value
 		const updatedTasks = tasks.map(task => {
-			if (task.id === taskId) {
+			if (task.id === task) {
 				return {...task, status: newStatus}
 			}
 			return task
@@ -43,7 +44,7 @@ const TaskDetail = (props) => {
 	const renderEmptyState = () => {
 		return (
 			<div className={css.emptyState}>
-				<h2>Task with ID <em>{taskId}</em> was not found</h2>
+				<h2>Task with ID <em>123</em> was not found</h2>
 				<img className={css.emptyStateIcon} src={notFoundIcon} alt='' />
 			</div>
 		)
@@ -60,3 +61,4 @@ const TaskDetail = (props) => {
 }
 
 export default TaskDetail
+
