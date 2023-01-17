@@ -55,3 +55,12 @@
 .emptyStateIcon {
 	width: 200px;
 }
+
+.details_close_btn {
+	cursor: pointer;
+	transition: transform 0.3s ease-in-out;
+}
+
+.details_close_btn:hover {
+	transform: rotate(90deg);
+}

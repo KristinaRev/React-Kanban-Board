@@ -1,6 +1,6 @@
 import { useParams, Link } from 'react-router-dom'
 import { useState } from 'react'
-import { LIST_TYPES, LIST_COPY, LIST_COLORS } from '../../config'
+import { LIST_TYPES, LIST_COPY} from '../../config'
 import { formatDate } from '../../utils'
 import notFoundIcon from '../../assets/not-found.svg'
 import css from './TaskDetail.module.css'
@@ -41,7 +41,7 @@ const TaskDetail = ({ tasks, setTasks }) => {
 			<>
 			<div className={css.header}>
 				<h2 className={css.title}>{task.title}</h2>
-				<p className={css.status} style={{background: LIST_COLORS[task.status]}}>{LIST_COPY[task.status]}</p>
+				<p className={css.status}>{LIST_COPY[task.status]}</p>
 			</div>
 			<p className={css.createdAt}>Created at: {formatDate(task.created)}</p>
 			<p>Description: {task.description || '(no description)'}</p>

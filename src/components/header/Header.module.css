@@ -1,16 +1,27 @@
 .header {
-	background: #000;
-	color: #fff;
+	background-color: rgba(0, 103, 163, 1);
 	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	padding: 11px 22px 8px 20px;
 	align-items: center;
-	padding: 0 20px;
-}
+	flex: 0 0 auto;
+	height: 55px;
+  }
 
-.logo {
-	width: 35px;
-	margin-right: 15px;
-}
-
-.sprint {
-	margin-left: auto;
-}
+  .header_title {
+	font-style: normal;
+	font-weight: 400;
+	font-size: 28px;
+	line-height: 33px;
+	color: #ffffff;
+  }
+  @media (max-width: 450px) {
+	.header {
+	  flex-direction: row-reverse;
+	  background-color: #0079bf;
+	}
+	.header_title {
+	  display: none;
+	}
+  }

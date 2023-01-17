@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { LIST_TYPES, LIST_COLORS } from '../../config'
+import { LIST_TYPES} from '../../config'
 import FormAddNewTask from '../forms/FormAddNewTask'
 import css from './List.module.css'
 import { Link } from 'react-router-dom'
@@ -23,7 +23,7 @@ const List = props => {
 			{tasks.length? 
 				tasks.map(task =>
 					<Link  to={`/tasks/${task.id}`}>
-						<div className={css.task} style={{background: LIST_COLORS[task.status]}}>{task.title}</div>
+						<div className={css.task} >{task.title}</div>
 					</Link>
 					
 			) : 

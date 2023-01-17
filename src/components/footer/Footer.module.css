@@ -1,11 +1,20 @@
 .footer {
-	min-height: 50px;
-	background: #465571;
-	color: #fff;
+	padding: 17px 19px 17px 21px;
+	margin: 0 auto;
 	display: flex;
-	padding: 0 20px;
+	flex-direction: row;
+	justify-content: space-between;
 	align-items: center;
-}
+	background-color: rgba(0, 103, 163, 1);
+	font-style: normal;
+	font-weight: 400;
+	font-size: 18px;
+	line-height: 21px;
+	color: #ffffff;
+	flex: 0 0 auto;
+	width: 100hv;
+	height: 55px;
+  }
 
 .counts {
 	display: flex;
