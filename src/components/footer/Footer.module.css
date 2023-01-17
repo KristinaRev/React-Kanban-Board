@@ -39,3 +39,8 @@
 .copy {
 	margin-left: auto;
 }
+
+a {
+	color: #fff;
+	font-weight: bold;
+}

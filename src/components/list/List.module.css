@@ -1,23 +1,28 @@
 .list {
 	width: 22%;
-	background: #fff;
+	background: rgba(235, 236, 240, 1);
 	padding: 20px;
 	border-radius: 8px;
 	box-sizing: border-box;
 	margin: 15px;
 	box-shadow: 2px 2px 8px rgb(0 0 0 / 20%);
+	overflow-x: hidden;
+	max-height: 60vh;
 }
 
 .listTitle {
 	margin-top: 0;
+	font-style: normal;
+	overflow: hidden;
 }
 
 .task {
-	background: rgba(0, 121, 191, 1);
-	color: #fff;
+	background-color: rgba(255, 255, 255, 1);
+	color: rgba(0, 0, 0, 1);
 	margin: 7px 0;
 	padding: 8px;
 	border-radius: 8px;
+	overflow: hidden;
 }
 
 .task:hover {
