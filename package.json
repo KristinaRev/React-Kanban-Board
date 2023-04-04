@@ -2,7 +2,7 @@
   "name": "new-kanban-board",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://github.com/KristinaRev/Kanban---board/",
+  "homepage": "https://kristinarev.github.io/Kanban---board",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
