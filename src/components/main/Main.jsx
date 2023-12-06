@@ -8,15 +8,14 @@ const Main = (props) => {
 
 
 	return (
-		
 		<main className={css.main}>
 			<Routes>
-				<Route exact path={'/'} element ={<Board {...props}/>}/>
-				<Route path={'/tasks/:taskId'} element={<TaskDetail {...props}/>}/>
+				<Route exact path={'/'} element={<Board {...props} />} />
+				<Route path={'/tasks/:taskId'} element={<TaskDetail {...props} />} />
 			</Routes>
 		</main>
-		
-	)
-}
+	);
+};
+
 
 export default Main

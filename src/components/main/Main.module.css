@@ -2,5 +2,6 @@
 	background: rgba(0, 121, 191, 1);
 	padding: 20px;
 	flex-grow: 1;
-	height: 69vh;
+	height: calc(100vh - 110px);
+	overflow: scroll;
 }

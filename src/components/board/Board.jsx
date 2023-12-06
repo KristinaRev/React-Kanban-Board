@@ -18,6 +18,8 @@ const Board = (props) => {
 		setTasks([...tasks, task]);
 	}
 
+	console.log('Board tasks:', tasks);
+
 	return (
 		<div className={css.board}>
 		{
