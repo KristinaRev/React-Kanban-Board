@@ -1,8 +1,6 @@
 import { useParams, Link } from 'react-router-dom'
 import { useState } from 'react'
 import { LIST_TYPES, LIST_COPY} from '../../config'
-import { formatDate } from '../../utils'
-import notFoundIcon from '../../assets/not-found.svg'
 import css from './TaskDetail.module.css'
 import { ReactComponent as CloseDetails } from '../../assets/closeDetails.svg';
 
@@ -18,12 +16,11 @@ const TaskDetail = ({ tasks, setTasks }) => {
 		setTasks(updatedTasks)
 	}
 
-
 	const { taskId } = useParams();
 	const task = JSON.parse(window.localStorage.getItem('tasks')).find(task => task.id === taskId)
-  
+
 	const [description, setDescription] = useState(task.description ? task.description : "This task has no description");
-  
+
 	const addDescription = () => {
 	  const tasksCopy = tasks.map(el => {
 		if (el.id === task.id) {
@@ -33,7 +30,7 @@ const TaskDetail = ({ tasks, setTasks }) => {
 	  })
 	  setTasks(tasksCopy);
 	}
-  
+
 	return (
 	  <div className={css.details_wrapper} >
 		{task ? (<>
@@ -66,6 +63,5 @@ const TaskDetail = ({ tasks, setTasks }) => {
 	  </div >
 	);
   }
-  
   export default TaskDetail;
 

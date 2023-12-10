@@ -20,13 +20,13 @@ const List = props => {
 	return (
 		<div className={css.list}>
 			<h2 className={css.listTitle}>{title}</h2>
-			{tasks.length? 
+			{tasks.length?
 				tasks.map(task =>
 					<Link  to={`/tasks/${task.id}`}>
 						<div className={css.task} >{task.title}</div>
 					</Link>
-					
-			) : 
+
+			) :
 				<p>No tasks added yet</p>
 			}
 			{type === LIST_TYPES.BACKLOG && <button onClick={handleAddNewClick} className={css.addButton}>+ Add new task</button>}
@@ -36,5 +36,4 @@ const List = props => {
 		</div>
 	)
 }
-
 export default List

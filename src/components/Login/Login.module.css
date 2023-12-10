@@ -3,77 +3,85 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+}
+
+.user_avatar {
+  padding-right: 6px;
+  cursor: pointer;
+}
+
+.icon {
+  display: block;
+  width: 12px;
+  height: 8px;
+  background-repeat: no-repeat;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M1.415 0.209991L6 4.79499L10.585 0.209991L12 1.62499L6 7.62499L0 1.62499L1.415 0.209991Z' fill='white'/%3e%3c/svg%3e ");
+  transition: all 0.5s ease-in-out;
+  cursor: pointer;
+}
+
+.icon.isopen {
+  transform: rotate3d(1, 0, 0, 180deg);
+}
+
+.login_dropdown {
+  background-color: #fff;
+  border-radius: 5px;
+  position: absolute;
+  top: 55px;
+  left: -90px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  transition: all 0.5s ease;
+}
+
+.icon:hover {
+  animation: bounce 1s;
+}
+
+.icon.isopen:hover {
+  animation: none;
+}
+
+.login_dropdown:after {
+  border: 10px solid transparent;
+  border-bottom-color: #fff;
+  position: absolute;
+  bottom: 100%;
+  right: 18px;
+  content: "";
+}
+
+.login_dropdown_button {
+  padding: 10px 80px 10px 10px;
+  border-radius: 5px;
+  background-color: #fff;
+  border: none;
+  cursor: pointer;
+  font-family: "Roboto", sans-serif;
+  font-size: 14px;
+  line-height: 16px;
+  transition: all 0.5s ease-in-out;
+}
+
+.login_dropdown_button:hover {
+  color: #0079bf;
+}
+
+@keyframes bounce {
+  0%,
+  20%,
+  60%,
+  100% {
+    transform: translateY(0);
   }
-  .user_avatar {
-    padding-right: 6px;
-    cursor: pointer;
+
+  40% {
+    transform: translateY(-10px);
   }
-  .icon {
-    display: block;
-    width: 12px;
-    height: 8px;
-    background-repeat: no-repeat;
-    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M1.415 0.209991L6 4.79499L10.585 0.209991L12 1.62499L6 7.62499L0 1.62499L1.415 0.209991Z' fill='white'/%3e%3c/svg%3e ");
-    transition: all 0.5s ease-in-out;
-    cursor: pointer;
+
+  80% {
+    transform: translateY(-5px);
   }
-  .icon.isopen {
-    transform: rotate3d(1, 0, 0, 180deg);
-  }
-  .login_dropdown {
-    background-color: #fff;
-    border-radius: 5px;
-    position: absolute;
-    top: 55px;
-    left: -90px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    transition: all 0.5s ease;
-  }
-  .icon:hover {
-    animation: bounce 1s;
-  }
-  .icon.isopen:hover {
-    animation: none;
-  }
-  .login_dropdown:after {
-    border: 10px solid transparent;
-    border-bottom-color: #fff;
-    position: absolute;
-    bottom: 100%;
-    right: 18px;
-    content: "";
-  }
-  .login_dropdown_button {
-    padding: 10px 80px 10px 10px;
-    border-radius: 5px;
-    background-color: #fff;
-    border: none;
-    cursor: pointer;
-    font-family: "Roboto";
-    font-size: 14px;
-    line-height: 16px;
-    transition: all 0.5s ease-in-out;
-  }
-  .login_dropdown_button:hover {
-    color: #0079bf;
-  }
-  @keyframes bounce {
-    0%,
-    20%,
-    60%,
-    100% {
-      transform: translateY(0);
-      transform: translateY(0);
-    }
-    40% {
-      transform: translateY(-10px);
-      transform: translateY(-10px);
-    }
-    80% {
-      transform: translateY(-5px);
-      transform: translateY(-5px);
-    }
-  }
-  
+}
