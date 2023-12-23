@@ -27,7 +27,7 @@ const Task = ({ id, index, title, status, moveTask }) => {
     const opacity = isDragging ? 0.5 : 1;
 
     return (
-        <div ref={(node) => drag(drop(node))} style={{ opacity }}>
+        <div ref={(node) => drag(drop(node))} style={{ opacity }} className={css.task}>
             {title}
         </div>
     );
