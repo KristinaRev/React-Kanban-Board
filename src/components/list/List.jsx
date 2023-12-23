@@ -3,9 +3,12 @@ import { LIST_TYPES} from '../../config'
 import FormAddNewTask from '../forms/FormAddNewTask'
 import css from './List.module.css'
 import { Link } from 'react-router-dom'
+import { useDrag, useDrop } from 'react-dnd';
+import { ItemTypes } from '../../ItemTypes';
+import Task from "../Task/Task";
 
 const List = props => {
-	const {type, title, tasks, addNewTask} = props
+	const { type, title, tasks, addNewTask, moveTask, setTasks } = props;
 	const [isFormVisible, setFormVisible] = useState(false)
 
 	const handleAddNewClick = () => {
@@ -17,14 +20,32 @@ const List = props => {
 		setFormVisible(false)
 	}
 
+	const [, drop] = useDrop({
+		accept: ItemTypes.TASK,
+		drop: (item) => moveTask(item.id, type),
+	});
+
+	const moveTaskInsideList = (dragIndex, hoverIndex) => {
+		const updatedTasks = [...tasks];
+		const [draggedTask] = updatedTasks.splice(dragIndex, 1);
+		updatedTasks.splice(hoverIndex, 0, draggedTask);
+		setTasks(updatedTasks);
+	};
+
 	return (
-		<div className={css.list}>
+		<div ref={drop} className={css.list}>
 			<h2 className={css.listTitle}>{title}</h2>
 			{tasks.length?
-				tasks.map(task =>
-					<Link  to={`/tasks/${task.id}`}>
-						<div className={css.task} >{task.title}</div>
-					</Link>
+				tasks.map((task, index) => (
+					<Task
+						key={task.id}
+						index={index}
+						id={task.id}
+						title={task.title}
+						status={task.status}
+						moveTask={task.status === type ? moveTask : moveTaskInsideList}
+					/>
+				)
 
 			) :
 				<p>No tasks added yet</p>
@@ -34,6 +55,6 @@ const List = props => {
 				<FormAddNewTask formSubmit={formSubmit} />
 			)}
 		</div>
-	)
-}
+	);
+};
 export default List

@@ -16,22 +16,6 @@
 	overflow: hidden;
 }
 
-.task {
-	background-color: rgba(255, 255, 255, 1);
-	color: rgba(0, 0, 0, 1);
-	margin: 7px 0;
-	padding: 8px;
-	border-radius: 8px;
-	overflow: hidden;
-}
-
-.task:hover {
-	text-decoration: underline;
-}
-
-.taskLink {
-	text-decoration: none;
-}
 
 .addButton {
 	background: none;
