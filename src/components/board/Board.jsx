@@ -7,7 +7,7 @@ import { HTML5Backend } from 'react-dnd-html5-backend';
 import Task from "../Task/Task";
 
 const Board = (props) => {
-	const {tasks, setTasks} = props
+	const { tasks, setTasks, formSubmit } = props
 
 	const addNewTask = (title, description) => {
 		const task = {
@@ -45,6 +45,8 @@ const Board = (props) => {
 						tasks={tasks.filter((task) => task.status === type)}
 						addNewTask={addNewTask}
 						moveTask={moveTask}
+						setTasks={setTasks}
+						formSubmit={formSubmit}
 					/>
 				))}
 			</div>

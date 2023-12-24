@@ -1,12 +1,17 @@
+import css from './Header.module.css';
 
-import Login from '../Login/Login'
-import css from './Header.module.css'
-
-function Header() {
+function Header({ onLogin, onLogout, user }) {
 	return (
 		<header className={css.header}>
 			<h1 className={css.header_title}>Awesome Kanban Board</h1>
-			<Login/>
+			{user ? (
+				<>
+					<p className={css.header_user}>Welcome, {user.username}!</p>
+					<button onClick={onLogout} className={css.header_btn}>Log Out</button>
+				</>
+			) : (
+				<button onClick={onLogin} className={css.header_btn}>Log In</button>
+			)}
 		</header>
 	)
 }

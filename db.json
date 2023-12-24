@@ -1,0 +1,33 @@
+{
+  "users": [
+    {
+      "userID": "1",
+      "username": "SPIKS",
+      "tasks": [
+        {
+          "id": "task1",
+          "title": "Что-то не делать",
+          "description": "Description 1",
+          "status": "backlog",
+          "userId": "1"
+        },
+        {
+          "id": "task2",
+          "title": "Что-то сделать",
+          "description": "Description 2",
+          "status": "ready",
+          "userId": "1"
+        }
+      ]
+    }
+  ],
+  "tasks": [
+    {
+      "id": "lqjrx855",
+      "title": "frv",
+      "description": "",
+      "created": "2023-12-24T17:39:03.929Z",
+      "status": "backlog"
+    }
+  ]
+}

@@ -41,7 +41,7 @@ export default function Login() {
                     css={isMounted ? mountedcss : unmountedcss}
                 >
                     <button className={css.login_dropdown_button}>Profile</button>
-                    <button className={css.login_dropdown_button}>Log Out</button>
+                    <button className={css.login_dropdown_button}>Log In</button>
                 </div>
 
             }
