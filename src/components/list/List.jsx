@@ -37,6 +37,7 @@ const List = (props) => {
 			<h2 className={css.listTitle}>{title}</h2>
 			{tasks.length ?
 				tasks.map((task, index) => (
+					<Link  to={`/tasks/${task.id}`}>
 						<Task
 							key={task.id}
 							index={index}
@@ -45,6 +46,7 @@ const List = (props) => {
 							status={task.status}
 							moveTask={task.status === type ? moveTask : moveTaskInsideList}
 						/>
+					</Link>
 					)
 				) :
 				<p>No tasks added yet</p>
