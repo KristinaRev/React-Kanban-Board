@@ -4,54 +4,38 @@ import Footer from './components/footer/Footer';
 import Main from './components/main/Main';
 import { useState, useEffect } from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import data from './mock.json';
 import uniqid from 'uniqid';
 
 function App() {
     const storedUser = JSON.parse(window.localStorage.getItem('user'));
-    const storedTasks = JSON.parse(window.localStorage.getItem('tasks'));
-    const initialStateUser = storedUser || null;
-    const initialStateTasks = storedTasks || data;
-    const [user, setUser] = useState(initialStateUser);
-    const [tasks, setTasks] = useState(initialStateTasks);
+    const [user, setUser] = useState(storedUser || null);
+    const [tasks, setTasks] = useState([]);
 
     useEffect(() => {
-        console.log('User data updated:', user);
-        window.localStorage.setItem('user', JSON.stringify(user));
+        if (user) {
+            fetch(`http://localhost:3001/tasks`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Error: ${response.statusText}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Tasks data fetched:', data);
+                    setTasks(data);
+                })
+                .catch(error => console.error('Error fetching tasks:', error.message));
+        }
     }, [user]);
 
-    useEffect(() => {
-        console.log('Tasks data updated:', tasks);
-        window.localStorage.setItem('tasks', JSON.stringify(tasks));
-    }, [tasks]);
-
     const handleLogin = () => {
-        const usernameToLogin = 'SPIKS';
-
-        fetch(`http://localhost:3001/users?username=${usernameToLogin}`)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`Error: ${response.statusText}`);
-                }
-                return response.json();
-            })
-            .then(data => {
-                console.log('User logged in:', data);
-
-                if (data.length > 0) {
-                    const user = data[0];
-                    setTasks(user.tasks || []);
-                    setUser(user);
-                } else {
-                    console.error('User not found');
-                }
-            })
-            .catch(error => console.error('Error logging in:', error.message));
+        const usernameToLogin = 'SPIKS'; // You may want to parameterize this or fetch it from somewhere else
+        // Perform login operation...
+        setUser(usernameToLogin);
     };
 
     const handleLogout = () => {
         window.localStorage.removeItem('user');
-        window.localStorage.removeItem('tasks');
         setUser(null);
         setTasks([]);
     };

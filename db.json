@@ -1,32 +1,45 @@
 {
-  "users": [
-    {
-      "userID": "1",
-      "username": "SPIKS",
-      "tasks": [
-        {
-          "id": "task1",
-          "title": "Что-то не делать",
-          "description": "Description 1",
-          "status": "backlog",
-          "userId": "1"
-        },
-        {
-          "id": "task2",
-          "title": "Что-то сделать",
-          "description": "Description 2",
-          "status": "ready",
-          "userId": "1"
-        }
-      ]
-    }
-  ],
   "tasks": [
     {
       "id": "lqjrx855",
-      "title": "frv",
-      "description": "",
+      "title": "Добавить юнит тесты",
+      "description": "Покрыть приложение юнит тестами",
       "created": "2023-12-24T17:39:03.929Z",
+      "status": "backlog"
+    },
+    {
+      "id": "lshidz38",
+      "title": "Исправить значок 'Сохранить' ",
+      "description": "Иконка в компоненте \"Сохранить\" теперь не работает, нам нужно это исправить",
+      "created": "2024-02-11T12:56:01.508Z",
+      "status": "backlog"
+    },
+    {
+      "id": "lshie1m2",
+      "title": "Добавить раздел пользователя в настройки",
+      "description": "В настройках должен быть раздел пользователя, где пользователи могут редактировать данные своего профиля: имя, телефон, адрес электронной почты и т. д.",
+      "created": "2024-02-11T12:56:04.778Z",
+      "status": "backlog"
+    },
+    {
+      "id": "lshie9w9",
+      "title": "Что-то сделать",
+      "description": "",
+      "created": "2024-02-11T12:56:15.513Z",
+      "status": "backlog"
+    },
+    {
+      "id": "lshieb91",
+      "title": "Что-то пофиксить",
+      "description": "",
+      "created": "2024-02-11T12:56:17.269Z",
+      "status": "backlog"
+    },
+    {
+      "id": "lshjoyjv",
+      "title": "Что-то не сделать",
+      "description": "",
+      "created": "2024-02-11T13:32:33.642Z",
       "status": "backlog"
     }
   ]

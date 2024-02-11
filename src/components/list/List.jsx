@@ -16,6 +16,7 @@ const List = (props) => {
 	}
 
 	const formSubmitLocal = (title, description) => {
+		formSubmit(title, description)
 		addNewTask(title, description)
 		setFormVisible(false)
 	}
@@ -37,7 +38,7 @@ const List = (props) => {
 			<h2 className={css.listTitle}>{title}</h2>
 			{tasks.length ?
 				tasks.map((task, index) => (
-					<Link  to={`/tasks/${task.id}`}>
+					<Link key={task.id} to={`/tasks/${task.id}`}>
 						<Task
 							key={task.id}
 							index={index}
@@ -47,8 +48,7 @@ const List = (props) => {
 							moveTask={task.status === type ? moveTask : moveTaskInsideList}
 						/>
 					</Link>
-					)
-				) :
+				)) :
 				<p>No tasks added yet</p>
 			}
 			{type === LIST_TYPES.BACKLOG && <button onClick={handleAddNewClick} className={css.addButton}>+ Add new task</button>}
