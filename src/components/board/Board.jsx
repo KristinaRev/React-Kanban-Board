@@ -21,7 +21,7 @@ const Board = (props) => {
 		setTasks([...tasks, task])
 	}
 
-	console.log('Board tasks:', tasks)
+	// console.log('Board tasks:', tasks)
 
 	const moveTask = (taskId, newStatus) => {
 
@@ -48,7 +48,7 @@ const Board = (props) => {
 					if (!response.ok) {
 						throw new Error(`Error: ${response.statusText}`)
 					}
-					console.log(`Task ${taskId} status updated on server`)
+					// console.log(`Task ${taskId} status updated on server`)
 				})
 				.catch(error => console.error('Error updating task status on server:', error.message))
 		}

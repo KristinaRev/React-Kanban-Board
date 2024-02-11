@@ -21,7 +21,7 @@ function App() {
                     return response.json();
                 })
                 .then(data => {
-                    console.log('Tasks data fetched:', data);
+                    // console.log('Tasks data fetched:', data);
                     setTasks(data);
                 })
                 .catch(error => console.error('Error fetching tasks:', error.message));
@@ -29,8 +29,7 @@ function App() {
     }, [user]);
 
     const handleLogin = () => {
-        const usernameToLogin = 'SPIKS'; // You may want to parameterize this or fetch it from somewhere else
-        // Perform login operation...
+        const usernameToLogin = 'SPIKS';
         setUser(usernameToLogin);
     };
 
@@ -66,7 +65,7 @@ function App() {
             const data = await response.json();
             setTasks([...tasks, data]);
 
-            console.log('Task added:', data);
+            // console.log('Task added:', data);
         } catch (error) {
             console.error('Error adding task:', error.message);
         }
