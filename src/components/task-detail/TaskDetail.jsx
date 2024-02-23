@@ -1,16 +1,15 @@
-import { useParams, Link } from 'react-router-dom'
-import { useState, useEffect } from 'react'
-// import { LIST_TYPES, LIST_COPY} from '../../config'
-import css from './TaskDetail.module.css'
+import React, { useState, useEffect, useLayoutEffect, useRef } from 'react';
+import { useParams, Link } from 'react-router-dom';
+import css from './TaskDetail.module.css';
 import { ReactComponent as CloseDetails } from '../../assets/closeDetails.svg';
 
 const TaskDetail = ({ tasks, setTasks }) => {
 	const { taskId } = useParams();
 	const [task, setTask] = useState(null);
 	const [description, setDescription] = useState('');
+	const descriptionRef = useRef(null);
 
 	useEffect(() => {
-
 		fetch(`http://localhost:3001/tasks/${taskId}`)
 			.then(response => {
 				if (!response.ok) {
@@ -24,6 +23,13 @@ const TaskDetail = ({ tasks, setTasks }) => {
 			})
 			.catch(error => console.error('Error fetching task details:', error.message));
 	}, [taskId]);
+
+	useLayoutEffect(() => {
+		// Фокусировка на поле ввода описания задачи после отображения компонента
+		if (descriptionRef.current) {
+			descriptionRef.current.focus();
+		}
+	}, [task]);
 
 	const handleChange = (e) => {
 		const newStatus = e.target.value
@@ -47,7 +53,7 @@ const TaskDetail = ({ tasks, setTasks }) => {
 	}
 
 	return (
-		<div className={css.details_wrapper} >
+		<div className={css.details_wrapper}>
 			{task ? (
 				<>
 					<div className={css.details_header}>
@@ -57,6 +63,7 @@ const TaskDetail = ({ tasks, setTasks }) => {
 						</Link>
 					</div>
 					<textarea
+						ref={descriptionRef}
 						className={css.details_description}
 						onChange={(e) => { setDescription(e.target.value) }}
 						onFocus={() => { description === "This task has no description" && setDescription('') }}
