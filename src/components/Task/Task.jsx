@@ -3,8 +3,9 @@ import css from './Task.module.css'
 import { useDrag, useDrop } from 'react-dnd';
 import { ItemTypes } from '../../ItemTypes';
 import { FaTimes } from 'react-icons/fa';
+import { Link } from 'react-router-dom'
 
-const Task = ({ id, index, title, status, moveTask, onDelete}) => {
+const Task = ({ id, index, title, status, moveTask, onDelete, key}) => {
     const [{ isDragging }, drag] = useDrag({
         type: ItemTypes.TASK,
         item: { id, index, status },
@@ -39,7 +40,9 @@ const Task = ({ id, index, title, status, moveTask, onDelete}) => {
     return (
         <div ref={(node) => drag(drop(node))} style={{ opacity }} className={css.task}>
             <span>{title}</span>
-            <button onClick={handleTaskClick} className={css.taskDetailsButton}>Details</button>
+            <Link key={id} to={`/tasks/${id}`} className={css.taskDetailsButton}>
+                Detail
+            </Link>
             <button type="button" onClick={handleDelete} className={css.deleteButton}><FaTimes /></button> {/* Кнопка для удаления задачи */}
         </div>
     );

@@ -6,6 +6,10 @@
     border-radius: 8px;
     overflow: hidden;
     cursor: grab;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 4px;
 }
 
 .task:hover {
@@ -14,4 +18,26 @@
 
 .taskLink {
     text-decoration: none;
+}
+
+.taskDetailsButton, .deleteButton {
+    border: 2px solid rgba(0, 121, 191, 1);
+    border-radius: 6px;
+    background-color: inherit;
+    height: 29px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(0, 121, 191, 1);
+    text-decoration: none;
+    width: max-content;
+    padding: 2px 4px;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+.taskDetailsButton {
+
+    margin-right: 4px;
+    margin-left: auto;
 }
