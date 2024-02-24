@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { LIST_TYPES} from '../../config'
+import React, { useState, useCallback } from 'react';
+import { LIST_TYPES } from '../../config'
 import FormAddNewTask from '../forms/FormAddNewTask'
 import css from './List.module.css'
 import { Link } from 'react-router-dom'
@@ -11,27 +11,27 @@ const List = (props) => {
 	const { type, title, tasks, addNewTask, moveTask, setTasks, formSubmit } = props
 	const [isFormVisible, setFormVisible] = useState(false)
 
-	const handleAddNewClick = () => {
+	const handleAddNewClick = useCallback(() => {
 		setFormVisible(!isFormVisible)
-	}
+	}, [isFormVisible]);
 
-	const formSubmitLocal = (title, description) => {
+	const formSubmitLocal = useCallback((title, description) => {
 		formSubmit(title, description)
 		addNewTask(title, description)
 		setFormVisible(false)
-	}
+	}, [formSubmit, addNewTask]);
 
 	const [, drop] = useDrop({
 		accept: ItemTypes.TASK,
 		drop: (item) => moveTask(item.id, type),
 	});
 
-	const moveTaskInsideList = (dragIndex, hoverIndex) => {
+	const moveTaskInsideList = useCallback((dragIndex, hoverIndex) => {
 		const updatedTasks = [...tasks];
 		const [draggedTask] = updatedTasks.splice(dragIndex, 1);
 		updatedTasks.splice(hoverIndex, 0, draggedTask);
 		setTasks(updatedTasks);
-	};
+	}, [tasks, setTasks]);
 
 	return (
 		<div ref={drop} className={css.list}>
