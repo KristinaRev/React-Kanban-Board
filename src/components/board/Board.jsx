@@ -21,6 +21,11 @@ const Board = (props) => {
 		setTasks([...tasks, task])
 	}
 
+	const onDeleteTask = (taskId) => {
+		const updatedTasks = tasks.filter(task => task.id !== taskId);
+		setTasks(updatedTasks);
+	};
+
 	// console.log('Board tasks:', tasks)
 
 	const moveTask = (taskId, newStatus) => {
@@ -67,6 +72,7 @@ const Board = (props) => {
 						moveTask={moveTask}
 						setTasks={setTasks}
 						formSubmit={formSubmit}
+						onDeleteTask={onDeleteTask}
 					/>
 				))}
 			</div>

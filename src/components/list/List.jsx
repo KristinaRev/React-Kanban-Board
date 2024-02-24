@@ -8,7 +8,7 @@ import { ItemTypes } from '../../ItemTypes';
 import Task from "../Task/Task";
 
 const List = (props) => {
-	const { type, title, tasks, addNewTask, moveTask, setTasks, formSubmit } = props
+	const { type, title, tasks, addNewTask, moveTask, setTasks, formSubmit, onDeleteTask } = props;
 	const [isFormVisible, setFormVisible] = useState(false)
 
 	const handleAddNewClick = useCallback(() => {
@@ -33,12 +33,28 @@ const List = (props) => {
 		setTasks(updatedTasks);
 	}, [tasks, setTasks]);
 
+	const onDelete = (taskId) => {
+		onDeleteTask(taskId);
+
+		fetch(`http://localhost:3001/tasks/${taskId}`, {
+			method: 'DELETE',
+		})
+			.then(response => {
+				if (!response.ok) {
+					throw new Error(`Error: ${response.statusText}`)
+				}
+				console.log(`Task ${taskId} deleted successfully from server`);
+			})
+			.catch(error => console.error('Error deleting task from server:', error.message))
+	};
+
+
 	return (
 		<div ref={drop} className={css.list}>
 			<h2 className={css.listTitle}>{title}</h2>
 			{tasks.length ?
 				tasks.map((task, index) => (
-					<Link key={task.id} to={`/tasks/${task.id}`}>
+					/* <Link key={task.id} to={`/tasks/${task.id}`}> */
 						<Task
 							key={task.id}
 							index={index}
@@ -46,8 +62,9 @@ const List = (props) => {
 							title={task.title}
 							status={task.status}
 							moveTask={task.status === type ? moveTask : moveTaskInsideList}
+							onDelete={onDelete}
 						/>
-					</Link>
+					/*</Link>*/
 				)) :
 				<p>No tasks added yet</p>
 			}
