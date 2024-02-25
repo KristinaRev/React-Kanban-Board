@@ -32,11 +32,6 @@ const Task = ({ id, index, title, status, moveTask, onDelete, key}) => {
         onDelete(id);
     };
 
-    const handleTaskClick = () => {
-        // Здесь можно добавить логику для открытия деталей задачи
-        console.log(`Clicked on task ${id}`);
-    };
-
     return (
         <div ref={(node) => drag(drop(node))} style={{ opacity }} className={css.task}>
             <span>{title}</span>
