@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 import { LIST_TYPES } from '../../config'
 import FormAddNewTask from '../forms/FormAddNewTask'
 import css from './List.module.css'
@@ -14,6 +14,11 @@ const List = (props) => {
 	const handleAddNewClick = useCallback(() => {
 		setFormVisible(!isFormVisible)
 	}, [isFormVisible]);
+
+	const sortedTasks = useMemo(() => {
+		// Сортировка задач по названию
+		return tasks.sort((a, b) => a.title.localeCompare(b.title));
+	}, [tasks]);
 
 	const formSubmitLocal = useCallback((title, description) => {
 		formSubmit(title, description)
@@ -53,7 +58,7 @@ const List = (props) => {
 		<div ref={drop} className={css.list}>
 			<h2 className={css.listTitle}>{title}</h2>
 			{tasks.length ?
-				tasks.map((task, index) => (
+				sortedTasks.map((task, index) => (
 					/* <Link key={task.id} to={`/tasks/${task.id}`}> */
 						<Task
 							key={task.id}

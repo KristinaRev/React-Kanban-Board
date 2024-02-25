@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import css from './Task.module.css'
 import { useDrag, useDrop } from 'react-dnd';
 import { ItemTypes } from '../../ItemTypes';
@@ -13,6 +13,11 @@ const Task = ({ id, index, title, status, moveTask, onDelete, key}) => {
             isDragging: monitor.isDragging(),
         }),
     });
+
+    const formattedTitle = useMemo(() => {
+        // Вычисления форматированного заголовка задачи
+        return title.toUpperCase();
+    }, [title]);
 
     const [, drop] = useDrop({
         accept: ItemTypes.TASK,
@@ -34,7 +39,7 @@ const Task = ({ id, index, title, status, moveTask, onDelete, key}) => {
 
     return (
         <div ref={(node) => drag(drop(node))} style={{ opacity }} className={css.task}>
-            <span>{title}</span>
+            <span>{formattedTitle}</span>
             <Link key={id} to={`/tasks/${id}`} className={css.taskDetailsButton}>
                 Detail
             </Link>

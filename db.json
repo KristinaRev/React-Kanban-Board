@@ -5,7 +5,7 @@
       "title": "Добавить юнит тесты",
       "description": "Покрыть приложение юнит тестами",
       "created": "2023-12-24T17:39:03.929Z",
-      "status": "backlog"
+      "status": "ready"
     },
     {
       "id": "lshidz38",
@@ -26,7 +26,7 @@
       "title": "Что-то сделать",
       "description": "",
       "created": "2024-02-11T12:56:15.513Z",
-      "status": "backlog"
+      "status": "inProgress"
     },
     {
       "id": "lshieb91",
@@ -48,6 +48,41 @@
       "description": "ewrer",
       "created": "2024-02-11T13:33:49.087Z",
       "status": "done"
+    },
+    {
+      "id": "lt1l5t29",
+      "title": "5",
+      "description": "",
+      "created": "2024-02-25T14:09:02.817Z",
+      "status": "done"
+    },
+    {
+      "id": "lt1l5xs1",
+      "title": "hlhilh",
+      "description": "",
+      "created": "2024-02-25T14:09:08.929Z",
+      "status": "backlog"
+    },
+    {
+      "id": "lt1l9dno",
+      "title": "1",
+      "description": "",
+      "created": "2024-02-25T14:11:49.475Z",
+      "status": "done"
+    },
+    {
+      "id": "lt1l9gi2",
+      "title": "thtr",
+      "description": "",
+      "created": "2024-02-25T14:11:53.162Z",
+      "status": "backlog"
+    },
+    {
+      "id": "lt1l9kcb",
+      "title": "qqqq",
+      "description": "",
+      "created": "2024-02-25T14:11:58.139Z",
+      "status": "backlog"
     }
   ]
 }
