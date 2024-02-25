@@ -1,4 +1,5 @@
-import uniqid from 'uniqid'
+// import uniqid from 'uniqid'
+import { useId } from 'react-id-generator';
 import { LIST_TYPES, LIST_COPY } from '../../config'
 import List from '../list/List'
 import css from './Board.module.css'
@@ -8,10 +9,11 @@ import Task from "../Task/Task"
 
 const Board = (props) => {
 	const { tasks, setTasks, formSubmit } = props
+	const generateId = useId();
 
 	const addNewTask = (title, description) => {
 		const task = {
-			id: uniqid(),
+			id: generateId,
 			title,
 			description,
 			created: new Date().toISOString(),
