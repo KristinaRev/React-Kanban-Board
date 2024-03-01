@@ -5,7 +5,7 @@ import { ItemTypes } from '../../ItemTypes';
 import { FaTimes } from 'react-icons/fa';
 import { Link } from 'react-router-dom'
 
-const Task = ({ id, index, title, status, moveTask, onDelete, key}) => {
+const Task = ({ id, index, title, status, moveTask, onDelete}) => {
     const [{ isDragging }, drag] = useDrag({
         type: ItemTypes.TASK,
         item: { id, index, status },
