@@ -1,18 +1,19 @@
 import React, { useState, useCallback, useMemo } from 'react';
-import { LIST_TYPES } from '../../config'
-import FormAddNewTask from '../forms/FormAddNewTask'
-import css from './List.module.css'
-import { Link } from 'react-router-dom'
+import { useTransition, animated } from 'react-spring';
 import { useDrag, useDrop } from 'react-dnd';
+import css from './List.module.css';
+import { LIST_TYPES } from '../../config';
 import { ItemTypes } from '../../ItemTypes';
+import FormAddNewTask from '../forms/FormAddNewTask';
 import Task from "../Task/Task";
+//import { Link } from 'react-router-dom';
 
 const List = (props) => {
 	const { type, title, tasks, addNewTask, moveTask, setTasks, formSubmit, onDeleteTask } = props;
-	const [isFormVisible, setFormVisible] = useState(false)
+	const [isFormVisible, setFormVisible] = useState(false);
 
 	const handleAddNewClick = useCallback(() => {
-		setFormVisible(!isFormVisible)
+		setFormVisible(!isFormVisible);
 	}, [isFormVisible]);
 
 	const sortedTasks = useMemo(() => {
@@ -52,7 +53,17 @@ const List = (props) => {
 			})
 			.catch(error => console.error('Error deleting task from server:', error.message))
 	};
-
+	const transitions = useTransition(isFormVisible, {
+		from: { opacity: 0 },
+		enter: { opacity: 1 },
+		leave: { opacity: 0 },
+		config: { duration: 500 },
+		onDestroyed: (isVisible) => {
+			if (!isVisible) {
+				setFormVisible(true);
+			}
+		}
+	});
 
 	return (
 		<div ref={drop} className={css.list}>
@@ -60,24 +71,27 @@ const List = (props) => {
 			{tasks.length ?
 				sortedTasks.map((task, index) => (
 					/* <Link key={task.id} to={`/tasks/${task.id}`}> */
-						<Task
-							key={task.id}
-							index={index}
-							id={task.id}
-							title={task.title}
-							status={task.status}
-							moveTask={task.status === type ? moveTask : moveTaskInsideList}
-							onDelete={onDelete}
-						/>
+					<Task
+						key={task.id}
+						index={index}
+						id={task.id}
+						title={task.title}
+						status={task.status}
+						moveTask={task.status === type ? moveTask : moveTaskInsideList}
+						onDelete={onDelete}
+					/>
 					/*</Link>*/
 				)) :
 				<p>No tasks added yet</p>
 			}
 			{type === LIST_TYPES.BACKLOG && <button onClick={handleAddNewClick} className={css.addButton}>+ Add new task</button>}
-			{type === LIST_TYPES.BACKLOG && isFormVisible && (
-				<FormAddNewTask formSubmit={formSubmitLocal} />
+			{transitions((style, item) => item &&
+				<animated.div style={style}>
+					<FormAddNewTask formSubmit={formSubmitLocal} />
+				</animated.div>
 			)}
 		</div>
 	);
 };
-export default List
+export default List;
+

@@ -23,7 +23,7 @@ const FormAddNewTask = props => {
 	return (
 		<form onSubmit={handleSubmit} className={css.form}>
 			<input className={css.input} id='taskTitle' name='title' type='text' placeholder='Enter task title' onChange={handleChange} value={values.title} />
-			<textarea id='taskDescription' name='description' placeholder='Enter task description' value={values.description} onChange={handleChange} />
+			<textarea className={css.input} id='taskDescription' name='description' placeholder='Enter task description' value={values.description} onChange={handleChange} />
 			<button className={css.submit} type='submit'>Add</button>
 		</form>
 	)

@@ -1,10 +1,11 @@
 // import uniqid from 'uniqid'
-import { useId } from 'react-id-generator';
-import { LIST_TYPES, LIST_COPY } from '../../config'
-import List from '../list/List'
-import css from './Board.module.css'
-import { DndProvider } from 'react-dnd'
-import { HTML5Backend } from 'react-dnd-html5-backend'
+import { useId} from 'react-id-generator';
+import { useTransition } from 'react';
+import { LIST_TYPES, LIST_COPY } from '../../config';
+import List from '../list/List';
+import css from './Board.module.css';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 import Task from "../Task/Task"
 
 const Board = (props) => {
@@ -21,7 +22,7 @@ const Board = (props) => {
 		}
 
 		setTasks([...tasks, task])
-	}
+	};
 
 	const onDeleteTask = (taskId) => {
 		const updatedTasks = tasks.filter(task => task.id !== taskId);
@@ -79,7 +80,7 @@ const Board = (props) => {
 				))}
 			</div>
 		</DndProvider>
-	)
+	);
 }
 
 export default Board
