@@ -4,4 +4,12 @@
 	flex-grow: 1;
 	height: calc(100vh - 110px);
 	overflow: scroll;
+	-ms-overflow-style: none;
+	overflow: -moz-scrollbars-none;
+	scrollbar-width: none;
+}
+
+.board::-webkit-scrollbar {
+	width: 0;
+	height: 0;
 }

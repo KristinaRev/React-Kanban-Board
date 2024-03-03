@@ -1,13 +1,18 @@
 .list {
-	width: 22%;
+	height: 100%;
 	background: rgba(235, 236, 240, 1);
-	padding: 20px;
+	padding: 12px;
 	border-radius: 8px;
 	box-sizing: border-box;
-	margin: 15px;
 	box-shadow: 2px 2px 8px rgb(0 0 0 / 20%);
 	overflow-x: hidden;
-	max-height: 60vh;
+	-ms-overflow-style: none;
+	scrollbar-width: none;
+}
+
+.list::-webkit-scrollbar {
+	width: 0;
+	height: 0;
 }
 
 .listTitle {
@@ -23,7 +28,7 @@
 	appearance: none;
 	font-size: 15px;
 	color: #737373;
-	margin-top: 15px;
+	margin-top: 8px;
 	cursor: pointer;
 }
 
