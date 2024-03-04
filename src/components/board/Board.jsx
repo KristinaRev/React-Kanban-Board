@@ -1,16 +1,17 @@
 // import uniqid from 'uniqid'
+import React, {useReducer, useTransition} from 'react';
 import { useId} from 'react-id-generator';
-import { useTransition } from 'react';
-import { LIST_TYPES, LIST_COPY } from '../../config';
-import List from '../list/List';
-import css from './Board.module.css';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
-import Task from "../Task/Task"
+import css from './Board.module.css';
+import { LIST_TYPES, LIST_COPY } from '../../config';
+import List from '../list/List';
+import boardReducer from "../board-reducer/BoardReducer";
 
 const Board = (props) => {
 	const { tasks, setTasks, formSubmit } = props
 	const generateId = useId();
+	const [state, dispatch] = useReducer(boardReducer, tasks);
 
 	const addNewTask = (title, description) => {
 		const task = {
@@ -21,15 +22,13 @@ const Board = (props) => {
 			status: 'backlog',
 		}
 
-		setTasks([...tasks, task])
+		dispatch({ type: 'ADD_TASK', payload: task });
 	};
 
 	const onDeleteTask = (taskId) => {
 		const updatedTasks = tasks.filter(task => task.id !== taskId);
 		setTasks(updatedTasks);
 	};
-
-	// console.log('Board tasks:', tasks)
 
 	const moveTask = (taskId, newStatus) => {
 
@@ -83,4 +82,4 @@ const Board = (props) => {
 	);
 }
 
-export default Board
+export default Board;
