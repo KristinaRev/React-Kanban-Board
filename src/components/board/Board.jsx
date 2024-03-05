@@ -9,7 +9,7 @@ import List from '../list/List';
 import boardReducer from "../board-reducer/BoardReducer";
 
 const Board = (props) => {
-	const { tasks, setTasks, formSubmit } = props
+	const { tasks, setTasks, formSubmit, user } = props
 	const generateId = useId();
 	const [state, dispatch] = useReducer(boardReducer, tasks);
 
@@ -75,6 +75,7 @@ const Board = (props) => {
 						setTasks={setTasks}
 						formSubmit={formSubmit}
 						onDeleteTask={onDeleteTask}
+						user={user}
 					/>
 				))}
 			</div>

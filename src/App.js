@@ -75,7 +75,7 @@ function App() {
         <BrowserRouter>
             <div>
                 <Header user={user} onLogin={handleLogin} onLogout={handleLogout} />
-                <Main tasks={tasks} setTasks={setTasks} formSubmit={formSubmit} />
+                <Main user={user} tasks={tasks} setTasks={setTasks} formSubmit={formSubmit} />
                 <Footer tasks={tasks} />
             </div>
         </BrowserRouter>

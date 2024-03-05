@@ -9,7 +9,7 @@ import Task from "../Task/Task";
 //import { Link } from 'react-router-dom';
 
 const List = (props) => {
-	const { type, title, tasks, addNewTask, moveTask, setTasks, formSubmit, onDeleteTask } = props;
+	const { type, title, tasks, addNewTask, moveTask, setTasks, formSubmit, onDeleteTask, user } = props;
 	const [isFormVisible, setFormVisible] = useState(false);
 
 	const handleAddNewClick = useCallback(() => {
@@ -84,8 +84,8 @@ const List = (props) => {
 				)) :
 				<p>No tasks added yet</p>
 			}
-			{type === LIST_TYPES.BACKLOG && <button onClick={handleAddNewClick} className={css.addButton}>+ Add new task</button>}
-			{transitions((style, item) => item &&
+			{type === LIST_TYPES.BACKLOG && user && <button onClick={handleAddNewClick} className={css.addButton}>+ Add new task</button>}
+			{transitions((style, item) => item && user &&
 				<animated.div style={style}>
 					<FormAddNewTask formSubmit={formSubmitLocal} />
 				</animated.div>

@@ -5,7 +5,7 @@
       "title": "Добавить юнит тесты",
       "description": "Покрыть приложение юнит тестами",
       "created": "2023-12-24T17:39:03.929Z",
-      "status": "done"
+      "status": "inProgress"
     },
     {
       "id": "lshidz38",
@@ -19,7 +19,7 @@
       "title": "Добавить раздел пользователя в настройки",
       "description": "В настройках должен быть раздел пользователя, где пользователи могут редактировать данные своего профиля: имя, телефон, адрес электронной почты и т. д.",
       "created": "2024-02-11T12:56:04.778Z",
-      "status": "inProgress"
+      "status": "done"
     },
     {
       "id": "lshie9w9",
@@ -40,62 +40,13 @@
       "title": "Что-то не сделать",
       "description": "",
       "created": "2024-02-11T13:32:33.642Z",
-      "status": "inProgress"
-    },
-    {
-      "id": "ltd49s8w",
-      "title": "екн64нг",
-      "description": "",
-      "created": "2024-03-04T15:49:29.024Z",
       "status": "ready"
     },
     {
-      "id": "ltd5rdk3",
-      "title": "ек",
+      "id": "lte6m5bc",
+      "title": "Покушать",
       "description": "",
-      "created": "2024-03-04T16:31:09.410Z",
-      "status": "ready"
-    },
-    {
-      "id": "ltd6hbgn",
-      "title": "у3",
-      "description": "",
-      "created": "2024-03-04T16:51:19.751Z",
-      "status": "backlog"
-    },
-    {
-      "id": "ltd8q5zo",
-      "title": "1",
-      "description": "",
-      "created": "2024-03-04T17:54:11.796Z",
-      "status": "backlog"
-    },
-    {
-      "id": "ltd8q9xn",
-      "title": "4",
-      "description": "",
-      "created": "2024-03-04T17:54:16.907Z",
-      "status": "backlog"
-    },
-    {
-      "id": "lte3kwpy",
-      "title": "некн",
-      "description": "",
-      "created": "2024-03-05T08:17:54.598Z",
-      "status": "backlog"
-    },
-    {
-      "id": "lte5jvmd",
-      "title": "уу",
-      "description": "",
-      "created": "2024-03-05T09:13:05.749Z",
-      "status": "backlog"
-    },
-    {
-      "id": "lte5mpdu",
-      "title": "6yut",
-      "description": "",
-      "created": "2024-03-05T09:15:17.634Z",
+      "created": "2024-03-05T09:42:51.239Z",
       "status": "backlog"
     }
   ]
