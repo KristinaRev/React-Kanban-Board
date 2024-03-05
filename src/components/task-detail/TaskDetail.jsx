@@ -9,6 +9,7 @@ const TaskDetail = ({ tasks, setTasks }) => {
 	const { taskId } = useParams();
 	const [task, setTask] = useState(null);
 	const [description, setDescription] = useState('');
+	const [localDescription, setLocalDescription] = useState(''); // Новое состояние для отслеживания локальных изменений описания задачи
 	const descriptionRef = useRef(null);
 
 	useEffect(() => {
@@ -22,6 +23,7 @@ const TaskDetail = ({ tasks, setTasks }) => {
 			.then(data => {
 				setTask(data);
 				setDescription(data.description || "This task has no description");
+				setLocalDescription(data.description || "This task has no description"); // Устанавливаем начальное локальное описание
 			})
 			.catch(error => console.error('Error fetching task details:', error.message));
 	}, [taskId]);
@@ -34,54 +36,59 @@ const TaskDetail = ({ tasks, setTasks }) => {
 	}, [task]);
 
 	const handleChange = (e) => {
-		const newStatus = e.target.value
-		const updatedTasks = tasks.map(task => {
-			if (task.id === taskId) {
-				return { ...task, status: newStatus }
-			}
-			return task
-		})
-		setTasks(updatedTasks)
+		setLocalDescription(e.target.value);
 	}
 
 	const addDescription = () => {
-		const tasksCopy = tasks.map(el => {
-			if (el.id === task.id) {
-				el.description = description
+		const updatedTasks = tasks.map(task => {
+			if (task.id === taskId) {
+				task.description = localDescription; // Обновляем локальное описание в задаче
+				fetch(`http://localhost:3001/tasks/${taskId}`, {
+					method: 'PATCH',
+					headers: {
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify({ description: localDescription }), // Отправляем новое описание на сервер
+				})
+					.then(response => {
+						if (!response.ok) {
+							throw new Error(`Error: ${response.statusText}`);
+						}
+						// console.log(`Task ${taskId} description updated on server`);
+					})
+					.catch(error => console.error('Error updating task description on server:', error.message));
 			}
-			return el
-		})
-		setTasks(tasksCopy);
+			return task;
+		});
+		setTasks(updatedTasks);
 	}
 
 	return (
 		<div className={css.details_wrapper}>
 			<div className={css.details}>
-			{task ? (
-				<>
-					<div className={css.details_header}>
-						<FormattedTitle title={task.title} className={css.title}/>
+				{task ? (
+					<>
+						<div className={css.details_header}>
+							<FormattedTitle title={task.title} className={css.title}/>
+							<Link to='/'>
+								<FaTimes className={css.details_close_btn} />
+							</Link>
+						</div>
+						<textarea
+							ref={descriptionRef}
+							className={css.details_description}
+							onChange={handleChange}
+							onBlur={addDescription}
+							value={localDescription} /> {/* Используем локальное описание вместо описания из состояния */}
+					</>
+				) : (
+					<div className={css.details_not_found} >
+						<h2 className={css.details_title}>Task with ID {taskId} not found</h2>
 						<Link to='/'>
-							<FaTimes className={css.details_close_btn} />
+							<CloseDetails className={css.details_close_btn} />
 						</Link>
 					</div>
-					<textarea
-						ref={descriptionRef}
-						className={css.details_description}
-						onChange={(e) => { setDescription(e.target.value) }}
-						onFocus={() => { description === "This task has no description" && setDescription('') }}
-						onBlur={addDescription}
-						value={description} />
-
-				</>
-			) : (
-				<div className={css.details_not_found} >
-					<h2 className={css.details_title}>Task with ID {taskId} not found</h2>
-					<Link to='/'>
-						<CloseDetails className={css.details_close_btn} />
-					</Link>
-				</div>
-			)}
+				)}
 			</div>
 		</div >
 	);
