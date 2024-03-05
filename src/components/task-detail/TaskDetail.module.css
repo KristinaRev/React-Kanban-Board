@@ -44,7 +44,7 @@
 	text-align: start;
 	border: none;
 	resize: none;
-	max-height: 55%;
+	height: 100%;
 }
 .details_close_btn {
 	cursor: pointer;
