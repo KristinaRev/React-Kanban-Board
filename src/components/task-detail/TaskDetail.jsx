@@ -2,6 +2,7 @@ import React, { useState, useEffect, useLayoutEffect, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import css from './TaskDetail.module.css';
 import { ReactComponent as CloseDetails } from '../../assets/closeDetails.svg';
+import { FaTimes } from 'react-icons/fa';
 
 const TaskDetail = ({ tasks, setTasks }) => {
 	const { taskId } = useParams();
@@ -54,12 +55,13 @@ const TaskDetail = ({ tasks, setTasks }) => {
 
 	return (
 		<div className={css.details_wrapper}>
+			<div className={css.details}>
 			{task ? (
 				<>
 					<div className={css.details_header}>
 						<h2 className={css.details_title}>{task.title}</h2>
 						<Link to='/'>
-							<CloseDetails className={css.details_close_btn} />
+							<FaTimes className={css.details_close_btn} />
 						</Link>
 					</div>
 					<textarea
@@ -79,6 +81,7 @@ const TaskDetail = ({ tasks, setTasks }) => {
 					</Link>
 				</div>
 			)}
+			</div>
 		</div >
 	);
 }
