@@ -4,6 +4,7 @@ import { useDrag, useDrop } from 'react-dnd';
 import { ItemTypes } from '../../ItemTypes';
 import { FaTimes } from 'react-icons/fa';
 import { Link } from 'react-router-dom'
+import Button from "../button/Button";
 
 const Task = ({ id, index, title, status, moveTask, onDelete}) => {
     const [{ isDragging }, drag] = useDrag({
@@ -43,7 +44,9 @@ const Task = ({ id, index, title, status, moveTask, onDelete}) => {
             <Link key={id} to={`/tasks/${id}`} className={css.taskDetailsButton}>
                 Detail
             </Link>
-            <button type="button" onClick={handleDelete} className={css.deleteButton}><FaTimes /></button> {/* Кнопка для удаления задачи */}
+            <Button type="button" onClick={handleDelete} >
+                <FaTimes />
+            </Button>
         </div>
     );
 };

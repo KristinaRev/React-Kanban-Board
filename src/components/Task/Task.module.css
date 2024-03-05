@@ -12,28 +12,34 @@
     gap: 4px;
 }
 
-.task:hover {
-    text-decoration: underline;
-}
-
 .taskLink {
     text-decoration: none;
 }
 
-.taskDetailsButton, .deleteButton {
-    border: 2px solid rgba(0, 121, 191, 1);
-    border-radius: 6px;
-    background-color: inherit;
-    height: 29px;
+.taskDetailsButton {
     display: flex;
     align-items: center;
     justify-content: center;
     color: rgba(0, 121, 191, 1);
     text-decoration: none;
     width: max-content;
-    padding: 2px 4px;
     box-sizing: border-box;
     cursor: pointer;
+    background: #465671;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 4px 8px;
+    height: 30px;
+    align-self: flex-end;
+}
+
+.taskDetailsButton:hover {
+    background: #5d7194;
+}
+
+.taskDetailsButton:active {
+    background: #404f6a;
 }
 
 .taskDetailsButton {

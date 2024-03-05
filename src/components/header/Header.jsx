@@ -1,4 +1,5 @@
 import css from './Header.module.css';
+import Button from "../button/Button";
 
 function Header({ onLogin, onLogout, user }) {
 	return (
@@ -7,10 +8,15 @@ function Header({ onLogin, onLogout, user }) {
 			{user ? (
 				<>
 					<p className={css.header_user}>Welcome, user!</p>
-					<button onClick={onLogout} className={css.header_btn}>Log Out</button>
+					<Button onClick={onLogout} className={css.header_btn}>
+						Log Out
+					</Button>
 				</>
 			) : (
-				<button onClick={onLogin} className={css.header_btn}>Log In</button>
+				<Button onClick={onLogin} className={css.header_btn}>
+					Log In
+				</Button>
+
 			)}
 		</header>
 	)

@@ -25,17 +25,4 @@
 	border: 1px solid black;
 }
 
-.submit {
-	background: #465671;
-	color: #fff;
-	border: none;
-	border-radius: 8px;
-	padding: 8px 0;
-	width: 50px;
-	cursor: pointer;
-	align-self: flex-end;
-}
 
-.submit:hover {
-	background: #5d7194;
-}
