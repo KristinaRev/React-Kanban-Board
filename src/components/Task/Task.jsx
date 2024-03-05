@@ -5,6 +5,7 @@ import { ItemTypes } from '../../ItemTypes';
 import { FaTimes } from 'react-icons/fa';
 import { Link } from 'react-router-dom'
 import Button from "../button/Button";
+import FormattedTitle from "../formatted-title/FormattedTitle";
 
 const Task = ({ id, index, title, status, moveTask, onDelete}) => {
     const [{ isDragging }, drag] = useDrag({
@@ -40,7 +41,7 @@ const Task = ({ id, index, title, status, moveTask, onDelete}) => {
 
     return (
         <div ref={(node) => drag(drop(node))} style={{ opacity }} className={css.task}>
-            <span>{formattedTitle}</span>
+            <FormattedTitle title={title} />
             <Link key={id} to={`/tasks/${id}`} className={css.taskDetailsButton}>
                 Detail
             </Link>

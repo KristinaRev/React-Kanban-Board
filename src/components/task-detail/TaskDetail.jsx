@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import css from './TaskDetail.module.css';
 import { ReactComponent as CloseDetails } from '../../assets/closeDetails.svg';
 import { FaTimes } from 'react-icons/fa';
+import FormattedTitle from "../formatted-title/FormattedTitle";
 
 const TaskDetail = ({ tasks, setTasks }) => {
 	const { taskId } = useParams();
@@ -59,7 +60,7 @@ const TaskDetail = ({ tasks, setTasks }) => {
 			{task ? (
 				<>
 					<div className={css.details_header}>
-						<h2 className={css.details_title}>{task.title}</h2>
+						<FormattedTitle title={task.title} className={css.title}/>
 						<Link to='/'>
 							<FaTimes className={css.details_close_btn} />
 						</Link>
