@@ -5,9 +5,10 @@ import Button from "../button/Button";
 import {useFormSubmit} from "../../hooks/useFormSubmit";
 
 const FormAddNewTask = props => {
-	const {formSubmit} = props
 
-	const formSubmit = useFormSubmit({title, description, userId: user.id}, (data) => {
+	const { title, description, userId } = props
+
+	const formSubmit = useFormSubmit({title, description, userId}, (data) => {
 		console.log(data);
 	});
 

@@ -1,9 +1,11 @@
+import React, {useCallback} from 'react';
 import uniqid from "uniqid";
 
 /**
  * Хук для создания новой задачи
  */
 export function useFormSubmit({title, description, userId}, callback) {
+    return useCallback((title, description) => {
         const newTask = {
             id: uniqid(),
             title,
@@ -30,4 +32,5 @@ export function useFormSubmit({title, description, userId}, callback) {
         }).catch((error) => {
             console.error('Error adding task:', error.message);
         });
+    }, [userId, callback]);
 }

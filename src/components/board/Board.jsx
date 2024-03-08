@@ -74,7 +74,7 @@ const Board = (props) => {
 						addNewTask={addNewTask}
 						moveTask={moveTask}
 						setTasks={setTasks}
-						formSubmit={formSubmit}
+						// formSubmit={formSubmit}
 						onDeleteTask={onDeleteTask}
 						user={user}
 					/>
