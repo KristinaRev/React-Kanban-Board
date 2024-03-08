@@ -1,10 +1,11 @@
-import './App.css';
 import Header from './components/header/Header';
 import Footer from './components/footer/Footer';
 import Main from './components/main/Main';
-import { useState, useEffect } from 'react';
+import {useState, useEffect, useMemo, useCallback} from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import uniqid from 'uniqid';
+import {countTask} from "./utils";
+import './App.css';
 
 function App() {
     const storedUser = JSON.parse(window.localStorage.getItem('user'));
@@ -28,55 +29,31 @@ function App() {
         }
     }, [user]);
 
-    const handleLogin = () => {
-        const usernameToLogin = 'SPIKS';
-        setUser(usernameToLogin);
-    };
+    const handleLogin = useCallback(() => {
+        const USER_NAME_TO_LOGIN = 'SPIKS';
+        setUser(USER_NAME_TO_LOGIN);
+    }, []);
 
-    const handleLogout = () => {
+    const handleLogout = useCallback(() => {
         window.localStorage.removeItem('user');
         setUser(null);
         setTasks([]);
-    };
+    }, []);
 
-    const formSubmit = async (title, description) => {
-        const newTask = {
-            id: uniqid(),
-            title,
-            description,
-            created: new Date().toISOString(),
-            status: 'backlog',
-            userId: user.id,
-        };
-
-        try {
-            const response = await fetch('http://localhost:3001/tasks', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(newTask),
-            });
-
-            if (!response.ok) {
-                throw new Error(`Error: ${response.statusText}`);
-            }
-
-            const data = await response.json();
-            setTasks([...tasks, data]);
-
-            // console.log('Task added:', data);
-        } catch (error) {
-            console.error('Error adding task:', error.message);
-        }
-    };
+    const resultCountTask = useMemo(() => {
+        return countTask(tasks);
+    }, [tasks]);
 
     return (
         <BrowserRouter>
             <div>
-                <Header user={user} onLogin={handleLogin} onLogout={handleLogout} />
-                <Main user={user} tasks={tasks} setTasks={setTasks} formSubmit={formSubmit} />
-                <Footer tasks={tasks} />
+                <Header user={user} onLogin={handleLogin} onLogout={handleLogout}  />
+                <Main user={user} tasks={tasks} setTasks={setTasks} />
+                <Footer backlogCount={resultCountTask.backlog}
+                        doneCount={resultCountTask.done}
+                        inProgressCount={resultCountTask.inProgress}
+                        readyCount={resultCountTask.ready}
+                />
             </div>
         </BrowserRouter>
     );

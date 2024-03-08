@@ -1,25 +1,16 @@
-import {LIST_TYPES, LIST_COPY} from '../../config'
+import React, { memo } from 'react';
 import css from './Footer.module.css'
-import useTaskCounter from "../../hooks/task-counter";
 
 function Footer(props) {
-
-	const {tasks} = props
-	const taskCounts = useTaskCounter(tasks)
+	const {backlogCount, doneCount, inProgressCount, readyCount} = props
 
 	return (
 		<footer className={css.footer}>
 			<div className={css.counts}>
-				{Object.values(LIST_TYPES).map(type => {
-
-					const count = taskCounts[type];
-
-					if (!count) return null;
-
-					return (
-						<p className={css.count} key={LIST_COPY[type]}>{LIST_COPY[type]}: {count}</p>
-					)
-				})}
+				<p className={css.count}>backlog: {backlogCount}</p>
+				<p className={css.count}>done: {doneCount}</p>
+				<p className={css.count}>inProgress: {inProgressCount}</p>
+				<p className={css.count}>ready: {readyCount}</p>
 			</div>
 			<div className={css.copy}>
 				Created by <a href='https://github.com/KristinaRev' target='_blank' rel='noreferrer'>Kris Kipper</a> , 2023
@@ -28,4 +19,4 @@ function Footer(props) {
 	)
 }
 
-export default Footer
+export default memo(Footer);

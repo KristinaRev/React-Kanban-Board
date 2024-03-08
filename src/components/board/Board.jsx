@@ -7,11 +7,12 @@ import css from './Board.module.css';
 import { LIST_TYPES, LIST_COPY } from '../../config';
 import List from '../list/List';
 import boardReducer from "../board-reducer/BoardReducer";
+import {useFormSubmit} from "../../hooks/useFormSubmit";
 
 const Board = (props) => {
-	const { tasks, setTasks, formSubmit, user } = props
+	const { tasks, setTasks, user } = props
 	const generateId = useId();
-	const [state, dispatch] = useReducer(boardReducer, tasks);
+	const [_, dispatch] = useReducer(boardReducer, tasks);
 
 	const addNewTask = (title, description) => {
 		const task = {

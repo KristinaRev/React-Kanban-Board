@@ -1,5 +1,6 @@
-import css from './Header.module.css';
+import React, { memo } from 'react';
 import Button from "../button/Button";
+import css from './Header.module.css';
 
 function Header({ onLogin, onLogout, user }) {
 	return (
@@ -22,4 +23,4 @@ function Header({ onLogin, onLogout, user }) {
 	)
 }
 
-export default Header
+export default memo(Header)

@@ -26,34 +26,41 @@
       "title": "Что-то сделать",
       "description": "Do something",
       "created": "2024-02-11T12:56:15.513Z",
-      "status": "backlog"
+      "status": "inProgress"
     },
     {
       "id": "lshieb91",
       "title": "Что-то пофиксить",
       "description": "",
       "created": "2024-02-11T12:56:17.269Z",
-      "status": "ready"
+      "status": "inProgress"
     },
     {
       "id": "lshjoyjv",
       "title": "Что-то не сделать",
       "description": "",
       "created": "2024-02-11T13:32:33.642Z",
-      "status": "ready"
+      "status": "inProgress"
     },
     {
       "id": "lte6m5bc",
       "title": "Покушать",
       "description": "",
       "created": "2024-03-05T09:42:51.239Z",
-      "status": "backlog"
+      "status": "ready"
     },
     {
       "id": "lte6rg5g",
       "title": "иЗменить цвет кнопки",
       "description": "на красный",
       "created": "2024-03-05T09:46:58.564Z",
+      "status": "ready"
+    },
+    {
+      "id": "lth6uwbn",
+      "title": "asdas",
+      "description": "sdfsdfds",
+      "created": "2024-03-07T12:12:58.018Z",
       "status": "backlog"
     }
   ]
