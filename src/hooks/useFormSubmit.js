@@ -1,18 +1,21 @@
 import React, {useCallback} from 'react';
-import uniqid from "uniqid";
+import { useId } from 'react-id-generator';
+// import uniqid from "uniqid";
+
 
 /**
  * Хук для создания новой задачи
  */
-export function useFormSubmit({title, description, userId}, callback) {
-    return useCallback((title, description) => {
+export function useFormSubmit({ tasks, setTasks, title, description, userId, updatedTasks }, callback) {
+    const generateId = useId();
+
+    return useCallback((title, description, userId) => {
         const newTask = {
-            id: uniqid(),
+            id: generateId,
             title,
             description,
             created: new Date().toISOString(),
             status: 'backlog',
-            userId: userId,
         };
 
         fetch('http://localhost:3001/tasks', {
@@ -32,5 +35,8 @@ export function useFormSubmit({title, description, userId}, callback) {
         }).catch((error) => {
             console.error('Error adding task:', error.message);
         });
+
+        setTasks(prevTasks => [...prevTasks, newTask]);
+
     }, [userId, callback]);
 }

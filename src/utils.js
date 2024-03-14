@@ -5,8 +5,6 @@ const formatDate = (stringDate) => {
 
 export { formatDate }
 
-
-
 /**
  * Утилита для подсчета количества задач
  */

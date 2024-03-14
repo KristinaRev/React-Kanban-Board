@@ -1,15 +1,15 @@
 import React, { useState, useCallback, useMemo } from 'react';
 import { useTransition, animated } from 'react-spring';
 import { useDrag, useDrop } from 'react-dnd';
-import css from './List.module.css';
 import { LIST_TYPES } from '../../config';
 import { ItemTypes } from '../../ItemTypes';
 import FormAddNewTask from '../forms/FormAddNewTask';
 import Task from "../Task/Task";
 //import { Link } from 'react-router-dom';
+import css from './List.module.css';
 
 const List = (props) => {
-	const { type, title, tasks, addNewTask, moveTask, setTasks, formSubmit, onDeleteTask, user } = props;
+	const { type, title, tasks, moveTask, setTasks, onDeleteTask, user } = props;
 	const [isFormVisible, setFormVisible] = useState(false);
 
 	const handleAddNewClick = useCallback(() => {
@@ -21,11 +21,9 @@ const List = (props) => {
 		return tasks.sort((a, b) => a.title.localeCompare(b.title));
 	}, [tasks]);
 
-	const formSubmitLocal = useCallback((title, description) => {
-		formSubmit(title, description)
-		addNewTask(title, description)
+	const formSubmitLocal = useCallback(() => {
 		setFormVisible(false)
-	}, [formSubmit, addNewTask]);
+	}, []);
 
 	const [, drop] = useDrop({
 		accept: ItemTypes.TASK,
@@ -87,7 +85,7 @@ const List = (props) => {
 			{type === LIST_TYPES.BACKLOG && user && <button onClick={handleAddNewClick} className={css.addButton}>+ Add new task</button>}
 			{transitions((style, item) => item && user &&
 				<animated.div style={style}>
-					<FormAddNewTask formSubmit={formSubmitLocal} />
+					<FormAddNewTask formSubmitLocal={formSubmitLocal} tasks={tasks} setTasks={setTasks}/>
 				</animated.div>
 			)}
 		</div>

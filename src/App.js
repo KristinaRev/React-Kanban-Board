@@ -1,9 +1,8 @@
+import React, {useState, useEffect, useMemo, useCallback} from 'react';
 import Header from './components/header/Header';
 import Footer from './components/footer/Footer';
 import Main from './components/main/Main';
-import {useState, useEffect, useMemo, useCallback} from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import uniqid from 'uniqid';
 import {countTask} from "./utils";
 import './App.css';
 
