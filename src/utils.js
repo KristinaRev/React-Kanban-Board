@@ -1,20 +1,26 @@
-const formatDate = (stringDate) => {
-	const date = new Date(stringDate)
-	return date.toLocaleString('ru-RU')
+/**
+ * Форматирование даты в строке
+ * @param {string} stringDate - Строка с датой
+ * @returns {string} Отформатированная дата
+ */
+export function formatDate (stringDate)  {
+	const date = new Date(stringDate);
+	return date.toLocaleString('ru-RU');
 }
 
-export { formatDate }
-
 /**
- * Утилита для подсчета количества задач
+ * Утилита для подсчета количества задач в каждом статусе
+ * @param {Array} tasks - Массив задач
+ * @returns {Object} Объект с количеством задач в каждом статусе
  */
-export function countTask (tasks) {
+export function countTask(tasks) {
 	const counts = {
 		backlog: 0,
 		inProgress: 0,
 		ready: 0,
 		done: 0
 	};
+
 	tasks.forEach(task => {
 		switch (task.status) {
 			case 'backlog':

@@ -1,35 +1,33 @@
-import React, { useState, useEffect, useLayoutEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import css from './TaskDetail.module.css';
-import { ReactComponent as CloseDetails } from '../../assets/closeDetails.svg';
 import { FaTimes } from 'react-icons/fa';
-import FormattedTitle from "../formatted-title/FormattedTitle";
+import FormattedTitle from '../formatted-title/FormattedTitle';
+import css from './TaskDetail.module.css';
 
 const TaskDetail = ({ tasks, setTasks }) => {
 	const { taskId } = useParams();
 	const [task, setTask] = useState(null);
-	const [description, setDescription] = useState('');
-	const [localDescription, setLocalDescription] = useState(''); // Новое состояние для отслеживания локальных изменений описания задачи
+	const [localDescription, setLocalDescription] = useState('');
 	const descriptionRef = useRef(null);
 
 	useEffect(() => {
-		fetch(`http://localhost:3001/tasks/${taskId}`)
-			.then(response => {
+		const fetchTask = async () => {
+			try {
+				const response = await fetch(`http://localhost:3001/tasks/${taskId}`);
 				if (!response.ok) {
 					throw new Error(`Error: ${response.statusText}`);
 				}
-				return response.json();
-			})
-			.then(data => {
+				const data = await response.json();
 				setTask(data);
-				setDescription(data.description || "This task has no description");
-				setLocalDescription(data.description || "This task has no description"); // Устанавливаем начальное локальное описание
-			})
-			.catch(error => console.error('Error fetching task details:', error.message));
+				setLocalDescription(data.description || "This task has no description");
+			} catch (error) {
+				console.error('Error fetching task details:', error.message);
+			}
+		};
+		fetchTask();
 	}, [taskId]);
 
-	useLayoutEffect(() => {
-		// Фокусировка на поле ввода описания задачи после отображения компонента
+	useEffect(() => {
 		if (descriptionRef.current) {
 			descriptionRef.current.focus();
 		}
@@ -37,31 +35,32 @@ const TaskDetail = ({ tasks, setTasks }) => {
 
 	const handleChange = (e) => {
 		setLocalDescription(e.target.value);
-	}
+	};
 
-	const addDescription = () => {
-		const updatedTasks = tasks.map(task => {
-			if (task.id === taskId) {
-				task.description = localDescription; // Обновляем локальное описание в задаче
-				fetch(`http://localhost:3001/tasks/${taskId}`, {
-					method: 'PATCH',
-					headers: {
-						'Content-Type': 'application/json',
-					},
-					body: JSON.stringify({ description: localDescription }), // Отправляем новое описание на сервер
-				})
-					.then(response => {
-						if (!response.ok) {
-							throw new Error(`Error: ${response.statusText}`);
-						}
-						// console.log(`Task ${taskId} description updated on server`);
-					})
-					.catch(error => console.error('Error updating task description on server:', error.message));
+	const addDescription = async () => {
+		try {
+			const updatedTasks = tasks.map(task => {
+				if (task.id === taskId) {
+					task.description = localDescription;
+				}
+				return task;
+			});
+			setTasks(updatedTasks);
+
+			const response = await fetch(`http://localhost:3001/tasks/${taskId}`, {
+				method: 'PATCH',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({ description: localDescription }),
+			});
+			if (!response.ok) {
+				throw new Error(`Error: ${response.statusText}`);
 			}
-			return task;
-		});
-		setTasks(updatedTasks);
-	}
+		} catch (error) {
+			console.error('Error updating task description on server:', error.message);
+		}
+	};
 
 	return (
 		<div className={css.details_wrapper}>
@@ -69,7 +68,7 @@ const TaskDetail = ({ tasks, setTasks }) => {
 				{task ? (
 					<>
 						<div className={css.details_header}>
-							<FormattedTitle title={task.title} className={css.title}/>
+							<FormattedTitle title={task.title} className={css.title} />
 							<Link to='/'>
 								<FaTimes className={css.details_close_btn} />
 							</Link>
@@ -79,20 +78,21 @@ const TaskDetail = ({ tasks, setTasks }) => {
 							className={css.details_description}
 							onChange={handleChange}
 							onBlur={addDescription}
-							value={localDescription} /> {/* Используем локальное описание вместо описания из состояния */}
+							value={localDescription} />
 					</>
 				) : (
-					<div className={css.details_not_found} >
+					<div className={css.details_not_found}>
 						<h2 className={css.details_title}>Task with ID {taskId} not found</h2>
 						<Link to='/'>
-							<CloseDetails className={css.details_close_btn} />
+							<FaTimes className={css.details_close_btn} />
 						</Link>
 					</div>
 				)}
 			</div>
-		</div >
+		</div>
 	);
-}
+};
+
 export default TaskDetail;
 
 

@@ -1,9 +1,9 @@
-import React, {useState, useEffect, useMemo, useCallback} from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import { BrowserRouter } from 'react-router-dom';
 import Header from './components/header/Header';
 import Footer from './components/footer/Footer';
 import Main from './components/main/Main';
-import { BrowserRouter } from 'react-router-dom';
-import {countTask} from "./utils";
+import { countTask } from "./utils";
 import './App.css';
 
 function App() {
@@ -12,20 +12,22 @@ function App() {
     const [tasks, setTasks] = useState([]);
 
     useEffect(() => {
-        if (user) {
-            fetch(`http://localhost:3001/tasks`)
-                .then(response => {
+        const fetchData = async () => {
+            try {
+                if (user) {
+                    const response = await fetch(`http://localhost:3001/tasks`);
                     if (!response.ok) {
-                        throw new Error(`Error: ${response.statusText}`);
+                        throw new Error(`Ошибка: ${response.statusText}`);
                     }
-                    return response.json();
-                })
-                .then(data => {
-                    // console.log('Tasks data fetched:', data);
+                    const data = await response.json();
                     setTasks(data);
-                })
-                .catch(error => console.error('Error fetching tasks:', error.message));
-        }
+                }
+            } catch (error) {
+                console.error('Ошибка при получении задач:', error.message);
+            }
+        };
+
+        fetchData();
     }, [user]);
 
     const handleLogin = useCallback(() => {
@@ -39,19 +41,18 @@ function App() {
         setTasks([]);
     }, []);
 
-    const resultCountTask = useMemo(() => {
-        return countTask(tasks);
-    }, [tasks]);
+    const resultCountTask = useMemo(() => countTask(tasks), [tasks]);
 
     return (
         <BrowserRouter>
             <div>
-                <Header user={user} onLogin={handleLogin} onLogout={handleLogout}  />
+                <Header user={user} onLogin={handleLogin} onLogout={handleLogout} />
                 <Main user={user} tasks={tasks} setTasks={setTasks} />
-                <Footer backlogCount={resultCountTask.backlog}
-                        doneCount={resultCountTask.done}
-                        inProgressCount={resultCountTask.inProgress}
-                        readyCount={resultCountTask.ready}
+                <Footer
+                    backlogCount={resultCountTask.backlog}
+                    doneCount={resultCountTask.done}
+                    inProgressCount={resultCountTask.inProgress}
+                    readyCount={resultCountTask.ready}
                 />
             </div>
         </BrowserRouter>

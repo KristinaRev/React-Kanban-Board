@@ -5,7 +5,6 @@ import { LIST_TYPES } from '../../config';
 import { ItemTypes } from '../../ItemTypes';
 import FormAddNewTask from '../forms/FormAddNewTask';
 import Task from "../Task/Task";
-//import { Link } from 'react-router-dom';
 import css from './List.module.css';
 
 const List = (props) => {
@@ -51,6 +50,7 @@ const List = (props) => {
 			})
 			.catch(error => console.error('Error deleting task from server:', error.message))
 	};
+
 	const transitions = useTransition(isFormVisible, {
 		from: { opacity: 0 },
 		enter: { opacity: 1 },
@@ -66,9 +66,8 @@ const List = (props) => {
 	return (
 		<div ref={drop} className={css.list}>
 			<h2 className={css.listTitle}>{title}</h2>
-			{tasks.length ?
+			{tasks.length ? (
 				sortedTasks.map((task, index) => (
-					/* <Link key={task.id} to={`/tasks/${task.id}`}> */
 					<Task
 						key={task.id}
 						index={index}
@@ -78,18 +77,21 @@ const List = (props) => {
 						moveTask={task.status === type ? moveTask : moveTaskInsideList}
 						onDelete={onDelete}
 					/>
-					/*</Link>*/
-				)) :
+				))
+			) : (
 				<p>No tasks added yet</p>
-			}
-			{type === LIST_TYPES.BACKLOG && user && <button onClick={handleAddNewClick} className={css.addButton}>+ Add new task</button>}
-			{transitions((style, item) => item && user &&
+			)}
+			{type === LIST_TYPES.BACKLOG && user && (
+				<button onClick={handleAddNewClick} className={css.addButton}>+ Add new task</button>
+			)}
+			{transitions((style, item) => item && user && (
 				<animated.div style={style}>
 					<FormAddNewTask formSubmitLocal={formSubmitLocal} tasks={tasks} setTasks={setTasks}/>
 				</animated.div>
-			)}
+			))}
 		</div>
 	);
 };
+
 export default List;
 

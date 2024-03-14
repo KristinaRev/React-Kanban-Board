@@ -1,29 +1,24 @@
 import React, { useMemo } from "react";
-import css from './Task.module.css'
 import { useDrag, useDrop } from 'react-dnd';
 import { ItemTypes } from '../../ItemTypes';
 import { FaTimes } from 'react-icons/fa';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 import Button from "../button/Button";
 import FormattedTitle from "../formatted-title/FormattedTitle";
+import css from './Task.module.css';
 
-const Task = ({ id, index, title, status, moveTask, onDelete}) => {
+const Task = ({ id, index, title, status, moveTask, onDelete }) => {
     const [{ isDragging }, drag] = useDrag({
         type: ItemTypes.TASK,
         item: { id, index, status },
-        collect: (monitor) => ({
+        collect: monitor => ({
             isDragging: monitor.isDragging(),
         }),
     });
 
-    const formattedTitle = useMemo(() => {
-        // Вычисления форматированного заголовка задачи
-        return title.toUpperCase();
-    }, [title]);
-
     const [, drop] = useDrop({
         accept: ItemTypes.TASK,
-        hover: (item) => {
+        hover: item => {
             if (item.id !== id && item.status === status) {
                 if (item.index !== index) {
                     moveTask(item.index, index);
@@ -40,9 +35,9 @@ const Task = ({ id, index, title, status, moveTask, onDelete}) => {
     };
 
     return (
-        <div ref={(node) => drag(drop(node))} style={{ opacity }} className={css.task}>
+        <div ref={node => drag(drop(node))} style={{ opacity }} className={css.task}>
             <FormattedTitle title={title} />
-            <Link key={id} to={`/tasks/${id}`} className={css.taskDetailsButton}>
+            <Link to={`/tasks/${id}`} className={css.taskDetailsButton}>
                 Detail
             </Link>
             <Button type="button" onClick={handleDelete} >

@@ -1,5 +1,6 @@
 import React from 'react';
-const BoardReducer = (state, action) => {
+
+const boardReducer = (state, action) => {
     switch (action.type) {
         case 'ADD_TASK':
             return [...state, action.payload];
@@ -8,4 +9,4 @@ const BoardReducer = (state, action) => {
     }
 };
 
-export default BoardReducer;
+export default boardReducer;

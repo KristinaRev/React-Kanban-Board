@@ -1,17 +1,16 @@
 import React, {useCallback} from 'react';
 import { useId } from 'react-id-generator';
-// import uniqid from "uniqid";
+import uniqid from "uniqid";
 
 
 /**
  * Хук для создания новой задачи
  */
 export function useFormSubmit({ tasks, setTasks, title, description, userId, updatedTasks }, callback) {
-    const generateId = useId();
 
     return useCallback((title, description, userId) => {
         const newTask = {
-            id: generateId,
+            id: uniqid(),
             title,
             description,
             created: new Date().toISOString(),

@@ -1,16 +1,12 @@
-import React, {useReducer, useTransition} from 'react';
-import { useId} from 'react-id-generator';
+import React from 'react';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { LIST_TYPES, LIST_COPY } from '../../config';
 import List from '../list/List';
-import boardReducer from "../board-reducer/BoardReducer";
+import boardReducer from '../board-reducer/BoardReducer';
 import css from './Board.module.css';
 
-const Board = (props) => {
-	const { tasks, setTasks, user } = props
-	const generateId = useId();
-	const [_, dispatch] = useReducer(boardReducer, tasks);
+const Board = ({ tasks, setTasks, user }) => {
 
 	const onDeleteTask = (taskId) => {
 		const updatedTasks = tasks.filter(task => task.id !== taskId);
@@ -18,18 +14,10 @@ const Board = (props) => {
 	};
 
 	const moveTask = (taskId, newStatus) => {
+		const updatedTasks = tasks.map(task => task.id === taskId ? { ...task, status: newStatus } : task);
+		setTasks(updatedTasks);
 
-		const updatedTasks = tasks.map((task) => {
-			if (task.id === taskId) {
-				return { ...task, status: newStatus }
-			}
-			return task
-		})
-
-		setTasks(updatedTasks)
-
-
-		const taskToUpdate = tasks.find(task => task.id === taskId)
+		const taskToUpdate = tasks.find(task => task.id === taskId);
 		if (taskToUpdate) {
 			fetch(`http://localhost:3001/tasks/${taskId}`, {
 				method: 'PATCH',
@@ -40,22 +28,22 @@ const Board = (props) => {
 			})
 				.then(response => {
 					if (!response.ok) {
-						throw new Error(`Error: ${response.statusText}`)
+						throw new Error(`Error: ${response.statusText}`);
 					}
 				})
-				.catch(error => console.error('Error updating task status on server:', error.message))
+				.catch(error => console.error('Error updating task status on server:', error.message));
 		}
-	}
+	};
 
 	return (
 		<DndProvider backend={HTML5Backend}>
 			<div className={css.board}>
-				{Object.values(LIST_TYPES).map((type) => (
+				{Object.values(LIST_TYPES).map(type => (
 					<List
 						key={LIST_COPY[type]}
 						type={type}
 						title={LIST_COPY[type]}
-						tasks={tasks.filter((task) => task.status === type)}
+						tasks={tasks.filter(task => task.status === type)}
 						moveTask={moveTask}
 						setTasks={setTasks}
 						onDeleteTask={onDeleteTask}
@@ -65,6 +53,6 @@ const Board = (props) => {
 			</div>
 		</DndProvider>
 	);
-}
+};
 
 export default Board;

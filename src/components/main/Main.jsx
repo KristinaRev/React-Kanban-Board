@@ -1,12 +1,11 @@
-import Board from '../board/Board'
-import css from './Main.module.css'
+import React from 'react';
 import { Routes, Route } from "react-router-dom";
+import Board from '../board/Board';
 import TaskDetail from '../task-detail/TaskDetail';
-
-import {useFormSubmit} from "../../hooks/useFormSubmit";
+import { useFormSubmit } from "../../hooks/useFormSubmit";
+import css from './Main.module.css';
 
 const Main = (props) => {
-
 	return (
 		<main className={css.main}>
 			<Routes>
@@ -16,4 +15,5 @@ const Main = (props) => {
 		</main>
 	);
 };
-export default Main
+
+export default Main;
