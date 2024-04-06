@@ -5,7 +5,7 @@
       "title": "Добавить юнит тесты",
       "description": "Покрыть приложение юнит тестами",
       "created": "2023-12-24T17:39:03.929Z",
-      "status": "done"
+      "status": "ready"
     },
     {
       "id": "lshidz38",
@@ -55,66 +55,6 @@
       "description": "на красный",
       "created": "2024-03-05T09:46:58.564Z",
       "status": "done"
-    },
-    {
-      "id": [
-        "id28"
-      ],
-      "title": "e3432",
-      "description": "",
-      "created": "2024-03-14T09:25:13.162Z",
-      "status": "ready"
-    },
-    {
-      "id": [
-        "id6"
-      ],
-      "title": "w",
-      "description": "",
-      "created": "2024-03-14T09:26:37.128Z",
-      "status": "inProgress"
-    },
-    {
-      "id": "ltr278e7",
-      "title": "11",
-      "description": "",
-      "created": "2024-03-14T10:00:17.215Z",
-      "status": "backlog"
-    },
-    {
-      "id": "ltr28b0j",
-      "title": "324325",
-      "description": "326434iopy321\n",
-      "created": "2024-03-14T10:01:07.267Z",
-      "status": "inProgress"
-    },
-    {
-      "id": "ltr2ogh3",
-      "title": "1",
-      "description": "1234567890\n",
-      "created": "2024-03-14T10:13:40.839Z",
-      "status": "backlog"
-    },
-    {
-      "id": "ltr3143j",
-      "title": "2",
-      "description": "333This task has no description",
-      "created": "2024-03-14T10:23:31.327Z",
-      "status": "backlog"
-    },
-    {
-      "id": "ltr31pj7",
-      "title": "fgf",
-      "description": "",
-      "created": "2024-03-14T10:23:59.107Z",
-      "status": "backlog"
-    },
-    {
-      "id": "ltr31vgj",
-      "title": "eee",
-      "description": "",
-      "created": "2024-03-14T10:24:06.787Z",
-      "status": "backlog"
     }
   ]
 }
