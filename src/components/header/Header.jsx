@@ -1,20 +1,45 @@
-import React, { memo } from 'react';
+import React, {memo, useEffect, useState} from 'react';
 import {ROUTES} from "../../routes";
 import {NavLink} from "react-router-dom";
 import Login from "../Login/Login";
-import css from './Header.module.css';
+import Portal from "../Portal";
+import {root} from "../Portal/Portal";
+import FormattedTitle from "../formatted-title/FormattedTitle";
+import './Header.scss';
+import css from "../task-detail/TaskDetail.module.css";
 
 function Header({ onLogin, onLogout, user }) {
+	const [portalVisible, setPortalVisible] = useState(false);
+
+	const handleWelcomeClick = () => {
+		setPortalVisible(true);
+	};
+
+	useEffect(() => {
+		function handleClickOutside(event) {
+			if (root && !root.contains(event.target)) {
+				setPortalVisible(false);
+			}
+		}
+
+		document.addEventListener('mousedown', handleClickOutside);
+		return () => {
+			document.removeEventListener('mousedown', handleClickOutside);
+		};
+	}, []);
 
 	return (
-		<header className={css.header}>
-			<h1 className={css.header_title}>Awesome Kanban Board</h1>
+		<header className="header">
+			<h1 className="header_title">Awesome Kanban Board</h1>
 			{user
-				? <NavLink to={ROUTES.PORTAL}>
-					<p className={css.header_user}>Welcome, {user}!</p>
-			      </NavLink>
+				? <p className="header_user" onClick={handleWelcomeClick}>Welcome, {user}!</p>
 				: ''}
 			<Login onLogin={onLogin} onLogout={onLogout} user={user}/>
+			{portalVisible && (
+				<Portal className="MyPortal" element="span" >
+					<FormattedTitle title='Have a good day!' className="Title" />
+				</Portal>
+			)}
 		</header>
 	);
 }

@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import cn from 'classnames';
 
-const root = document.getElementById('modals');
+export const root = document.getElementById('modals');
 
 export interface IPortalProps {
     className: string;
