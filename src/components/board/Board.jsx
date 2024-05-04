@@ -3,7 +3,7 @@ import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { LIST_TYPES, LIST_COPY } from '../../config';
 import List from '../list/List';
-import boardReducer from '../board-reducer/BoardReducer';
+// import boardReducer from '../board-reducer/BoardReducer';
 import css from './Board.module.css';
 
 const Board = ({ tasks, setTasks, user }) => {

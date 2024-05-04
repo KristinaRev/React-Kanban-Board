@@ -1,28 +1,45 @@
-import React, { memo } from 'react';
-import Button from '../button/Button';
-import css from './Header.module.css';
+import React, {memo, useEffect, useState} from 'react';
+import {ROUTES} from "../../routes";
+import {NavLink} from "react-router-dom";
+import Login from "../Login/Login";
+import Portal from "../Portal";
+import {root} from "../Portal/Portal";
+import FormattedTitle from "../formatted-title/FormattedTitle";
+import './Header.scss';
+import css from "../task-detail/TaskDetail.module.css";
 
 function Header({ onLogin, onLogout, user }) {
+	const [portalVisible, setPortalVisible] = useState(false);
 
-	const loggedInContent = (
-		<>
-			<p className={css.header_user}>Welcome, {user}!</p>
-			<Button onClick={onLogout} className={css.header_btn}>
-				Log Out
-			</Button>
-		</>
-	);
+	const handleWelcomeClick = () => {
+		setPortalVisible(true);
+	};
 
-	const loggedOutContent = (
-		<Button onClick={onLogin} className={css.header_btn}>
-			Log In
-		</Button>
-	);
+	useEffect(() => {
+		function handleClickOutside(event) {
+			if (root && !root.contains(event.target)) {
+				setPortalVisible(false);
+			}
+		}
+
+		document.addEventListener('mousedown', handleClickOutside);
+		return () => {
+			document.removeEventListener('mousedown', handleClickOutside);
+		};
+	}, []);
 
 	return (
-		<header className={css.header}>
-			<h1 className={css.header_title}>Awesome Kanban Board</h1>
-			{user ? loggedInContent : loggedOutContent}
+		<header className="header">
+			<h1 className="header_title">Awesome Kanban Board</h1>
+			{user
+				? <p className="header_user" onClick={handleWelcomeClick}>Welcome, {user}!</p>
+				: ''}
+			<Login onLogin={onLogin} onLogout={onLogout} user={user}/>
+			{portalVisible && (
+				<Portal className="MyPortal" element="span" >
+					<FormattedTitle title='Have a good day!' className="Title" />
+				</Portal>
+			)}
 		</header>
 	);
 }

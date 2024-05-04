@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import Button from "../button/Button";
 import UserAvatar from '../../assets/user-menu.png';
 import css from './Login.module.css';
 
@@ -24,7 +25,7 @@ const unmountedcss = {
     animationFillMode: "forwards"
 };
 
-export default function Login() {
+export default function Login({ user, onLogin, onLogout }) {
     const [isMounted, setIsMounted] = useState(false);
     const showDiv = useDelayUnmount(isMounted, 250);
 
@@ -39,8 +40,10 @@ export default function Login() {
                     className={css.login_dropdown}
                     style={isMounted ? mountedcss : unmountedcss}
                 >
-                    <button className={css.login_dropdown_button}>Profile</button>
-                    <button className={css.login_dropdown_button}>Log In</button>
+                    <Button className={css.login_dropdown_button}>Profile</Button>
+                    <Button className={css.login_dropdown_button} onClick={user ? onLogout : onLogin}>
+                        {user ? "Log Out" : "Log In"}
+                    </Button>
                 </div>
             )}
         </div>

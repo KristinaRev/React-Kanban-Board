@@ -21,6 +21,7 @@
 .header_user {
 	font-size: 24px;
 	line-height: 30px;
+	cursor: pointer;
 }
 
 .header_btn {
@@ -40,12 +41,34 @@
 	opacity: 1;
 }
 
-  @media (max-width: 450px) {
-	.header {
-	  flex-direction: row-reverse;
-	  background-color: #0079bf;
-	}
-	.header_title {
-	  display: none;
-	}
-  }
+@media (max-width: 450px) {
+.header {
+  flex-direction: row-reverse;
+  background-color: #0079bf;
+}
+.header_title {
+  display: none;
+}
+}
+
+.MyPortal {
+	position: absolute;
+	top: 30px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	left: 0;
+	right: 0;
+	margin: 0 auto;
+	padding: 40px;
+	height: 230px;
+	width: min(760px, 100vw);
+	box-shadow: 8px 12px 15px 0 rgba(0, 0, 0, 0.25);
+	background-color: #0079bf;
+	border-radius: 2px;
+}
+
+.Title {
+	font-weight: 700;
+	color: white;
+}
