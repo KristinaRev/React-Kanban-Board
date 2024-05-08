@@ -21,6 +21,7 @@ export function countTask(tasks) {
 		done: 0
 	};
 
+	if(!tasks) return
 	tasks.forEach(task => {
 		switch (task.status) {
 			case 'backlog':

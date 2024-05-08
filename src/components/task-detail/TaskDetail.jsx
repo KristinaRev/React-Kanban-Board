@@ -3,12 +3,14 @@ import { useParams, Link } from 'react-router-dom';
 import { FaTimes } from 'react-icons/fa';
 import FormattedTitle from '../formatted-title/FormattedTitle';
 import css from './TaskDetail.module.css';
+import {useDispatch} from "react-redux";
 
 const TaskDetail = ({ tasks, setTasks }) => {
 	const { taskId } = useParams();
 	const [task, setTask] = useState(null);
 	const [localDescription, setLocalDescription] = useState('');
 	const descriptionRef = useRef(null);
+	const dispatch = useDispatch();
 
 	useEffect(() => {
 		const fetchTask = async () => {
@@ -45,7 +47,7 @@ const TaskDetail = ({ tasks, setTasks }) => {
 				}
 				return task;
 			});
-			setTasks(updatedTasks);
+			dispatch(setTasks(updatedTasks))
 
 			const response = await fetch(`http://localhost:3001/tasks/${taskId}`, {
 				method: 'PATCH',

@@ -7,7 +7,7 @@ import FormAddNewTask from '../forms/FormAddNewTask';
 import Task from "../Task/Task";
 import css from './List.module.css';
 import {useDispatch} from "react-redux";
-import {deleteTasks} from "../../reducers/tasksSlice";
+import {deleteTask} from "../../reducers/tasksSlice";
 
 const List = (props) => {
 	const { type, title, tasks, moveTask, setTasks, onDeleteTask, user } = props;
@@ -36,13 +36,13 @@ const List = (props) => {
 		const updatedTasks = [...tasks];
 		const [draggedTask] = updatedTasks.splice(dragIndex, 1);
 		updatedTasks.splice(hoverIndex, 0, draggedTask);
-		setTasks(updatedTasks);
+		dispatch(setTasks(updatedTasks));
 	}, [tasks, setTasks]);
 
 	const onDelete = (taskId) => {
 		// onDeleteTask(taskId);
 
-		dispatch(deleteTasks(taskId))
+		dispatch(deleteTask(taskId))
 		fetch(`http://localhost:3001/tasks/${taskId}`, {
 			method: 'DELETE',
 		})

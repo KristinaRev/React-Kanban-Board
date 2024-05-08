@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Button from '../button/Button';
 import {useDispatch} from "react-redux";
-import {createTasks, setTasks} from "../../reducers/tasksSlice";
+import {createTask, createTaskAsync, setTasks} from "../../reducers/tasksSlice";
 import css from './Forms.module.css';
 
 
@@ -21,11 +21,16 @@ const FormAddNewTask = ({ userId, tasks, setTasks, formSubmitLocal }) => {
 		setValues((prevState) =>
             ({...prevState, [e.target.name]: e.target.value}))
 
-	const handleSubmit = e => {
+	const handleSubmit = async e => {
 		e.preventDefault();
 		if (values.title) {
-			dispatch(createTasks(values));
-			setValues({ title: '', description: '' });
+			try {
+				dispatch(createTask(values));
+				await dispatch(createTaskAsync(values));
+				setValues({ title: '', description: '' });
+			} catch (error) {
+				console.error('Error adding task:', error.message);
+			}
 		}
 	};
 

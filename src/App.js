@@ -46,7 +46,7 @@ function App() {
     const handleLogout = useCallback(() => {
         window.localStorage.removeItem('user');
         setUser(null);
-        setTasks([]);
+        dispatch(setTasks([]));
     }, []);
 
     const resultCountTask = useMemo(() => countTask(tasks), [tasks]);
