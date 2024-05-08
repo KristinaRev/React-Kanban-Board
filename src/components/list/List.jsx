@@ -6,10 +6,13 @@ import { ItemTypes } from '../../ItemTypes';
 import FormAddNewTask from '../forms/FormAddNewTask';
 import Task from "../Task/Task";
 import css from './List.module.css';
+import {useDispatch} from "react-redux";
+import {deleteTasks} from "../../reducers/tasksSlice";
 
 const List = (props) => {
 	const { type, title, tasks, moveTask, setTasks, onDeleteTask, user } = props;
 	const [isFormVisible, setFormVisible] = useState(false);
+	const dispatch = useDispatch();
 
 	const handleAddNewClick = useCallback(() => {
 		setFormVisible(!isFormVisible);
@@ -37,8 +40,9 @@ const List = (props) => {
 	}, [tasks, setTasks]);
 
 	const onDelete = (taskId) => {
-		onDeleteTask(taskId);
+		// onDeleteTask(taskId);
 
+		dispatch(deleteTasks(taskId))
 		fetch(`http://localhost:3001/tasks/${taskId}`, {
 			method: 'DELETE',
 		})

@@ -4,12 +4,20 @@ import Header from './components/header/Header';
 import Footer from './components/footer/Footer';
 import Main from './components/main/Main';
 import { countTask } from "./utils";
+import {useDispatch, useSelector} from "react-redux";
 import './App.css';
+import {setTasks} from "./reducers/tasksSlice";
+
 
 function App() {
     const storedUser = JSON.parse(window.localStorage.getItem('user'));
     const [user, setUser] = useState(storedUser || null);
-    const [tasks, setTasks] = useState([]);
+    //const [tasks, setTasks] = useState([]);
+    const dispatch = useDispatch();
+    const tasks = useSelector((state) => {
+        return state.tasks.tasks;
+    });
+    console.log(tasks)
 
     useEffect(() => {
         const fetchData = async () => {
@@ -20,7 +28,7 @@ function App() {
                         throw new Error(`Ошибка: ${response.statusText}`);
                     }
                     const data = await response.json();
-                    setTasks(data);
+                    dispatch(setTasks(data));
                 }
             } catch (error) {
                 console.error('Ошибка при получении задач:', error.message);

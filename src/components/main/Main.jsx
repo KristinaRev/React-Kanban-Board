@@ -3,7 +3,6 @@ import { Routes, Route } from "react-router-dom";
 import Board from '../board/Board';
 import TaskDetail from '../task-detail/TaskDetail';
 import PortalPage from "../PortalPage";
-import { useFormSubmit } from "../../hooks/useFormSubmit";
 import css from './Main.module.css';
 import {ROUTES} from "../../routes";
 
