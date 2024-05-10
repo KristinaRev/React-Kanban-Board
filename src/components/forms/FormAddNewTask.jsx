@@ -1,61 +1,46 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import Button from '../button/Button';
-import {useDispatch} from "react-redux";
-import {createTask, createTaskAsync, setTasks} from "../../reducers/tasksSlice";
+import {useDispatch, useSelector} from "react-redux";
+import {createTaskServer, setForm} from "../../reducers/tasksSlice";
 import css from './Forms.module.css';
 
 
-const FormAddNewTask = ({ userId, tasks, setTasks, formSubmitLocal }) => {
-	const dispatch = useDispatch();
-	const [values, setValues] = useState({
-		title: '',
-		description: ''
-	});
+const FormAddNewTask = ({userId, tasks, setTasks, formSubmitLocal}) => {
+    const dispatch = useDispatch();
+    const form = useSelector(state => state.tasks.form);
 
-	// const formSubmit = useFormSubmit({ tasks, setTasks }, (updatedTasks) => {
-	// 	formSubmitLocal();
-	// 	console.log('Added new task:', updatedTasks);
-	// });
+    const handleChange = e =>
+        dispatch(setForm({[e.target.name]: e.target.value}))
 
-	const handleChange = e =>
-		setValues((prevState) =>
-            ({...prevState, [e.target.name]: e.target.value}))
+    const handleSubmit = async e => {
+        e.preventDefault();
+        if (form.title) {
+            dispatch(createTaskServer(form));
+        }
+    };
 
-	const handleSubmit = async e => {
-		e.preventDefault();
-		if (values.title) {
-			try {
-				dispatch(createTask(values));
-				await dispatch(createTaskAsync(values));
-				setValues({ title: '', description: '' });
-			} catch (error) {
-				console.error('Error adding task:', error.message);
-			}
-		}
-	};
-
-	return (
-		<form onSubmit={handleSubmit} className={css.form}>
-			<input
-				className={css.input}
-				id='taskTitle'
-				name='title'
-				type='text'
-				placeholder='Enter task title'
-				onChange={handleChange}
-				value={values.title}
-			/>
-			<textarea
-				className={css.input}
-				id='taskDescription'
-				name='description'
-				placeholder='Enter task description'
-				value={values.description}
-				onChange={handleChange}
-			/>
-			<Button type='submit'>Add</Button>
-		</form>
-	);
+    return (
+        <form onSubmit={handleSubmit} className={css.form}>
+            <input
+                className={css.input}
+                id='taskTitle'
+                name='title'
+                type='text'
+                placeholder='Enter task title'
+                onChange={handleChange}
+                value={form.title}
+            />
+            <textarea
+                className={css.input}
+                id='taskDescription'
+                name='description'
+                placeholder='Enter task description'
+                value={form.description}
+                onChange={handleChange}
+            />
+            <Button type='submit'>Add</Button>
+        </form>
+    );
 };
 
 export default FormAddNewTask;

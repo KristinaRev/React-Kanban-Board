@@ -1,9 +1,16 @@
-import { createSlice } from "@reduxjs/toolkit";
+import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import uniqid from "uniqid";
 
 export const tasksSlice = createSlice({
     name: 'tasks',
-    initialState: { tasks: [] },
+    initialState: {
+        loading: false,
+        tasks: [],
+        form: {
+            title: '',
+            description: '',
+        }
+    },
     reducers: {
         setTasks: (state, action) => {
             state.tasks = action.payload
@@ -11,41 +18,46 @@ export const tasksSlice = createSlice({
         deleteTask: (state, action) => {
             state.tasks = state.tasks.filter(task => task.id !== action.payload)
         },
-        createTask: (state, action) => {
-            const newTask = {
-                id: uniqid(),
-                title: action.payload.title,
-                description: action.payload.description,
-                created: new Date().toISOString(),
-                status: 'backlog',
-            };
-            state.tasks = [...state.tasks, newTask];
+        setForm: (state, action) => {
+            state.form = {...state.form, ...action.payload}
         }
-    }
+
+    },
+    extraReducers: builder =>
+        builder
+            .addCase(createTaskServer.pending, (state, action) => {
+                state.loading = true;
+            })
+            .addCase(createTaskServer.fulfilled, (state, action) => {
+                state.tasks = [...state.tasks, action.payload];
+                state.form = {
+                    title: '',
+                    description: '',
+                };
+                state.loading = false;
+            })
+            .addCase(createTaskServer.rejected, (state, action) => {
+                console.log('Задача не добавлена');
+                state.loading = false;
+            })
 });
 
-export const { setTasks, deleteTask, createTask } = tasksSlice.actions;
+export const {setTasks, setForm, deleteTask} = tasksSlice.actions;
 export default tasksSlice.reducer;
-export const createTaskAsync = (newTask) => {
-    return async (dispatch) => {
-        try {
-            const response = await fetch('http://localhost:3001/tasks', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(newTask),
-            });
 
-            if (!response.ok) {
-                throw new Error(`Error: ${response.statusText}`);
-            }
-
-            const data = await response.json();
-            dispatch(createTask(data));
-        } catch (error) {
-            console.error('Error adding task:', error.message);
-        }
-    };
-};
+export const createTaskServer = createAsyncThunk(
+    'tasks/createTask',
+    async (newTask) =>
+        fetch('http://localhost:3001/tasks', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                ...newTask,
+                id: uniqid(),
+                created: new Date().toISOString(),
+                status: 'backlog',
+            }),
+        }).then(r => r.json()))
 
