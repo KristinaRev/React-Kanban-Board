@@ -15,13 +15,9 @@ export const tasksSlice = createSlice({
         setTasks: (state, action) => {
             state.tasks = action.payload
         },
-        deleteTask: (state, action) => {
-            state.tasks = state.tasks.filter(task => task.id !== action.payload)
-        },
         setForm: (state, action) => {
             state.form = {...state.form, ...action.payload}
         }
-
     },
     extraReducers: builder =>
         builder
@@ -40,9 +36,22 @@ export const tasksSlice = createSlice({
                 console.log('Задача не добавлена');
                 state.loading = false;
             })
+            .addCase(deleteTaskServer.pending, (state, action) => {
+                state.loading = true;
+                console.log(state)
+                console.log(action)
+            })
+            .addCase(deleteTaskServer.fulfilled, (state, action) => {
+                state.tasks = state.tasks.filter(task => task.id !== action.meta.arg)
+                state.loading = false;
+            })
+            .addCase(deleteTaskServer.rejected, (state, action) => {
+                console.log('Задача не удалена');
+                state.loading = false;
+            })
 });
 
-export const {setTasks, setForm, deleteTask} = tasksSlice.actions;
+export const {setTasks, setForm} = tasksSlice.actions;
 export default tasksSlice.reducer;
 
 export const createTaskServer = createAsyncThunk(
@@ -61,3 +70,9 @@ export const createTaskServer = createAsyncThunk(
             }),
         }).then(r => r.json()))
 
+export const deleteTaskServer = createAsyncThunk(
+    'tasks/deleteTask',
+    async (taskId) =>
+        fetch(`http://localhost:3001/tasks/${taskId}`, {
+            method: 'DELETE',
+        }).then(r => r.json()))

@@ -5,7 +5,7 @@ import { FaTimes } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import Button from "../button/Button";
 import FormattedTitle from "../formatted-title/FormattedTitle";
-import {deleteTask} from "../../reducers/tasksSlice";
+import {deleteTaskServer} from "../../reducers/tasksSlice";
 import css from './Task.module.css';
 import {useDispatch} from "react-redux";
 
@@ -34,7 +34,7 @@ const Task = ({ id, index, title, status, moveTask, onDelete }) => {
     const opacity = isDragging ? 0.5 : 1;
 
     const handleDelete = () => {
-        dispatch(deleteTask(id))
+        dispatch(deleteTaskServer(id))
     };
 
     return (
