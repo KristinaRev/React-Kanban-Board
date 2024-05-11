@@ -39,10 +39,6 @@ const List = (props) => {
 		dispatch(setTasks(updatedTasks));
 	}, [tasks, setTasks]);
 
-	const onDelete = (taskId) => {
-		dispatch(deleteTaskServer(taskId))
-	};
-
 	const transitions = useTransition(isFormVisible, {
 		from: { opacity: 0 },
 		enter: { opacity: 1 },
