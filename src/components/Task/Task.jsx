@@ -9,7 +9,7 @@ import {deleteTaskServer} from "../../reducers/tasksSlice";
 import css from './Task.module.css';
 import {useDispatch} from "react-redux";
 
-const Task = ({ id, index, title, status, moveTask, onDelete }) => {
+const Task = ({ id, index, title, status, moveTask}) => {
     const dispatch = useDispatch();
     const [{ isDragging }, drag] = useDrag({
         type: ItemTypes.TASK,

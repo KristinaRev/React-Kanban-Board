@@ -67,7 +67,6 @@ const List = (props) => {
 						title={task.title}
 						status={task.status}
 						moveTask={task.status === type ? moveTask : moveTaskInsideList}
-						onDelete={onDelete}
 					/>
 				))
 			) : (
