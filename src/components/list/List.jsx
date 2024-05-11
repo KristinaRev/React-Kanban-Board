@@ -10,7 +10,7 @@ import {useDispatch} from "react-redux";
 import {deleteTaskServer, setNewStatusTaskServer} from "../../reducers/tasksSlice";
 
 const List = (props) => {
-	const { type, title, tasks, moveTask, setTasks, onDeleteTask, user } = props;
+	const { type, title, tasks, moveTask, setTasks, user } = props;
 	const [isFormVisible, setFormVisible] = useState(false);
 	const dispatch = useDispatch();
 
@@ -40,19 +40,7 @@ const List = (props) => {
 	}, [tasks, setTasks]);
 
 	const onDelete = (taskId) => {
-		// onDeleteTask(taskId);
-
 		dispatch(deleteTaskServer(taskId))
-		fetch(`http://localhost:3001/tasks/${taskId}`, {
-			method: 'DELETE',
-		})
-			.then(response => {
-				if (!response.ok) {
-					throw new Error(`Error: ${response.statusText}`)
-				}
-				console.log(`Task ${taskId} deleted successfully from server`);
-			})
-			.catch(error => console.error('Error deleting task from server:', error.message))
 	};
 
 	const transitions = useTransition(isFormVisible, {

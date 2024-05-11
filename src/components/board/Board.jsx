@@ -8,11 +8,6 @@ import css from './Board.module.css';
 
 const Board = ({ tasks, setTasks, user }) => {
 
-	const onDeleteTask = (taskId) => {
-		const updatedTasks = tasks.filter(task => task.id !== taskId);
-		setTasks(updatedTasks);
-	};
-
 	const moveTask = (taskId, newStatus) => {
 		const updatedTasks = tasks.map(task => task.id === taskId ? { ...task, status: newStatus } : task);
 		setTasks(updatedTasks);
@@ -46,7 +41,6 @@ const Board = ({ tasks, setTasks, user }) => {
 						tasks={tasks.filter(task => task.status === type)}
 						moveTask={moveTask}
 						setTasks={setTasks}
-						onDeleteTask={onDeleteTask}
 						user={user}
 					/>
 				))}
