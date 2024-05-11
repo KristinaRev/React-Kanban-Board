@@ -1,6 +1,7 @@
-import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
+import {createAsyncThunk, createEntityAdapter, createSlice} from "@reduxjs/toolkit";
 import uniqid from "uniqid";
 
+// const todosAdapter = createEntityAdapter();
 export const tasksSlice = createSlice({
     name: 'tasks',
     initialState: {
@@ -15,12 +16,26 @@ export const tasksSlice = createSlice({
         setTasks: (state, action) => {
             state.tasks = action.payload
         },
+        clearTasks: (state, action) => {
+            state.tasks = []
+        },
         setForm: (state, action) => {
             state.form = {...state.form, ...action.payload}
         }
     },
     extraReducers: builder =>
         builder
+            .addCase(setTasksServer.pending, (state, action) => {
+                state.loading = true;
+            })
+            .addCase(setTasksServer.fulfilled, (state, action) => {
+                state.tasks = action.payload;
+                state.loading = false;
+            })
+            .addCase(setTasksServer.rejected, (state, action) => {
+                console.log('Задачи не найдены')
+                state.loading = false;
+            })
             .addCase(createTaskServer.pending, (state, action) => {
                 state.loading = true;
             })
@@ -51,7 +66,7 @@ export const tasksSlice = createSlice({
             })
 });
 
-export const {setTasks, setForm} = tasksSlice.actions;
+export const { setTasks, setForm, clearTasks} = tasksSlice.actions;
 export default tasksSlice.reducer;
 
 export const createTaskServer = createAsyncThunk(
@@ -76,3 +91,11 @@ export const deleteTaskServer = createAsyncThunk(
         fetch(`http://localhost:3001/tasks/${taskId}`, {
             method: 'DELETE',
         }).then(r => r.json()))
+
+export const setTasksServer = createAsyncThunk (
+    'tasks/setTasks',
+    async (taskId) =>
+        fetch(`http://localhost:3001/tasks`, {
+            method: 'GET',
+        }).then(r => r.json())
+)
