@@ -64,6 +64,15 @@ export const tasksSlice = createSlice({
                 console.log('Задача не удалена');
                 state.loading = false;
             })
+            .addCase(setNewStatusTaskServer.pending, (state, action) => {
+                state.loading = true;
+                console.log(state)
+                console.log(action)
+            })
+            .addCase(setNewStatusTaskServer.fulfilled, (state, action) => {
+                state.tasks = state.tasks.map(task => task.id === action.meta.arg.taskId ? { ...task, status: action.meta.arg.type } : task);
+                state.loading = false;
+            })
 });
 
 export const { setTasks, setForm, clearTasks} = tasksSlice.actions;
@@ -99,3 +108,14 @@ export const setTasksServer = createAsyncThunk (
             method: 'GET',
         }).then(r => r.json())
 )
+
+export const setNewStatusTaskServer = createAsyncThunk (
+    'tasks/setNewStatusTask',
+    async ({taskId, type}) =>
+        fetch(`http://localhost:3001/tasks/${taskId}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ status: type }),
+        }))

@@ -7,7 +7,7 @@ import FormAddNewTask from '../forms/FormAddNewTask';
 import Task from "../Task/Task";
 import css from './List.module.css';
 import {useDispatch} from "react-redux";
-import {deleteTaskServer} from "../../reducers/tasksSlice";
+import {deleteTaskServer, setNewStatusTaskServer} from "../../reducers/tasksSlice";
 
 const List = (props) => {
 	const { type, title, tasks, moveTask, setTasks, onDeleteTask, user } = props;
@@ -29,7 +29,7 @@ const List = (props) => {
 
 	const [, drop] = useDrop({
 		accept: ItemTypes.TASK,
-		drop: (item) => moveTask(item.id, type),
+		drop: (item) => dispatch(setNewStatusTaskServer({taskId: item.id, type})),
 	});
 
 	const moveTaskInsideList = useCallback((dragIndex, hoverIndex) => {
