@@ -1,33 +1,24 @@
-import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import React, {useState, useEffect, useMemo, useCallback, useContext} from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import Header from './components/header/Header';
 import Footer from './components/footer/Footer';
 import Main from './components/main/Main';
 import { countTask } from "./utils";
 import './App.css';
+import {observer} from "mobx-react-lite";
+import {StoreContext} from "./stores/root.store";
 
 function App() {
     const storedUser = JSON.parse(window.localStorage.getItem('user'));
     const [user, setUser] = useState(storedUser || null);
     const [tasks, setTasks] = useState([]);
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                if (user) {
-                    const response = await fetch(`http://localhost:3001/tasks`);
-                    if (!response.ok) {
-                        throw new Error(`Ошибка: ${response.statusText}`);
-                    }
-                    const data = await response.json();
-                    setTasks(data);
-                }
-            } catch (error) {
-                console.error('Ошибка при получении задач:', error.message);
-            }
-        };
+    const {tasksStore} = useContext(StoreContext)
 
-        fetchData();
+    useEffect(() => {
+        if(user) {
+            tasksStore.getTasks()
+        }
     }, [user]);
 
     const handleLogin = useCallback(() => {
@@ -41,7 +32,7 @@ function App() {
         setTasks([]);
     }, []);
 
-    const resultCountTask = useMemo(() => countTask(tasks), [tasks]);
+    const resultCountTask = useMemo(() => countTask(tasksStore.tasks), [tasksStore.tasks]);
 
     return (
         <BrowserRouter>
@@ -59,4 +50,4 @@ function App() {
     );
 }
 
-export default App;
+export default observer(App);

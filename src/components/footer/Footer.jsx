@@ -1,5 +1,7 @@
 import React from 'react';
 import css from './Footer.module.css';
+import {observe} from "mobx";
+import {observer} from "mobx-react-lite";
 
 function Footer({ backlogCount, doneCount, inProgressCount, readyCount }) {
 	return (
@@ -25,4 +27,4 @@ function Footer({ backlogCount, doneCount, inProgressCount, readyCount }) {
 	);
 }
 
-export default React.memo(Footer);
+export default React.memo(observer(Footer));
