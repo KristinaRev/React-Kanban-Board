@@ -4,6 +4,7 @@ import { FaTimes } from 'react-icons/fa';
 import FormattedTitle from '../formatted-title/FormattedTitle';
 import css from './TaskDetail.module.css';
 import {useDispatch} from "react-redux";
+import {setNewDescriptionTaskServer} from "../../reducers/tasksSlice";
 
 const TaskDetail = ({ tasks, setTasks }) => {
 	const { taskId } = useParams();
@@ -40,28 +41,7 @@ const TaskDetail = ({ tasks, setTasks }) => {
 	};
 
 	const addDescription = async () => {
-		try {
-			const updatedTasks = tasks.map(task => {
-				if (task.id === taskId) {
-					task.description = localDescription;
-				}
-				return task;
-			});
-			dispatch(setTasks(updatedTasks))
-
-			const response = await fetch(`http://localhost:3001/tasks/${taskId}`, {
-				method: 'PATCH',
-				headers: {
-					'Content-Type': 'application/json',
-				},
-				body: JSON.stringify({ description: localDescription }),
-			});
-			if (!response.ok) {
-				throw new Error(`Error: ${response.statusText}`);
-			}
-		} catch (error) {
-			console.error('Error updating task description on server:', error.message);
-		}
+		dispatch(setNewDescriptionTaskServer({taskId: taskId, localDescription: localDescription}))
 	};
 
 	return (

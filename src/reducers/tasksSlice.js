@@ -53,8 +53,6 @@ export const tasksSlice = createSlice({
             })
             .addCase(deleteTaskServer.pending, (state, action) => {
                 state.loading = true;
-                console.log(state)
-                console.log(action)
             })
             .addCase(deleteTaskServer.fulfilled, (state, action) => {
                 state.tasks = state.tasks.filter(task => task.id !== action.meta.arg)
@@ -66,13 +64,27 @@ export const tasksSlice = createSlice({
             })
             .addCase(setNewStatusTaskServer.pending, (state, action) => {
                 state.loading = true;
-                console.log(state)
-                console.log(action)
             })
             .addCase(setNewStatusTaskServer.fulfilled, (state, action) => {
                 state.tasks = state.tasks.map(task => task.id === action.meta.arg.taskId ? { ...task, status: action.meta.arg.type } : task);
                 state.loading = false;
             })
+            .addCase(setNewStatusTaskServer.rejected, (state, action) => {
+                console.log('Статус задачи не обновлен');
+                state.loading = false;
+            })
+            .addCase(setNewDescriptionTaskServer.pending, (state, action) => {
+                state.loading = true;
+            })
+            .addCase(setNewDescriptionTaskServer.fulfilled, (state, action) => {
+                state.tasks = state.tasks.map(task => task.id === action.meta.arg.taskId ? { ...task, description: action.meta.arg.localDescription } : task);
+                state.loading = false;
+            })
+            .addCase(setNewDescriptionTaskServer.rejected, (state, action) => {
+                console.log('Описание задачи не обновлено');
+                state.loading = false;
+            })
+
 });
 
 export const { setTasks, setForm, clearTasks} = tasksSlice.actions;
@@ -118,4 +130,15 @@ export const setNewStatusTaskServer = createAsyncThunk (
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({ status: type }),
+        }))
+
+export const setNewDescriptionTaskServer = createAsyncThunk (
+    'tasks/setNewDescriptionTask',
+    async ({taskId, localDescription}) =>
+        fetch(`http://localhost:3001/tasks/${taskId}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ description: localDescription }),
         }))
