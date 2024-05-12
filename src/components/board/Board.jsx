@@ -8,33 +8,15 @@ import css from './Board.module.css';
 import {StoreContext} from "../../stores/root.store";
 
 const Board = ({ setTasks, user }) => {
-	const {tasksStore: {tasks}} = useContext(StoreContext);
+	const {tasksStore} = useContext(StoreContext);
 
 	const onDeleteTask = (taskId) => {
-		const updatedTasks = tasks.filter(task => task.id !== taskId);
+		const updatedTasks = tasksStore.tasks.filter(task => task.id !== taskId);
 		setTasks(updatedTasks);
 	};
 
-	const moveTask = (taskId, newStatus) => {
-		const updatedTasks = tasks.map(task => task.id === taskId ? { ...task, status: newStatus } : task);
-		setTasks(updatedTasks);
-
-		const taskToUpdate = tasks.find(task => task.id === taskId);
-		if (taskToUpdate) {
-			fetch(`http://localhost:3001/tasks/${taskId}`, {
-				method: 'PATCH',
-				headers: {
-					'Content-Type': 'application/json',
-				},
-				body: JSON.stringify({ status: newStatus }),
-			})
-				.then(response => {
-					if (!response.ok) {
-						throw new Error(`Error: ${response.statusText}`);
-					}
-				})
-				.catch(error => console.error('Error updating task status on server:', error.message));
-		}
+	const moveTask = async (taskId, newStatus) => {
+		await tasksStore.changeTaskStatus(taskId, newStatus);
 	};
 
 	return (
@@ -45,7 +27,7 @@ const Board = ({ setTasks, user }) => {
 						key={LIST_COPY[type]}
 						type={type}
 						title={LIST_COPY[type]}
-						tasks={tasks.filter(task => task.status === type)}
+						tasks={tasksStore.tasks.filter(task => task.status === type)}
 						moveTask={moveTask}
 						setTasks={setTasks}
 						onDeleteTask={onDeleteTask}

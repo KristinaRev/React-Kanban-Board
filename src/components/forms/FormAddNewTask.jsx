@@ -1,48 +1,37 @@
-import React, { useState } from 'react';
+import React, {useContext, useState} from 'react';
 import Button from '../button/Button';
 import { useFormSubmit } from '../../hooks/useFormSubmit';
 import css from './Forms.module.css';
+import {StoreContext} from "../../stores/root.store";
+import {observer} from "mobx-react-lite";
 
-const FormAddNewTask = ({ userId, tasks, setTasks, formSubmitLocal }) => {
-	const [values, setValues] = useState({
-		title: '',
-		description: ''
-	});
+const FormAddNewTask = ({ userId, formSubmitLocal }) => {
+	const {tasksStore} = useContext(StoreContext);
 
-	const formSubmit = useFormSubmit({ tasks, setTasks }, (updatedTasks) => {
-		formSubmitLocal();
-		console.log('Added new task:', updatedTasks);
-	});
-
-	const handleChange = e =>
-		setValues((prevState) =>
-            ({...prevState, [e.target.name]: e.target.value}))
-
-	const handleSubmit = e => {
+	const handleChange = e => tasksStore.changeFormValue(e);
+	const formSubmit =  async (e) => {
 		e.preventDefault();
-		if (values.title) {
-			formSubmit(values.title, values.description, userId);
-			setValues({ title: '', description: '' });
-		}
+		await tasksStore.addTask(tasksStore.taskForm.title, tasksStore.taskForm.description);
+		formSubmitLocal();
 	};
 
 	return (
-		<form onSubmit={handleSubmit} className={css.form}>
+		<form onSubmit={formSubmit} className={css.form}>
 			<input
 				className={css.input}
 				id='taskTitle'
 				name='title'
 				type='text'
-				placeholder='Enter task title'
+				placeholder='Введите название задачи'
 				onChange={handleChange}
-				value={values.title}
+				value={tasksStore.taskForm.title}
 			/>
 			<textarea
 				className={css.input}
 				id='taskDescription'
 				name='description'
-				placeholder='Enter task description'
-				value={values.description}
+				placeholder='Введите описание задачи'
+				value={tasksStore.taskForm.description}
 				onChange={handleChange}
 			/>
 			<Button type='submit'>Add</Button>
@@ -50,4 +39,4 @@ const FormAddNewTask = ({ userId, tasks, setTasks, formSubmitLocal }) => {
 	);
 };
 
-export default FormAddNewTask;
+export default observer(FormAddNewTask);

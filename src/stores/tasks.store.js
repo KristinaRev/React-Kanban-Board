@@ -1,4 +1,5 @@
 import {makeAutoObservable} from "mobx";
+import uniqid from "uniqid";
 
 export class TasksStore {
     constructor() {
@@ -28,5 +29,66 @@ export class TasksStore {
         }
     }
 
+    addTask = async (title, description) => {
+        const newTask = {
+            id: uniqid(),
+            title,
+            description,
+            created: new Date().toISOString(),
+            status: 'backlog',
+        };
 
+        fetch('http://localhost:3001/tasks', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(newTask),
+        }).then(async (response) => {
+            if (!response.ok) {
+                throw new Error(`Error: ${response.statusText}`);
+            }
+            const data = await response.json();
+        }).catch((error) => {
+            console.error('Error adding task:', error.message);
+        });
+
+        this.tasks = [...this.tasks, newTask];
+        this.taskForm = {
+            title: '',
+            description: ''
+        };
+    }
+
+    changeFormValue = (e) => {
+        this.taskForm = ({...this.taskForm, [e.target.name]: e.target.value})
+    }
+
+    changeTaskStatus = async (taskId, newStatus) => {
+        // this.tasks = this.tasks.map(task => task.id === taskId ? {...task, status: newStatus} : task);
+        // const taskToUpdate = this.tasks.find(task => task.id === taskId);
+
+        // const taskIndex = this.tasks.findIndex(task => task.id === taskId)
+        // const task = this.tasks[taskIndex];
+        // this.tasks[taskIndex] = {...task, status: newStatus}
+
+        const taskToUpdate = this.tasks.find(task => task.id === taskId);
+        taskToUpdate.status = newStatus
+        this.tasks = [...this.tasks]
+        if (taskToUpdate) {
+            fetch(`http://localhost:3001/tasks/${taskId}`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ status: newStatus }),
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Ошибка: ${response.statusText}`);
+                    }
+                })
+                .catch(error => console.error('Описание задачи не обновлено:', error.message));
+        }
+    }
 }

@@ -87,7 +87,7 @@ const List = (props) => {
 			)}
 			{transitions((style, item) => item && user && (
 				<animated.div style={style}>
-					<FormAddNewTask formSubmitLocal={formSubmitLocal} tasks={tasks} setTasks={setTasks}/>
+					<FormAddNewTask formSubmitLocal={formSubmitLocal} />
 				</animated.div>
 			))}
 		</div>
