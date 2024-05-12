@@ -3,31 +3,25 @@ import { useParams, Link } from 'react-router-dom';
 import { FaTimes } from 'react-icons/fa';
 import FormattedTitle from '../formatted-title/FormattedTitle';
 import css from './TaskDetail.module.css';
-import {useDispatch} from "react-redux";
-import {setNewDescriptionTaskServer} from "../../reducers/tasksSlice";
+import {useDispatch, useSelector} from "react-redux";
+import {
+	clearTaskDetail,
+	setNewDescriptionTaskServer,
+	setTaskDetailDescription,
+	setTaskDetailServer
+} from "../../reducers/tasksSlice";
 
 const TaskDetail = ({ tasks, setTasks }) => {
 	const { taskId } = useParams();
-	const [task, setTask] = useState(null);
-	const [localDescription, setLocalDescription] = useState('');
 	const descriptionRef = useRef(null);
 	const dispatch = useDispatch();
 
+	const task = useSelector((state) => {
+		return state.tasks.taskDetail;
+	})
+
 	useEffect(() => {
-		const fetchTask = async () => {
-			try {
-				const response = await fetch(`http://localhost:3001/tasks/${taskId}`);
-				if (!response.ok) {
-					throw new Error(`Error: ${response.statusText}`);
-				}
-				const data = await response.json();
-				setTask(data);
-				setLocalDescription(data.description || "This task has no description");
-			} catch (error) {
-				console.error('Error fetching task details:', error.message);
-			}
-		};
-		fetchTask();
+		dispatch(setTaskDetailServer(taskId))
 	}, [taskId]);
 
 	useEffect(() => {
@@ -37,11 +31,12 @@ const TaskDetail = ({ tasks, setTasks }) => {
 	}, [task]);
 
 	const handleChange = (e) => {
-		setLocalDescription(e.target.value);
+		dispatch(setTaskDetailDescription(e.target.value));
 	};
 
 	const addDescription = async () => {
-		dispatch(setNewDescriptionTaskServer({taskId: taskId, localDescription: localDescription}))
+		dispatch(setNewDescriptionTaskServer({taskId: taskId, localDescription: task.description}))
+		dispatch(clearTaskDetail())
 	};
 
 	return (
@@ -60,7 +55,7 @@ const TaskDetail = ({ tasks, setTasks }) => {
 							className={css.details_description}
 							onChange={handleChange}
 							onBlur={addDescription}
-							value={localDescription} />
+							value={task.description} />
 					</>
 				) : (
 					<div className={css.details_not_found}>

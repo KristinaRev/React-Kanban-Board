@@ -10,6 +10,10 @@ export const tasksSlice = createSlice({
         form: {
             title: '',
             description: '',
+        },
+        taskDetail: {
+            title: '',
+            description: ''
         }
     },
     reducers: {
@@ -21,6 +25,15 @@ export const tasksSlice = createSlice({
         },
         setForm: (state, action) => {
             state.form = {...state.form, ...action.payload}
+        },
+        setTaskDetailDescription: (state, action) => {
+            state.taskDetail.description = action.payload;
+        },
+        clearTaskDetail: (state, action) => {
+            state.taskDetail = {
+                title: '',
+                description: ''
+            };
         }
     },
     extraReducers: builder =>
@@ -84,10 +97,22 @@ export const tasksSlice = createSlice({
                 console.log('Описание задачи не обновлено');
                 state.loading = false;
             })
-
+            .addCase(setTaskDetailServer.pending, (state, action) => {
+                state.loading = true;
+            })
+            .addCase(setTaskDetailServer.fulfilled, (state, action) => {
+                const {title, description} = action.payload;
+                state.taskDetail = {title, description}
+                console.log(action)
+                state.loading = false;
+            })
+            .addCase(setTaskDetailServer.rejected, (state, action) => {
+                console.log('Не возможно получить задачу');
+                state.loading = false;
+            })
 });
 
-export const { setTasks, setForm, clearTasks} = tasksSlice.actions;
+export const { setTasks, clearTaskDetail, setTaskDetailDescription, setForm, clearTasks} = tasksSlice.actions;
 export default tasksSlice.reducer;
 
 export const createTaskServer = createAsyncThunk(
@@ -141,4 +166,12 @@ export const setNewDescriptionTaskServer = createAsyncThunk (
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({ description: localDescription }),
-        }))
+        }).then(r => r.json()))
+
+export const setTaskDetailServer = createAsyncThunk (
+    'tasks/setTaskDetail',
+    async (taskId, localDescription) =>
+        fetch(`http://localhost:3001/tasks/${taskId}`, {
+            method: 'GET',
+        }).then(r => r.json())
+)
