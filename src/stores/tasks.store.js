@@ -64,6 +64,21 @@ export class TasksStore {
         this.taskForm = ({...this.taskForm, [e.target.name]: e.target.value})
     }
 
+    deleteTask = async (taskId) => {
+        this.tasks = this.tasks.filter(task => task.id !== taskId);
+
+        fetch(`http://localhost:3001/tasks/${taskId}`, {
+            method: 'DELETE',
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Error: ${response.statusText}`)
+                }
+                console.log(`Задача ${taskId} успешно удалена на сервере`);
+            })
+            .catch(error => console.error('Ошибка удаления задачи на сервере:', error.message))
+    }
+
     changeTaskStatus = async (taskId, newStatus) => {
         // this.tasks = this.tasks.map(task => task.id === taskId ? {...task, status: newStatus} : task);
         // const taskToUpdate = this.tasks.find(task => task.id === taskId);

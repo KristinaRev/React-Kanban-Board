@@ -10,11 +10,6 @@ import {StoreContext} from "../../stores/root.store";
 const Board = ({ setTasks, user }) => {
 	const {tasksStore} = useContext(StoreContext);
 
-	const onDeleteTask = (taskId) => {
-		const updatedTasks = tasksStore.tasks.filter(task => task.id !== taskId);
-		setTasks(updatedTasks);
-	};
-
 	const moveTask = async (taskId, newStatus) => {
 		await tasksStore.changeTaskStatus(taskId, newStatus);
 	};
@@ -30,7 +25,6 @@ const Board = ({ setTasks, user }) => {
 						tasks={tasksStore.tasks.filter(task => task.status === type)}
 						moveTask={moveTask}
 						setTasks={setTasks}
-						onDeleteTask={onDeleteTask}
 						user={user}
 					/>
 				))}

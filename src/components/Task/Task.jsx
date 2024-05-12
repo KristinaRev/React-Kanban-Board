@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, {useContext, useMemo} from "react";
 import { useDrag, useDrop } from 'react-dnd';
 import { ItemTypes } from '../../ItemTypes';
 import { FaTimes } from 'react-icons/fa';
@@ -6,8 +6,12 @@ import { Link } from 'react-router-dom';
 import Button from "../button/Button";
 import FormattedTitle from "../formatted-title/FormattedTitle";
 import css from './Task.module.css';
+import {StoreContext} from "../../stores/root.store";
 
-const Task = ({ id, index, title, status, moveTask, onDelete }) => {
+const Task = ({ id, index, title, status, moveTask}) => {
+
+    const {tasksStore} = useContext(StoreContext);
+
     const [{ isDragging }, drag] = useDrag({
         type: ItemTypes.TASK,
         item: { id, index, status },
@@ -30,8 +34,8 @@ const Task = ({ id, index, title, status, moveTask, onDelete }) => {
 
     const opacity = isDragging ? 0.5 : 1;
 
-    const handleDelete = () => {
-        onDelete(id);
+    const handleDelete = async () => {
+        await tasksStore.deleteTask(id);
     };
 
     return (

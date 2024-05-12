@@ -9,7 +9,7 @@ import css from './List.module.css';
 import {StoreContext} from "../../stores/root.store";
 
 const List = (props) => {
-	const { type, title, tasks, moveTask, setTasks, onDeleteTask, user } = props;
+	const { type, title, tasks, moveTask, setTasks, user } = props;
 	const [isFormVisible, setFormVisible] = useState(false);
 
 	const handleAddNewClick = useCallback(() => {
@@ -37,21 +37,6 @@ const List = (props) => {
 		setTasks(updatedTasks);
 	}, [tasks, setTasks]);
 
-	const onDelete = (taskId) => {
-		onDeleteTask(taskId);
-
-		fetch(`http://localhost:3001/tasks/${taskId}`, {
-			method: 'DELETE',
-		})
-			.then(response => {
-				if (!response.ok) {
-					throw new Error(`Error: ${response.statusText}`)
-				}
-				console.log(`Task ${taskId} deleted successfully from server`);
-			})
-			.catch(error => console.error('Error deleting task from server:', error.message))
-	};
-
 	const transitions = useTransition(isFormVisible, {
 		from: { opacity: 0 },
 		enter: { opacity: 1 },
@@ -76,7 +61,6 @@ const List = (props) => {
 						title={task.title}
 						status={task.status}
 						moveTask={task.status === type ? moveTask : moveTaskInsideList}
-						onDelete={onDelete}
 					/>
 				))
 			) : (
