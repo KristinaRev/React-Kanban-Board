@@ -1,12 +1,14 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { LIST_TYPES, LIST_COPY } from '../../config';
 import List from '../list/List';
 // import boardReducer from '../board-reducer/BoardReducer';
 import css from './Board.module.css';
+import {StoreContext} from "../../stores/root.store";
 
-const Board = ({ tasks, setTasks, user }) => {
+const Board = ({ setTasks, user }) => {
+	const {tasksStore: {tasks}} = useContext(StoreContext);
 
 	const onDeleteTask = (taskId) => {
 		const updatedTasks = tasks.filter(task => task.id !== taskId);

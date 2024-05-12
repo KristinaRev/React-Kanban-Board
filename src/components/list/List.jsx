@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useMemo } from 'react';
+import React, {useState, useCallback, useMemo, useContext} from 'react';
 import { useTransition, animated } from 'react-spring';
 import { useDrag, useDrop } from 'react-dnd';
 import { LIST_TYPES } from '../../config';
@@ -6,6 +6,7 @@ import { ItemTypes } from '../../ItemTypes';
 import FormAddNewTask from '../forms/FormAddNewTask';
 import Task from "../Task/Task";
 import css from './List.module.css';
+import {StoreContext} from "../../stores/root.store";
 
 const List = (props) => {
 	const { type, title, tasks, moveTask, setTasks, onDeleteTask, user } = props;
@@ -15,10 +16,10 @@ const List = (props) => {
 		setFormVisible(!isFormVisible);
 	}, [isFormVisible]);
 
-	const sortedTasks = useMemo(() => {
-		// Сортировка задач по названию
-		return tasks.sort((a, b) => a.title.localeCompare(b.title));
-	}, [tasks]);
+	// 	// Сортировка задач по названию
+	// const sortedTasks = useMemo(() => {
+	// 	return tasks.sort((a, b) => a.title.localeCompare(b.title));
+	// }, [tasks]);
 
 	const formSubmitLocal = useCallback(() => {
 		setFormVisible(false)
@@ -67,7 +68,7 @@ const List = (props) => {
 		<div ref={drop} className={css.list}>
 			<h2 className={css.listTitle}>{title}</h2>
 			{tasks.length ? (
-				sortedTasks.map((task, index) => (
+				tasks.map((task, index) => (
 					<Task
 						key={task.id}
 						index={index}
