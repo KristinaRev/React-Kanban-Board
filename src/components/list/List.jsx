@@ -7,14 +7,24 @@ import FormAddNewTask from '../forms/FormAddNewTask';
 import Task from "../Task/Task";
 import css from './List.module.css';
 import {StoreContext} from "../../stores/root.store";
+import {observer} from "mobx-react-lite";
 
 const List = (props) => {
-	const { type, title, tasks, moveTask, setTasks, user } = props;
-	const [isFormVisible, setFormVisible] = useState(false);
+	const { type, title, tasks, setTasks, user } = props;
+	const {tasksStore} = useContext(StoreContext);
 
-	const handleAddNewClick = useCallback(() => {
-		setFormVisible(!isFormVisible);
-	}, [isFormVisible]);
+
+	const handleAddNewClick = () => {
+		tasksStore.changeFormVisible(true);
+	}
+
+	const moveTask = async (taskId, newStatus) => {
+		await tasksStore.changeTaskStatus(taskId, newStatus);
+	};
+
+	const moveTaskInsideList = (dragIndex, hoverIndex) => {
+		tasksStore.replaceListTasks(dragIndex, hoverIndex);
+	};
 
 	// 	// Сортировка задач по названию
 	// const sortedTasks = useMemo(() => {
@@ -22,7 +32,7 @@ const List = (props) => {
 	// }, [tasks]);
 
 	const formSubmitLocal = useCallback(() => {
-		setFormVisible(false)
+		tasksStore.changeFormVisible(false);
 	}, []);
 
 	const [, drop] = useDrop({
@@ -30,21 +40,14 @@ const List = (props) => {
 		drop: (item) => moveTask(item.id, type),
 	});
 
-	const moveTaskInsideList = useCallback((dragIndex, hoverIndex) => {
-		const updatedTasks = [...tasks];
-		const [draggedTask] = updatedTasks.splice(dragIndex, 1);
-		updatedTasks.splice(hoverIndex, 0, draggedTask);
-		setTasks(updatedTasks);
-	}, [tasks, setTasks]);
-
-	const transitions = useTransition(isFormVisible, {
+	const transitions = useTransition(tasksStore.taskForm.isVisible, {
 		from: { opacity: 0 },
 		enter: { opacity: 1 },
 		leave: { opacity: 0 },
 		config: { duration: 500 },
 		onDestroyed: (isVisible) => {
 			if (!isVisible) {
-				setFormVisible(true);
+				tasksStore.changeFormVisible(true);
 			}
 		}
 	});
@@ -69,14 +72,14 @@ const List = (props) => {
 			{type === LIST_TYPES.BACKLOG && user && (
 				<button onClick={handleAddNewClick} className={css.addButton}>+ Add new task</button>
 			)}
-			{transitions((style, item) => item && user && (
+			{transitions((style, item) => item && user && type === LIST_TYPES.BACKLOG && (
 				<animated.div style={style}>
-					<FormAddNewTask formSubmitLocal={formSubmitLocal} />
+					<FormAddNewTask/>
 				</animated.div>
 			))}
 		</div>
 	);
 };
 
-export default List;
+export default observer(List);
 

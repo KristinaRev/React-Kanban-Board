@@ -5,14 +5,14 @@ import css from './Forms.module.css';
 import {StoreContext} from "../../stores/root.store";
 import {observer} from "mobx-react-lite";
 
-const FormAddNewTask = ({ userId, formSubmitLocal }) => {
+const FormAddNewTask = () => {
 	const {tasksStore} = useContext(StoreContext);
 
 	const handleChange = e => tasksStore.changeFormValue(e);
 	const formSubmit =  async (e) => {
 		e.preventDefault();
 		await tasksStore.addTask(tasksStore.taskForm.title, tasksStore.taskForm.description);
-		formSubmitLocal();
+		tasksStore.changeFormVisible(false);
 	};
 
 	return (

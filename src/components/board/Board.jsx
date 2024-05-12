@@ -10,10 +10,6 @@ import {StoreContext} from "../../stores/root.store";
 const Board = ({ setTasks, user }) => {
 	const {tasksStore} = useContext(StoreContext);
 
-	const moveTask = async (taskId, newStatus) => {
-		await tasksStore.changeTaskStatus(taskId, newStatus);
-	};
-
 	return (
 		<DndProvider backend={HTML5Backend}>
 			<div className={css.board}>
@@ -23,7 +19,6 @@ const Board = ({ setTasks, user }) => {
 						type={type}
 						title={LIST_COPY[type]}
 						tasks={tasksStore.tasks.filter(task => task.status === type)}
-						moveTask={moveTask}
 						setTasks={setTasks}
 						user={user}
 					/>

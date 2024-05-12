@@ -13,6 +13,7 @@ export class TasksStore {
     }
 
     taskForm = {
+        isVisible: false,
         title: '',
         description: ''
     }
@@ -77,6 +78,17 @@ export class TasksStore {
                 console.log(`Задача ${taskId} успешно удалена на сервере`);
             })
             .catch(error => console.error('Ошибка удаления задачи на сервере:', error.message))
+    }
+
+    replaceListTasks = (dragIndex, hoverIndex) => {
+        const updatedTasks = [...this.tasks];
+        const [draggedTask] = updatedTasks.splice(dragIndex, 1);
+        updatedTasks.splice(hoverIndex, 0, draggedTask);
+        this.tasks = updatedTasks;
+    }
+
+    changeFormVisible = (isVisible) => {
+        this.taskForm.isVisible = isVisible;
     }
 
     changeTaskStatus = async (taskId, newStatus) => {
