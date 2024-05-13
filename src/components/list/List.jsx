@@ -10,12 +10,12 @@ import {StoreContext} from "../../stores/root.store";
 import {observer} from "mobx-react-lite";
 
 const List = (props) => {
-	const { type, title, tasks, setTasks, user } = props;
+	const { type, title, tasks, user } = props;
 	const {tasksStore} = useContext(StoreContext);
 
 
 	const handleAddNewClick = () => {
-		tasksStore.changeFormVisible(true);
+		tasksStore.changeFormVisible(!tasksStore.taskForm.isVisible);
 	}
 
 	const moveTask = async (taskId, newStatus) => {

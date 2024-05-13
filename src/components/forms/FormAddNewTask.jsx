@@ -11,8 +11,10 @@ const FormAddNewTask = () => {
 	const handleChange = e => tasksStore.changeFormValue(e);
 	const formSubmit =  async (e) => {
 		e.preventDefault();
-		await tasksStore.addTask(tasksStore.taskForm.title, tasksStore.taskForm.description);
-		tasksStore.changeFormVisible(false);
+		if(tasksStore.taskForm.title) {
+			await tasksStore.addTask(tasksStore.taskForm.title, tasksStore.taskForm.description);
+			tasksStore.changeFormVisible(false);
+		}
 	};
 
 	return (
