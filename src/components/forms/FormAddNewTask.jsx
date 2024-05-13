@@ -1,9 +1,8 @@
 import React, {useContext, useState} from 'react';
 import Button from '../button/Button';
-import { useFormSubmit } from '../../hooks/useFormSubmit';
-import css from './Forms.module.css';
 import {StoreContext} from "../../stores/root.store";
 import {observer} from "mobx-react-lite";
+import css from './Forms.module.css';
 
 const FormAddNewTask = () => {
 	const {tasksStore} = useContext(StoreContext);
@@ -14,6 +13,9 @@ const FormAddNewTask = () => {
 		if(tasksStore.taskForm.title) {
 			await tasksStore.addTask(tasksStore.taskForm.title, tasksStore.taskForm.description);
 			tasksStore.changeFormVisible(false);
+		} else {
+			//todo
+			//вывести, что заголовок обязателен
 		}
 	};
 

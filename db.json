@@ -10,7 +10,7 @@
     {
       "id": "lshidz38",
       "title": "Исправить значок 'Сохранить' ",
-      "description": "Иконка в компоненте \"Сохранить\" теперь не работает, нам нужно это исправить",
+      "description": "",
       "created": "2024-02-11T12:56:01.508Z",
       "status": "ready"
     },
@@ -50,24 +50,10 @@
       "status": "ready"
     },
     {
-      "id": "lw4pxbxr",
-      "title": "",
-      "description": "",
-      "created": "2024-05-13T08:44:50.990Z",
-      "status": "backlog"
-    },
-    {
       "id": "lw4pxfpx",
       "title": "d",
       "description": "",
       "created": "2024-05-13T08:44:55.893Z",
-      "status": "backlog"
-    },
-    {
-      "id": "lw4pxi2s",
-      "title": "",
-      "description": "",
-      "created": "2024-05-13T08:44:58.948Z",
       "status": "backlog"
     },
     {
@@ -78,17 +64,17 @@
       "status": "backlog"
     },
     {
-      "id": "lw4pzz1x",
-      "title": "",
-      "description": "",
-      "created": "2024-05-13T08:46:54.261Z",
-      "status": "backlog"
-    },
-    {
       "id": "lw4q1fvp",
       "title": "w",
       "description": "",
       "created": "2024-05-13T08:48:02.724Z",
+      "status": "backlog"
+    },
+    {
+      "id": "lw4r0zcl",
+      "title": "ы",
+      "description": "",
+      "created": "2024-05-13T09:15:40.916Z",
       "status": "backlog"
     }
   ]

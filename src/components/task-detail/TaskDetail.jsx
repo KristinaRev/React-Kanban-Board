@@ -1,74 +1,40 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, {useEffect, useRef, useContext} from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { FaTimes } from 'react-icons/fa';
 import FormattedTitle from '../formatted-title/FormattedTitle';
+import {StoreContext} from "../../stores/root.store";
+import {observer} from "mobx-react-lite";
 import css from './TaskDetail.module.css';
 
 const TaskDetail = ({ tasks, setTasks }) => {
 	const { taskId } = useParams();
-	const [task, setTask] = useState(null);
-	const [localDescription, setLocalDescription] = useState('');
+	const {tasksStore} = useContext(StoreContext);
+	const localDescription = tasksStore.taskDetail.description;
 	const descriptionRef = useRef(null);
 
 	useEffect(() => {
-		const fetchTask = async () => {
-			try {
-				const response = await fetch(`http://localhost:3001/tasks/${taskId}`);
-				if (!response.ok) {
-					throw new Error(`Error: ${response.statusText}`);
-				}
-				const data = await response.json();
-				setTask(data);
-				setLocalDescription(data.description || "This task has no description");
-			} catch (error) {
-				console.error('Error fetching task details:', error.message);
-			}
-		};
-		fetchTask();
+		tasksStore.getTask(taskId);
 	}, [taskId]);
 
 	useEffect(() => {
 		if (descriptionRef.current) {
 			descriptionRef.current.focus();
 		}
-	}, [task]);
+	}, [tasksStore.taskDetail]);
 
-	const handleChange = (e) => {
-		setLocalDescription(e.target.value);
-	};
+	const handleChange = e => tasksStore.changeTaskDetailsValue(e);
 
 	const addDescription = async () => {
-		try {
-			const updatedTasks = tasks.map(task => {
-				if (task.id === taskId) {
-					task.description = localDescription;
-				}
-				return task;
-			});
-			setTasks(updatedTasks);
-
-			const response = await fetch(`http://localhost:3001/tasks/${taskId}`, {
-				method: 'PATCH',
-				headers: {
-					'Content-Type': 'application/json',
-				},
-				body: JSON.stringify({ description: localDescription }),
-			});
-			if (!response.ok) {
-				throw new Error(`Error: ${response.statusText}`);
-			}
-		} catch (error) {
-			console.error('Error updating task description on server:', error.message);
-		}
+		await tasksStore.updateTaskDescription(taskId, localDescription);
 	};
 
 	return (
 		<div className={css.details_wrapper}>
 			<div className={css.details}>
-				{task ? (
+				{tasksStore.taskDetail.title ? (
 					<>
 						<div className={css.details_header}>
-							<FormattedTitle title={task.title} className={css.title} />
+							<FormattedTitle title={tasksStore.taskDetail.title} className={css.title} />
 							<Link to='/'>
 								<FaTimes className={css.details_close_btn} />
 							</Link>
@@ -82,7 +48,7 @@ const TaskDetail = ({ tasks, setTasks }) => {
 					</>
 				) : (
 					<div className={css.details_not_found}>
-						<h2 className={css.details_title}>Task with ID {taskId} not found</h2>
+						<h2 className={css.details_title}>Задача с ID {taskId} не найдена</h2>
 						<Link to='/'>
 							<FaTimes className={css.details_close_btn} />
 						</Link>
@@ -93,7 +59,8 @@ const TaskDetail = ({ tasks, setTasks }) => {
 	);
 };
 
-export default TaskDetail;
+const ObservedTaskDetail = observer(TaskDetail);
+export default ObservedTaskDetail;
 
 
 /* <select className={css.select} onChange={handleChange} value={task.status}>

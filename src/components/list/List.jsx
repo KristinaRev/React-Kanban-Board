@@ -13,7 +13,6 @@ const List = (props) => {
 	const { type, title, tasks, user } = props;
 	const {tasksStore} = useContext(StoreContext);
 
-
 	const handleAddNewClick = () => {
 		tasksStore.changeFormVisible(!tasksStore.taskForm.isVisible);
 	}

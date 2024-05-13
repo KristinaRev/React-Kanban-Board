@@ -30,6 +30,42 @@ export class TasksStore {
         }
     }
 
+    getTask = async (taskId) => {
+        try {
+            const response = await fetch(`http://localhost:3001/tasks/${taskId}`);
+            if (!response.ok) {
+                throw new Error(`Error: ${response.statusText}`);
+            }
+           this.taskDetail = await response.json();
+        } catch (error) {
+            console.error('Невозможно получить задачу:', error.message);
+        }
+    }
+
+    updateTaskDescription = async (taskId, localDescription) => {
+        try {
+            this.tasks = this.tasks.map(task => {
+                if (task.id === taskId) {
+                    task.description = localDescription;
+                }
+                return task;
+            });
+
+            const response = await fetch(`http://localhost:3001/tasks/${taskId}`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ description: localDescription }),
+            });
+            if (!response.ok) {
+                throw new Error(`Ошибка: ${response.statusText}`);
+            }
+        } catch (error) {
+            console.error('Ошибка обновления описания задачи на сервере:', error.message);
+        }
+    }
+
     addTask = async (title, description) => {
         const newTask = {
             id: uniqid(),
@@ -63,6 +99,10 @@ export class TasksStore {
 
     changeFormValue = (e) => {
         this.taskForm = ({...this.taskForm, [e.target.name]: e.target.value})
+    }
+
+    changeTaskDetailsValue = (e) => {
+        this.taskDetail = ({...this.taskDetail, [e.target.name]: e.target.value})
     }
 
     deleteTask = async (taskId) => {
