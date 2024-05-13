@@ -5,11 +5,13 @@ import FormattedTitle from '../formatted-title/FormattedTitle';
 import {StoreContext} from "../../stores/root.store";
 import {observer} from "mobx-react-lite";
 import css from './TaskDetail.module.css';
+import {LIST_COPY, LIST_TYPES} from "../../config";
 
 const TaskDetail = ({ tasks, setTasks }) => {
 	const { taskId } = useParams();
 	const {tasksStore} = useContext(StoreContext);
 	const localDescription = tasksStore.taskDetail.description;
+	const localStatus = tasksStore.taskDetail.status;
 	const descriptionRef = useRef(null);
 
 	useEffect(() => {
@@ -28,6 +30,10 @@ const TaskDetail = ({ tasks, setTasks }) => {
 		await tasksStore.updateTaskDescription(taskId, localDescription);
 	};
 
+	const changeStatus = async () => {
+		await tasksStore.updateTaskStatus(taskId, localStatus);
+	};
+
 	return (
 		<div className={css.details_wrapper}>
 			<div className={css.details}>
@@ -39,12 +45,19 @@ const TaskDetail = ({ tasks, setTasks }) => {
 								<FaTimes className={css.details_close_btn} />
 							</Link>
 						</div>
+						<select className={css.select} onBlur={changeStatus} onChange={handleChange} name='status' value={localStatus}>
+							{Object.values(LIST_TYPES).map(list => {
+								return <option key={list} value={list}>{LIST_COPY[list]}</option>
+							})}
+						</select>
 						<textarea
 							ref={descriptionRef}
 							className={css.details_description}
 							onChange={handleChange}
 							onBlur={addDescription}
-							value={localDescription} />
+							value={localDescription}
+							name='description'
+						/>
 					</>
 				) : (
 					<div className={css.details_not_found}>
@@ -59,13 +72,4 @@ const TaskDetail = ({ tasks, setTasks }) => {
 	);
 };
 
-const ObservedTaskDetail = observer(TaskDetail);
-export default ObservedTaskDetail;
-
-
-/* <select className={css.select} onChange={handleChange} value={task.status}>
-{Object.values(LIST_TYPES).map(list => {
-	return <option key={list} value={list}>{LIST_COPY[list]}</option>
-})}
-</select> */
-
+export default observer(TaskDetail);

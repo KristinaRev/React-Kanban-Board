@@ -9,7 +9,8 @@ export class TasksStore {
 
     taskDetail = {
         title: '',
-        description: ''
+        description: '',
+        status: ''
     }
 
     taskForm = {
@@ -63,6 +64,30 @@ export class TasksStore {
             }
         } catch (error) {
             console.error('Ошибка обновления описания задачи на сервере:', error.message);
+        }
+    }
+
+    updateTaskStatus = async (taskId, localStatus) => {
+        try {
+            this.tasks = this.tasks.map(task => {
+                if (task.id === taskId) {
+                    task.status = localStatus;
+                }
+                return task;
+            });
+
+            const response = await fetch(`http://localhost:3001/tasks/${taskId}`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ status: localStatus }),
+            });
+            if (!response.ok) {
+                throw new Error(`Ошибка: ${response.statusText}`);
+            }
+        } catch (error) {
+            console.error('Ошибка обновления статуса задачи на сервере:', error.message);
         }
     }
 

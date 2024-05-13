@@ -5,7 +5,7 @@
       "title": "Добавить юнит тесты",
       "description": "Покрыть приложение юнит тестами",
       "created": "2023-12-24T17:39:03.929Z",
-      "status": "inProgress"
+      "status": "ready"
     },
     {
       "id": "lshidz38",
@@ -17,9 +17,9 @@
     {
       "id": "lshie9w9",
       "title": "Что-то сделать",
-      "description": "Do something",
+      "description": "Do somethinggfgfgfdgdfgdfgggfdf",
       "created": "2024-02-11T12:56:15.513Z",
-      "status": "backlog"
+      "status": "done"
     },
     {
       "id": "lshieb91",
@@ -33,7 +33,7 @@
       "title": "Что-то не сделать",
       "description": "",
       "created": "2024-02-11T13:32:33.642Z",
-      "status": "inProgress"
+      "status": "backlog"
     },
     {
       "id": "lte6m5bc",
@@ -68,14 +68,14 @@
       "title": "w",
       "description": "",
       "created": "2024-05-13T08:48:02.724Z",
-      "status": "backlog"
+      "status": "done"
     },
     {
       "id": "lw4r0zcl",
       "title": "ы",
-      "description": "",
+      "description": "xccxzcvdvdz",
       "created": "2024-05-13T09:15:40.916Z",
-      "status": "backlog"
+      "status": "done"
     }
   ]
 }
