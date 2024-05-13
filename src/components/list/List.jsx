@@ -30,10 +30,6 @@ const List = (props) => {
 	// 	return tasks.sort((a, b) => a.title.localeCompare(b.title));
 	// }, [tasks]);
 
-	const formSubmitLocal = useCallback(() => {
-		tasksStore.changeFormVisible(false);
-	}, []);
-
 	const [, drop] = useDrop({
 		accept: ItemTypes.TASK,
 		drop: (item) => moveTask(item.id, type),

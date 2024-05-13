@@ -8,6 +8,7 @@ export class TasksStore {
     tasks = [];
 
     taskDetail = {
+        isDeleted: false,
         title: '',
         description: '',
         status: ''
@@ -91,13 +92,13 @@ export class TasksStore {
         }
     }
 
-    addTask = async (title, description) => {
+    addTask = async (title, description, status) => {
         const newTask = {
             id: uniqid(),
             title,
             description,
             created: new Date().toISOString(),
-            status: 'backlog',
+            status: status? status : 'backlog',
         };
 
         fetch('http://localhost:3001/tasks', {
@@ -154,6 +155,10 @@ export class TasksStore {
 
     changeFormVisible = (isVisible) => {
         this.taskForm.isVisible = isVisible;
+    }
+
+    changeTaskDetailDeleted = (isDeleted ) => {
+        this.taskDetail.isDeleted = isDeleted;
     }
 
     changeTaskStatus = async (taskId, newStatus) => {

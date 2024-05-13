@@ -19,7 +19,6 @@ const Board = ({ setTasks, user }) => {
 						type={type}
 						title={LIST_COPY[type]}
 						tasks={tasksStore.tasks.filter(task => task.status === type)}
-						setTasks={setTasks}
 						user={user}
 					/>
 				))}

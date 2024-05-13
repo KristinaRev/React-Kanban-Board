@@ -64,6 +64,10 @@
 	align-items: center;
 }
 
+.delete-btn {
+	font-weight: 700;
+}
+
 .select {
 	border: none;
 	width: 30%;
