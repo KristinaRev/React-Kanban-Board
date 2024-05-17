@@ -7,7 +7,7 @@ export class TasksStore {
     }
     tasks = [];
 
-    taskStatuses = [
+    taskPriorities = [
         'low',
         'medium',
         'high',

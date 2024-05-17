@@ -57,7 +57,7 @@ const TaskDetail = () => {
 		label: LIST_COPY[list],
 	}));
 
-	const taskStatuses = Object.values(tasksStore.taskStatuses).map(list => ({
+	const taskPriorities = Object.values(tasksStore.taskPriorities).map(list => ({
 		value: list,
 		label: list,
 	}));
@@ -81,7 +81,7 @@ const TaskDetail = () => {
 							name='status'
 						/>
 						<Select
-							options={taskStatuses}
+							options={taskPriorities}
 							value={localPriority}
 							onChange={handleChange}
 							onBlur={changePriority}

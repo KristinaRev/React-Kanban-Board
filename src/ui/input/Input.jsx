@@ -4,6 +4,7 @@ import css from './Input.module.css';
 const Input = (props) => {
     return (
         <>
+            <label>{props.label}</label>
             {
                 props.type === 'textarea' ? (
                     <textarea className={css.input} {...props} />

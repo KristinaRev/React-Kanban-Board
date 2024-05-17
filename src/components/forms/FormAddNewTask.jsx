@@ -22,7 +22,7 @@ const FormAddNewTask = () => {
 		}
 	};
 
-	const taskStatuses = Object.values(tasksStore.taskStatuses).map(list => ({
+	const taskPriorities = Object.values(tasksStore.taskPriorities).map(list => ({
 		value: list,
 		label: list,
 	}));
@@ -36,12 +36,14 @@ const FormAddNewTask = () => {
 				placeholder='Введите название задачи'
 				onChange={handleChange}
 				value={tasksStore.taskForm.title}
+				label='Название задачи'
 			/>
 			<Select
 				id='taskPriority'
-				options={taskStatuses}
+				options={taskPriorities}
 				onChange={handleChange}
 				name='priority'
+				label='Приоритет задачи'
 			/>
 			<Input
 				type='textarea'
@@ -50,6 +52,7 @@ const FormAddNewTask = () => {
 				placeholder='Введите описание задачи'
 				value={tasksStore.taskForm.description}
 				onChange={handleChange}
+				label='Описание задачи'
 			/>
 			<Button type='submit'>Add</Button>
 		</form>
