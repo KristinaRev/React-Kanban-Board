@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Button from "../button/Button";
+import Button from "../../ui/button/Button";
 import UserAvatar from '../../assets/user-menu.png';
 import css from './Login.module.css';
 
