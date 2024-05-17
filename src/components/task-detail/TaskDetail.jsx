@@ -8,6 +8,7 @@ import {LIST_COPY, LIST_TYPES} from "../../config";
 import Button from "../../ui/button/Button";
 import Input from "../../ui/input/Input";
 import css from './TaskDetail.module.css';
+import Select from "../../ui/select/Select";
 
 const TaskDetail = () => {
 	const { taskId } = useParams();
@@ -46,6 +47,11 @@ const TaskDetail = () => {
 		tasksStore.changeTaskDetailDeleted(!tasksStore.taskDetail.isDeleted);
 	};
 
+	const selectOptions = Object.values(LIST_TYPES).map(list => ({
+		value: list,
+		label: LIST_COPY[list],
+	}));
+
 	return (
 		<div className={css.details_wrapper}>
 			<div className={css.details}>
@@ -57,12 +63,13 @@ const TaskDetail = () => {
 								<FaTimes className={css.details_close_btn}/>
 							</Link>
 						</div>
-						<select className={css.select} onBlur={changeStatus} onChange={handleChange} name='status'
-								value={localStatus}>
-							{Object.values(LIST_TYPES).map(list => {
-								return <option key={list} value={list}>{LIST_COPY[list]}</option>
-							})}
-						</select>
+						<Select
+							options={selectOptions}
+							value={localStatus}
+							onChange={handleChange}
+							onBlur={changeStatus}
+							name='status'
+						/>
 						<Input
 							type='textarea'
 							ref={descriptionRef}
