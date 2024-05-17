@@ -1,5 +1,5 @@
 import React from 'react';
-import Portal from "../Portal";
+import Portal from "../../components/Portal";
 import './PortalPage.scss';
 
 export const PortalPage: React.FC = () => {

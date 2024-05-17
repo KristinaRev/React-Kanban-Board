@@ -1,8 +1,8 @@
 import React from 'react';
 import { Routes, Route } from "react-router-dom";
-import Board from '../board/Board';
-import TaskDetail from '../task-detail/TaskDetail';
-import PortalPage from "../PortalPage";
+import Board from '../../pages/board/Board';
+import TaskDetail from '../../pages/task-detail/TaskDetail';
+import PortalPage from "../../pages/PortalPage";
 import { useFormSubmit } from "../../hooks/useFormSubmit";
 import css from './Main.module.css';
 import {ROUTES} from "../../routes";

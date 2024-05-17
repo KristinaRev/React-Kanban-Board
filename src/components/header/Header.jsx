@@ -6,7 +6,7 @@ import Portal from "../Portal";
 import {root} from "../Portal/Portal";
 import FormattedTitle from "../../ui/formatted-title/FormattedTitle";
 import './Header.scss';
-import css from "../task-detail/TaskDetail.module.css";
+import css from "../../pages/task-detail/TaskDetail.module.css";
 
 function Header({ onLogin, onLogout, user }) {
 	const [portalVisible, setPortalVisible] = useState(false);
