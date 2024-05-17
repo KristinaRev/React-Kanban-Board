@@ -4,8 +4,8 @@ import {createContext} from "react";
 export class RootStore {
     tasksStore = new TasksStore();
 }
-
-// контекст стора, создаем его один раз, чтобы не плодить разных провайдеров и создаем рут стор, в который будем добавлять остальные сторы
 export const StoreContext = createContext();
-
 export const StoreProvider = StoreContext.Provider
+
+
+//todo по возможности создать несколько юзеров, доска для задач будет для всех одна и так же сделать так чтоб можно было назначать ответственного над каждой задачей

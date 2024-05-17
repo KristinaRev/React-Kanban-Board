@@ -49,6 +49,8 @@ const Task = ({ id, index, title, status, moveTask}) => {
             </Button>
         </div>
     );
+
+    //todo добавить приоритет задачи
 };
 
 export default Task;

@@ -132,6 +132,8 @@ export class TasksStore {
             priority,
             created: new Date().toISOString(),
             status: 'backlog',
+            //todo добавить ожидаемое время на выполнение задачи
+            //todo добавить имя создателя задачи
         };
 
         fetch('http://localhost:3001/tasks', {
