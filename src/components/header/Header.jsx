@@ -4,7 +4,7 @@ import {NavLink} from "react-router-dom";
 import Login from "../Login/Login";
 import Portal from "../Portal";
 import {root} from "../Portal/Portal";
-import FormattedTitle from "../formatted-title/FormattedTitle";
+import FormattedTitle from "../../ui/formatted-title/FormattedTitle";
 import './Header.scss';
 import css from "../task-detail/TaskDetail.module.css";
 

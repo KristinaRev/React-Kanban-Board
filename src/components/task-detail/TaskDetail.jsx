@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useContext} from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { FaTimes } from 'react-icons/fa';
-import FormattedTitle from '../formatted-title/FormattedTitle';
+import FormattedTitle from '../../ui/formatted-title/FormattedTitle';
 import {StoreContext} from "../../stores/root.store";
 import {observer} from "mobx-react-lite";
 import {LIST_COPY, LIST_TYPES} from "../../config";

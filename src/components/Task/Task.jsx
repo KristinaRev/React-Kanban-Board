@@ -4,7 +4,7 @@ import { ItemTypes } from '../../ItemTypes';
 import { FaTimes } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import Button from "../../ui/button/Button";
-import FormattedTitle from "../formatted-title/FormattedTitle";
+import FormattedTitle from "../../ui/formatted-title/FormattedTitle";
 import css from './Task.module.css';
 import {StoreContext} from "../../stores/root.store";
 
