@@ -9,6 +9,7 @@ import {LIST_COPY, LIST_TYPES} from "../../config";
 
 const FormAddNewTask = () => {
 	const {tasksStore} = useContext(StoreContext);
+	const [showPrompt, setShowPrompt] = useState(false)
 
 	const handleChange = e => tasksStore.changeFormValue(e);
 	const formSubmit = async (e) => {
@@ -19,6 +20,7 @@ const FormAddNewTask = () => {
 		} else {
 			//todo
 			//вывести, что заголовок обязателен
+			setShowPrompt(true)
 		}
 	};
 
@@ -55,6 +57,13 @@ const FormAddNewTask = () => {
 				label='Описание задачи'
 			/>
 			<Button type='submit'>Add</Button>
+			{
+				showPrompt ? (
+					<span  className={css.error}>Введите название задачи</span>
+				) : (
+					''
+				)
+			}
 		</form>
 	);
 };
