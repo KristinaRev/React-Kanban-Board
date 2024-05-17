@@ -5,7 +5,8 @@ import FormattedTitle from '../formatted-title/FormattedTitle';
 import {StoreContext} from "../../stores/root.store";
 import {observer} from "mobx-react-lite";
 import {LIST_COPY, LIST_TYPES} from "../../config";
-import Button from "../button/Button";
+import Button from "../../ui/button/Button";
+import Input from "../../ui/input/Input";
 import css from './TaskDetail.module.css';
 
 const TaskDetail = () => {
@@ -37,7 +38,7 @@ const TaskDetail = () => {
 	};
 
 	const handleBtnClick = async () => {
-		if(!tasksStore.taskDetail.isDeleted) {
+		if (!tasksStore.taskDetail.isDeleted) {
 			await tasksStore.deleteTask(taskId);
 		} else {
 			await tasksStore.addTask(localTitle, localDescription, localStatus)
@@ -51,17 +52,19 @@ const TaskDetail = () => {
 				{tasksStore.taskDetail.title ? (
 					<>
 						<div className={css.details_header}>
-							<FormattedTitle title={tasksStore.taskDetail.title} className={css.title} />
+							<FormattedTitle title={tasksStore.taskDetail.title} className={css.title}/>
 							<Link to='/'>
-								<FaTimes className={css.details_close_btn} />
+								<FaTimes className={css.details_close_btn}/>
 							</Link>
 						</div>
-						<select className={css.select} onBlur={changeStatus} onChange={handleChange} name='status' value={localStatus}>
+						<select className={css.select} onBlur={changeStatus} onChange={handleChange} name='status'
+								value={localStatus}>
 							{Object.values(LIST_TYPES).map(list => {
 								return <option key={list} value={list}>{LIST_COPY[list]}</option>
 							})}
 						</select>
-						<textarea
+						<Input
+							type='textarea'
 							ref={descriptionRef}
 							className={css.details_description}
 							onChange={handleChange}
@@ -70,14 +73,16 @@ const TaskDetail = () => {
 							name='description'
 						/>
 						<Button type="button" onClick={handleBtnClick}>
-							<FormattedTitle title={tasksStore.taskDetail.isDeleted? 'Восстановить задачу' : 'Удалить задачу'} className="delete-btn"></FormattedTitle>
+							<FormattedTitle
+								title={tasksStore.taskDetail.isDeleted ? 'Восстановить задачу' : 'Удалить задачу'}
+								className="delete-btn"></FormattedTitle>
 						</Button>
 					</>
 				) : (
 					<div className={css.details_not_found}>
 						<h2 className={css.details_title}>Задача с ID {taskId} не найдена</h2>
 						<Link to='/'>
-							<FaTimes className={css.details_close_btn} />
+							<FaTimes className={css.details_close_btn}/>
 						</Link>
 					</div>
 				)}

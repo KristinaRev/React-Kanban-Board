@@ -1,0 +1,20 @@
+.input {
+    font-family: 'Lato', sans-serif;
+    display: block;
+    border: 1px solid #465671;
+    border-radius: 8px;
+    margin-bottom: 7px;
+    padding: 8px;
+    background: transparent;
+    resize: none;
+    color: black;
+    transition: .3s ease;
+}
+
+.input::placeholder {
+    color: #465671;
+}
+
+.input:hover {
+    border: 1px solid black;
+}

@@ -36,14 +36,7 @@
 }
 
 .details_description {
-	padding: 5px;
-	font-weight: 400;
-	font-size: 18px;
-	line-height: 21px;
-	max-width: 100%;
 	text-align: start;
-	border: none;
-	resize: none;
 	height: 100%;
 }
 .details_close_btn {
