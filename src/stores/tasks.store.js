@@ -7,6 +7,13 @@ export class TasksStore {
     }
     tasks = [];
 
+    taskStatuses = [
+        'low',
+        'medium',
+        'high',
+        'blocker'
+    ]
+
     taskDetail = {
         isDeleted: false,
         title: '',
@@ -17,7 +24,8 @@ export class TasksStore {
     taskForm = {
         isVisible: false,
         title: '',
-        description: ''
+        description: '',
+        priority: ''
     }
 
     getTasks = async () => {
@@ -92,13 +100,38 @@ export class TasksStore {
         }
     }
 
-    addTask = async (title, description, status) => {
+    updateTaskPriority = async (taskId, localPriority) => {
+        try {
+            this.tasks = this.tasks.map(task => {
+                if (task.id === taskId) {
+                    task.priority = localPriority;
+                }
+                return task;
+            });
+
+            const response = await fetch(`http://localhost:3001/tasks/${taskId}`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ priority: localPriority }),
+            });
+            if (!response.ok) {
+                throw new Error(`Ошибка: ${response.statusText}`);
+            }
+        } catch (error) {
+            console.error('Ошибка обновления приоритета задачи на сервере:', error.message);
+        }
+    }
+
+    addTask = async (title, description, priority) => {
         const newTask = {
             id: uniqid(),
             title,
             description,
+            priority,
             created: new Date().toISOString(),
-            status: status? status : 'backlog',
+            status: 'backlog',
         };
 
         fetch('http://localhost:3001/tasks', {
@@ -119,7 +152,8 @@ export class TasksStore {
         this.tasks = [...this.tasks, newTask];
         this.taskForm = {
             title: '',
-            description: ''
+            description: '',
+            priority: ''
         };
     }
 

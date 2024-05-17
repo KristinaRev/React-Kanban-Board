@@ -16,6 +16,7 @@ const TaskDetail = () => {
 	const localDescription = tasksStore.taskDetail.description;
 	const localStatus = tasksStore.taskDetail.status;
 	const localTitle = tasksStore.taskDetail.title;
+	const localPriority = tasksStore.taskDetail.priority;
 	const descriptionRef = useRef(null);
 
 	useEffect(() => {
@@ -38,6 +39,10 @@ const TaskDetail = () => {
 		await tasksStore.updateTaskStatus(taskId, localStatus);
 	};
 
+	const changePriority = async () => {
+		await tasksStore.updateTaskPriority(taskId, localPriority);
+	};
+
 	const handleBtnClick = async () => {
 		if (!tasksStore.taskDetail.isDeleted) {
 			await tasksStore.deleteTask(taskId);
@@ -50,6 +55,11 @@ const TaskDetail = () => {
 	const selectOptions = Object.values(LIST_TYPES).map(list => ({
 		value: list,
 		label: LIST_COPY[list],
+	}));
+
+	const taskStatuses = Object.values(tasksStore.taskStatuses).map(list => ({
+		value: list,
+		label: list,
 	}));
 
 	return (
@@ -69,6 +79,13 @@ const TaskDetail = () => {
 							onChange={handleChange}
 							onBlur={changeStatus}
 							name='status'
+						/>
+						<Select
+							options={taskStatuses}
+							value={localPriority}
+							onChange={handleChange}
+							onBlur={changePriority}
+							name='priority'
 						/>
 						<Input
 							type='textarea'

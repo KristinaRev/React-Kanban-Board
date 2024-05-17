@@ -5,7 +5,8 @@
       "title": "Добавить юнит тесты",
       "description": "Покрыть приложение юнит тестами",
       "created": "2023-12-24T17:39:03.929Z",
-      "status": "inProgress"
+      "status": "inProgress",
+      "priority": "high"
     },
     {
       "id": "lshie9w9",
@@ -33,7 +34,8 @@
       "title": "Покушать",
       "description": "",
       "created": "2024-03-05T09:42:51.239Z",
-      "status": "inProgress"
+      "status": "inProgress",
+      "priority": "medium"
     },
     {
       "id": "lw3rkhrb",
@@ -83,6 +85,22 @@
       "description": "",
       "created": "2024-05-13T13:55:20.824Z",
       "status": "done"
+    },
+    {
+      "id": "lwapvm7z",
+      "title": "wwwwwwwwwwwwww",
+      "description": "",
+      "priority": "w",
+      "created": "2024-05-17T13:30:08.063Z",
+      "status": "backlog"
+    },
+    {
+      "id": "lwaq8mcw",
+      "title": "s",
+      "description": "",
+      "priority": "high",
+      "created": "2024-05-17T13:40:14.767Z",
+      "status": "backlog"
     }
   ]
 }
