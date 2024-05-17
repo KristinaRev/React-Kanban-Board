@@ -6,6 +6,7 @@ import PortalPage from "../../pages/PortalPage";
 import { useFormSubmit } from "../../hooks/useFormSubmit";
 import css from './Main.module.css';
 import {ROUTES} from "../../routes";
+import Profile from "../../pages/profile/Profile";
 
 const Main = (props) => {
 	return (
@@ -14,6 +15,7 @@ const Main = (props) => {
 				<Route exact path={'/'} element={<Board {...props} />} />
 				<Route path={'/tasks/:taskId'} element={<TaskDetail {...props} />} />
 				<Route path={ROUTES.PORTAL} element={<PortalPage {...props} />}/>
+				<Route path={ROUTES.PROFILE} element={<Profile {...props} />} />
 			</Routes>
 		</main>
 	);

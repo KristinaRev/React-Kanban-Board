@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Button from "../../ui/button/Button";
 import UserAvatar from '../../assets/user-menu.png';
 import css from './Login.module.css';
+import {Link} from "react-router-dom";
 
 function useDelayUnmount(isMounted, delayTime) {
     const [showDiv, setShowDiv] = useState(false);
@@ -40,7 +41,7 @@ export default function Login({ user, onLogin, onLogout }) {
                     className={css.login_dropdown}
                     style={isMounted ? mountedcss : unmountedcss}
                 >
-                    <Button className={css.login_dropdown_button}>Profile</Button>
+                    <Link to={`/profile`} className={css.login_dropdown_button}>Profile</Link>
                     <Button className={css.login_dropdown_button} onClick={user ? onLogout : onLogin}>
                         {user ? "Log Out" : "Log In"}
                     </Button>
