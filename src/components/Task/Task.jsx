@@ -7,8 +7,9 @@ import Button from "../../ui/button/Button";
 import FormattedTitle from "../../ui/formatted-title/FormattedTitle";
 import css from './Task.module.css';
 import {StoreContext} from "../../stores/root.store";
+import Tag from "../../ui/tag/Tag";
 
-const Task = ({ id, index, title, status, moveTask}) => {
+const Task = ({ id, index, title, status, moveTask, priority}) => {
 
     const {tasksStore} = useContext(StoreContext);
 
@@ -40,17 +41,20 @@ const Task = ({ id, index, title, status, moveTask}) => {
 
     return (
         <div ref={node => drag(drop(node))} style={{ opacity }} className={css.task}>
-            <FormattedTitle title={title} />
-            <Link to={`/tasks/${id}`} className={css.taskDetailsButton}>
-                Detail
-            </Link>
-            <Button type="button" onClick={handleDelete} >
-                <FaTimes />
-            </Button>
+            <div className={css.task_top}>
+                <FormattedTitle title={title} className={css.title}/>
+                <Link to={`/tasks/${id}`} className={css.taskDetailsButton}>
+                    Detail
+                </Link>
+                <Button type="button" onClick={handleDelete} >
+                    <FaTimes />
+                </Button>
+            </div>
+            <div className={css.task_bottom}>
+                <Tag>{priority}</Tag>
+            </div>
         </div>
     );
-
-    //todo добавить приоритет задачи
 };
 
 export default Task;

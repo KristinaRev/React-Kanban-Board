@@ -58,6 +58,7 @@ const List = (props) => {
 						id={task.id}
 						title={task.title}
 						status={task.status}
+						priority={task.priority}
 						moveTask={task.status === type ? moveTask : moveTaskInsideList}
 					/>
 				))

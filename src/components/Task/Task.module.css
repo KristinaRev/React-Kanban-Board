@@ -8,8 +8,22 @@
     cursor: grab;
     font-weight: 500;
     display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+}
+
+.title {
+    max-width: calc(100% - 100px);
+    white-space: pre-wrap;
+    overflow: hidden;
+}
+
+.task_top, .task_bottom {
+    display: flex;
     align-items: center;
     gap: 4px;
+    width: 100%;
 }
 
 .taskLink {
