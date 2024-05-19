@@ -6,7 +6,7 @@
 
 .MyPortal {
   position: absolute;
-  top: 50%;
+  top: calc(50% - 115px);
   display: flex;
   align-items: center;
   justify-content: center;

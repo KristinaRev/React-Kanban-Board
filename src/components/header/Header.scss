@@ -61,14 +61,34 @@
 	right: 0;
 	margin: 0 auto;
 	padding: 40px;
-	height: 230px;
 	width: min(760px, 100vw);
 	box-shadow: 8px 12px 15px 0 rgba(0, 0, 0, 0.25);
 	background-color: #0079bf;
 	border-radius: 2px;
 }
 
+.Auth {
+	position: absolute;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	left: 0;
+	right: 0;
+	margin: 0 auto;
+	padding: 40px;
+	width: min(760px, 100vw);
+	box-shadow: 8px 12px 15px 0 rgba(0, 0, 0, 0.25);
+	background-color: white;
+	border-radius: 8px;
+}
+
 .Title {
 	font-weight: 700;
 	color: white;
+}
+
+.form {
+	background: white;
+	padding: 20px;
+	border-radius: 8px;
 }

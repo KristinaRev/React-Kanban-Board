@@ -41,6 +41,7 @@ export default function Login({ user, onLogin, onLogout }) {
                     className={css.login_dropdown}
                     style={isMounted ? mountedcss : unmountedcss}
                 >
+                    //todo стилизовать ссылку
                     <Link to={`/profile`} className={css.login_dropdown_button}>Profile</Link>
                     <Button className={css.login_dropdown_button} onClick={user ? onLogout : onLogin}>
                         {user ? "Log Out" : "Log In"}

@@ -18,8 +18,6 @@ const FormAddNewTask = () => {
 			await tasksStore.addTask(tasksStore.taskForm.title, tasksStore.taskForm.description, tasksStore.taskForm.priority);
 			tasksStore.changeFormVisible(false);
 		} else {
-			//todo
-			//вывести, что заголовок обязателен
 			setShowPrompt(true)
 		}
 	};

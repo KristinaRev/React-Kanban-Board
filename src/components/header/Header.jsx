@@ -1,24 +1,36 @@
 import React, {memo, useEffect, useState} from 'react';
-import {ROUTES} from "../../routes";
-import {NavLink} from "react-router-dom";
 import Login from "../Login/Login";
 import Portal from "../Portal";
 import {root} from "../Portal/Portal";
 import FormattedTitle from "../../ui/formatted-title/FormattedTitle";
+import Button from "../../ui/button/Button";
+import UserLogin from "../user-login/UserLogin";
+import Register from "../register/Register";
 import './Header.scss';
-import css from "../../pages/task-detail/TaskDetail.module.css";
 
-function Header({ onLogin, onLogout, user }) {
+function Header({onLogin, onLogout, user}) {
 	const [portalVisible, setPortalVisible] = useState(false);
+	const [loginVisible, setLoginVisible] = useState(false);
+	const [regVisible, setRegVisible] = useState(false);
 
 	const handleWelcomeClick = () => {
 		setPortalVisible(true);
 	};
 
+	const handleLoginClick = () => {
+		setLoginVisible(true);
+	}
+
+	const handleRegClick = () => {
+		setRegVisible(true);
+	}
+
 	useEffect(() => {
 		function handleClickOutside(event) {
 			if (root && !root.contains(event.target)) {
 				setPortalVisible(false);
+				setLoginVisible(false);
+				setRegVisible(false);
 			}
 		}
 
@@ -28,16 +40,30 @@ function Header({ onLogin, onLogout, user }) {
 		};
 	}, []);
 
+	//todo вынести из хедера регистрацию и вход в компонент Login
+
 	return (
 		<header className="header">
 			<h1 className="header_title">Awesome Kanban Board</h1>
-			{user
-				? <p className="header_user" onClick={handleWelcomeClick}>Welcome, {user}!</p>
-				: ''}
+			<Button onClick={handleLoginClick}>Вход</Button>
+			<Button onClick={handleRegClick}>Регистрация</Button>
+			{user && (
+				<p className="header_user" onClick={handleWelcomeClick}>Welcome, {user}!</p>
+			)}
 			<Login onLogin={onLogin} onLogout={onLogout} user={user}/>
 			{portalVisible && (
-				<Portal className="MyPortal" element="span" >
-					<FormattedTitle title='Have a good day!' className="Title" />
+				<Portal className="MyPortal" element="span">
+					<FormattedTitle title='Have a good day!' className="Title"/>
+				</Portal>
+			)}
+			{loginVisible && (
+				<Portal className="MyPortal">
+					<UserLogin className="form"></UserLogin>
+				</Portal>
+			)}
+			{regVisible && (
+				<Portal className="MyPortal">
+					<Register className="form"></Register>
 				</Portal>
 			)}
 		</header>
