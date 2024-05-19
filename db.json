@@ -13,7 +13,8 @@
       "title": "Что-то сделать",
       "description": "Do somethinggfgfgfdgdfgdfgggfdf",
       "created": "2024-02-11T12:56:15.513Z",
-      "status": "done"
+      "status": "done",
+      "priority": "high"
     },
     {
       "id": "lshieb91",
@@ -34,73 +35,8 @@
       "title": "Покушать",
       "description": "",
       "created": "2024-03-05T09:42:51.239Z",
-      "status": "inProgress",
+      "status": "ready",
       "priority": "medium"
-    },
-    {
-      "id": "lw3rkhrb",
-      "title": "fgrdhfdhfdhdghghgdhgfhgfhgfhfff",
-      "description": "",
-      "created": "2024-05-12T16:43:05.062Z",
-      "status": "ready"
-    },
-    {
-      "id": "lw50ydl0",
-      "title": "ы",
-      "description": "xccxzcvdvdz",
-      "created": "2024-05-13T13:53:35.555Z",
-      "status": "done"
-    },
-    {
-      "id": "lw50yumz",
-      "title": "w",
-      "description": "",
-      "created": "2024-05-13T13:53:57.658Z",
-      "status": "done"
-    },
-    {
-      "id": "lw50z1te",
-      "title": "w",
-      "description": "",
-      "created": "2024-05-13T13:54:06.962Z",
-      "status": "done"
-    },
-    {
-      "id": "lw510l48",
-      "title": "w",
-      "description": "",
-      "created": "2024-05-13T13:55:18.632Z",
-      "status": "done"
-    },
-    {
-      "id": "lw510m1w",
-      "title": "w",
-      "description": "",
-      "created": "2024-05-13T13:55:19.844Z",
-      "status": "done"
-    },
-    {
-      "id": "lw510mt4",
-      "title": "w",
-      "description": "",
-      "created": "2024-05-13T13:55:20.824Z",
-      "status": "done"
-    },
-    {
-      "id": "lwapvm7z",
-      "title": "wwwwwwwwwwwwww",
-      "description": "",
-      "priority": "w",
-      "created": "2024-05-17T13:30:08.063Z",
-      "status": "backlog"
-    },
-    {
-      "id": "lwaq8mcw",
-      "title": "s",
-      "description": "",
-      "priority": "high",
-      "created": "2024-05-17T13:40:14.767Z",
-      "status": "backlog"
     }
   ]
 }
