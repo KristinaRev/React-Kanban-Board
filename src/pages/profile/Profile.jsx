@@ -3,6 +3,7 @@ import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import css from './Profile.module.css';
 import {Link} from "react-router-dom";
+import {observer} from "mobx-react-lite";
 
 const Profile = () => {
 
@@ -16,7 +17,7 @@ const Profile = () => {
     );
 };
 
-export default Profile;
+export default observer(Profile);
 
 //todo выводить инфо по юзеру
 //todo добавить метод удаления профиля

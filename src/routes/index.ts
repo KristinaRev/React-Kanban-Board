@@ -1,4 +1,6 @@
 export const ROUTES = {
     PORTAL: '/portal',
-    PROFILE: '/profile'
+    PROFILE: '/profile',
+    REGISTRATION: '/reg',
+    AUTHORIZATION: '/auth'
 }

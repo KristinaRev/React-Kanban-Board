@@ -17,7 +17,6 @@ const UserLogin = () => {
 
     return (
         <div className="Login">
-            <h2>Войдите в свою учетную запись</h2>
             <form onSubmit={formSubmit} className="form">
                 <Input
                     id='userLogin'
@@ -37,7 +36,7 @@ const UserLogin = () => {
                     value={usersStore.userLoginForm.password}
                     label='Пароль'
                 />
-                <button type="submit">Войти</button>
+                <Button type="submit">Войти</Button>
             </form>
             <Button>Регистрация</Button>
         </div>

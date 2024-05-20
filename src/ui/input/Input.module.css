@@ -8,6 +8,7 @@
     resize: none;
     color: black;
     transition: .3s ease;
+    width: 100%;
 }
 
 .input::placeholder {

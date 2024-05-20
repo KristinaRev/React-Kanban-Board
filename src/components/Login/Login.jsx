@@ -50,4 +50,4 @@ export default function Login({ user, onLogin, onLogout }) {
             )}
         </div>
     );
-}//todo стилизовать ссылку
+}

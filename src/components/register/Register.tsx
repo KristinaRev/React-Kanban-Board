@@ -25,7 +25,6 @@ const Register = () => {
 
     return (
         <div className="Register">
-            <h2>Регистрация</h2>
             <form onSubmit={formSubmit} className="form">
                 <Input
                     id='userLogin'
@@ -54,7 +53,7 @@ const Register = () => {
                     value={usersStore.userLoginForm.fullName}
                     label='Имя'
                 />
-                <button type="submit">Зарегистрироваться</button>
+                <Button type="submit">Зарегистрироваться</Button>
             </form>
             <Button>Войти</Button>
         </div>
