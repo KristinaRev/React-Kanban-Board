@@ -9,9 +9,7 @@ const Profile = () => {
     return (
         <DndProvider backend={HTML5Backend}>
             <div className={css.profile}>
-                <span>Profile</span>
-                //todo выводить инфо по юзеру
-                //todo добавить метод удаления профиля
+                <h1>Profile</h1>
                 <Link to="/" className={css.link}>Назад к задачам</Link>
             </div>
         </DndProvider>
@@ -19,3 +17,6 @@ const Profile = () => {
 };
 
 export default Profile;
+
+//todo выводить инфо по юзеру
+//todo добавить метод удаления профиля

@@ -51,3 +51,5 @@ function App() {
 }
 
 export default observer(App);
+
+//todo сохранить в локал сторедж актив
