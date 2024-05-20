@@ -132,7 +132,7 @@ export class TasksStore {
             priority,
             created: new Date().toISOString(),
             status: 'backlog',
-            //todo добавить ожидаемое время на выполнение задачи
+            //todo добавить ожидаемое время на выполнение задачи expectedTime: '',
             //todo добавить имя создателя задачи
         };
 

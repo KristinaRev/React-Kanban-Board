@@ -10,5 +10,4 @@ export const StoreContext = createContext();
 export const StoreProvider = StoreContext.Provider
 
 
-// todo по возможности создать несколько юзеров, доска для задач будет для всех одна
 // todo сделать так чтоб можно было назначать ответственного над каждой задачей
