@@ -18,7 +18,8 @@ export class TasksStore {
         isDeleted: false,
         title: '',
         description: '',
-        status: ''
+        status: '',
+        responsiblePerson: ''
     }
 
     taskForm = {
@@ -100,6 +101,27 @@ export class TasksStore {
         }
     }
 
+    updateTaskResponsiblePerson = async (taskId, newResponsiblePerson) => {
+        const taskToUpdate = this.tasks.find(task => task.id === taskId);
+        taskToUpdate.status = newResponsiblePerson
+        this.tasks = [...this.tasks]
+        if (taskToUpdate) {
+            fetch(`http://localhost:3001/tasks/${taskId}`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ responsiblePerson: newResponsiblePerson }),
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Ошибка: ${response.statusText}`);
+                    }
+                })
+                .catch(error => console.error('Ответственный человек не обновлен:', error.message));
+        }
+    }
+
     updateTaskPriority = async (taskId, localPriority) => {
         try {
             this.tasks = this.tasks.map(task => {
@@ -132,6 +154,7 @@ export class TasksStore {
             priority,
             created: new Date().toISOString(),
             status: 'backlog',
+            responsiblePerson: ''
             //todo добавить ожидаемое время на выполнение задачи expectedTime: '',
             //todo добавить имя создателя задачи
         };

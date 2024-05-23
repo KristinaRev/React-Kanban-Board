@@ -12,11 +12,12 @@ import Select from "../../ui/select/Select";
 
 const TaskDetail = () => {
 	const { taskId } = useParams();
-	const {tasksStore} = useContext(StoreContext);
+	const {tasksStore, usersStore} = useContext(StoreContext);
 	const localDescription = tasksStore.taskDetail.description;
 	const localStatus = tasksStore.taskDetail.status;
 	const localTitle = tasksStore.taskDetail.title;
 	const localPriority = tasksStore.taskDetail.priority;
+	const localResponsiblePerson = tasksStore.taskDetail.responsiblePerson;
 	const descriptionRef = useRef(null);
 
 	useEffect(() => {
@@ -43,6 +44,10 @@ const TaskDetail = () => {
 		await tasksStore.updateTaskPriority(taskId, localPriority);
 	};
 
+	const changeResponsiblePerson = async () => {
+		await tasksStore.updateTaskResponsiblePerson(taskId, localResponsiblePerson);
+	};
+
 	const handleBtnClick = async () => {
 		if (!tasksStore.taskDetail.isDeleted) {
 			await tasksStore.deleteTask(taskId);
@@ -60,6 +65,11 @@ const TaskDetail = () => {
 	const taskPriorities = Object.values(tasksStore.taskPriorities).map(list => ({
 		value: list,
 		label: list,
+	}));
+
+	const responsiblePeople = Object.values(usersStore.users).map(list => ({
+		value: list.fullName,
+		label: list.fullName,
 	}));
 
 	return (
@@ -86,6 +96,13 @@ const TaskDetail = () => {
 							onChange={handleChange}
 							onBlur={changePriority}
 							name='priority'
+						/>
+						<Select
+							options={responsiblePeople}
+							value={localResponsiblePerson}
+							onChange={handleChange}
+							onBlur={changeResponsiblePerson}
+							name='responsiblePerson'
 						/>
 						<Input
 							type='textarea'

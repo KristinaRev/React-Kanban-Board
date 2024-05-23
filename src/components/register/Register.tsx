@@ -16,7 +16,7 @@ const Register = () => {
         e.preventDefault();
         if (usersStore.userRegForm.login && usersStore.userRegForm.password && usersStore.userRegForm.fullName) {
             await usersStore.addUser(usersStore.userRegForm.login, usersStore.userRegForm.password, usersStore.userRegForm.fullName);
-            //todo вывести окно, что успешно зарегистрировался
+            // todo вывести окно, что успешно зарегистрировался
         } else {
             setShowPrompt(true)
             // todo добавить подсказки

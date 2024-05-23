@@ -6,10 +6,8 @@ const Select = (props) => {
     return (
         <>
             {
-                props.label ?   (
+                props.label && (
                     <label>{props.label}</label>
-                ) : (
-                    ''
                 )
             }
             <select className={css.select} {...props}>
