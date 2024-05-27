@@ -1,9 +1,9 @@
 import React, {useState, useEffect, useMemo, useCallback, useContext} from 'react';
-import { BrowserRouter } from 'react-router-dom';
+import {BrowserRouter} from 'react-router-dom';
 import Header from './components/header/Header';
 import Footer from './components/footer/Footer';
 import Main from './components/main/Main';
-import { countTask } from "./utils";
+import {countTask} from "./utils";
 import './App.css';
 import {observer} from "mobx-react-lite";
 import {StoreContext} from "./stores/root.store";
@@ -11,15 +11,14 @@ import {StoreContext} from "./stores/root.store";
 function App() {
     const storedUser = JSON.parse(window.localStorage.getItem('user'));
     const [user, setUser] = useState(storedUser || null);
-    const [tasks, setTasks] = useState([]);
 
-    const {tasksStore} = useContext(StoreContext)
+    const {tasksStore} = useContext(StoreContext);
 
     useEffect(() => {
-        if(user) {
-            tasksStore.getTasks()
+        if (user) {
+            tasksStore.getTasks();
         }
-    }, [user]);
+    }, [user, tasksStore]);
 
     const handleLogin = useCallback(() => {
         const USER_NAME_TO_LOGIN = 'SPIKS';
@@ -29,7 +28,6 @@ function App() {
     const handleLogout = useCallback(() => {
         window.localStorage.removeItem('user');
         setUser(null);
-        setTasks([]);
     }, []);
 
     const resultCountTask = useMemo(() => countTask(tasksStore.tasks), [tasksStore.tasks]);
@@ -37,8 +35,8 @@ function App() {
     return (
         <BrowserRouter>
             <div>
-                <Header user={user} onLogin={handleLogin} onLogout={handleLogout} />
-                <Main user={user} tasks={tasks} setTasks={setTasks} />
+                <Header user={user} onLogin={handleLogin} onLogout={handleLogout}/>
+                <Main user={user} tasks={tasksStore.tasks} setTasks={tasksStore.setTasks}/>
                 <Footer
                     backlogCount={resultCountTask.backlog}
                     doneCount={resultCountTask.done}
