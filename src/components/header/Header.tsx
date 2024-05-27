@@ -5,28 +5,32 @@ import {root} from "../Portal/Portal";
 import FormattedTitle from "../../ui/formatted-title/FormattedTitle";
 import './Header.scss';
 
-function Header({onLogin, onLogout, user}) {
+type HeaderProps = {
+	onLogin: () => void;
+	onLogout: () => void;
+	user: string | null;
+};
+
+const Header: React.FC<HeaderProps> = ({onLogin, onLogout, user}) => {
 	const [portalVisible, setPortalVisible] = useState(false);
 
 	const handleWelcomeClick = () => {
 		setPortalVisible(true);
 	};
 
-
 	useEffect(() => {
-		function handleClickOutside(event) {
-			if (root && !root.contains(event.target)) {
+		const handleClickOutside = (e: MouseEvent) => {
+			// Проверка на наличие root и e.target
+			if (root && e.target instanceof Node && !root.contains(e.target)) {
 				setPortalVisible(false);
 			}
-		}
+		};
 
 		document.addEventListener('mousedown', handleClickOutside);
 		return () => {
 			document.removeEventListener('mousedown', handleClickOutside);
 		};
 	}, []);
-
-
 
 	return (
 		<header className="header">
