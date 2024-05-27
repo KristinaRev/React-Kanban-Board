@@ -5,7 +5,7 @@
       "title": "Добавить юнит тесты",
       "description": "Покрыть приложение юнит тестами",
       "created": "2023-12-24T17:39:03.929Z",
-      "status": "inProgress",
+      "status": "ready",
       "priority": "high"
     },
     {
@@ -28,7 +28,7 @@
       "title": "Что-то не сделать",
       "description": "",
       "created": "2024-02-11T13:32:33.642Z",
-      "status": "ready"
+      "status": "backlog"
     },
     {
       "id": "lte6m5bc",
@@ -52,7 +52,7 @@
       "description": "",
       "priority": "",
       "created": "2024-05-19T10:14:01.328Z",
-      "status": "backlog"
+      "status": "inProgress"
     },
     {
       "id": "lwp1cieh",
@@ -60,7 +60,7 @@
       "description": "thtrutr",
       "priority": "",
       "created": "2024-05-27T13:59:58.504Z",
-      "status": "backlog"
+      "status": "inProgress"
     }
   ],
   "users": [
