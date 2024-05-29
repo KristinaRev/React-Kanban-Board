@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import {FC, useContext} from 'react';
 import { useTransition, animated } from 'react-spring';
 import { useDrop } from 'react-dnd';
 import { LIST_TYPES } from '../../config';
@@ -16,14 +16,14 @@ interface TaskType {
 	priority: string;
 }
 
-interface Props {
+interface ListProps {
 	type: string;
 	title: string;
 	tasks: TaskType[];
 	user: any;
 }
 
-const List: React.FC<Props> = (props) => {
+const List: FC<ListProps> = (props) => {
 	const { type, title, tasks, user } = props;
 	const { tasksStore } = useContext(StoreContext);
 
@@ -41,7 +41,7 @@ const List: React.FC<Props> = (props) => {
 
 	const [, drop] = useDrop({
 		accept: ItemTypes.TASK,
-		drop: (item) => moveTask((item as { id: string }).id, type),
+		drop: (item: { id: string }) => moveTask(item.id, type),
 	});
 
 	const transitions = useTransition(tasksStore.taskForm.isVisible, {

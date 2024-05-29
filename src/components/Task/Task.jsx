@@ -1,4 +1,4 @@
-import React, {useContext, useMemo} from "react";
+import {useContext} from "react";
 import { useDrag, useDrop } from 'react-dnd';
 import { ItemTypes } from '../../ItemTypes';
 import { FaTimes } from 'react-icons/fa';

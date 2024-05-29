@@ -1,4 +1,4 @@
-import React, {memo, useEffect, useState} from 'react';
+import {FC, memo, useEffect, useState} from 'react';
 import Login from "../Login/Login";
 import Portal from "../Portal";
 import {root} from "../Portal/Portal";
@@ -11,7 +11,7 @@ type HeaderProps = {
 	user: string | null;
 };
 
-const Header: React.FC<HeaderProps> = ({onLogin, onLogout, user}) => {
+const Header: FC<HeaderProps> = ({onLogin, onLogout, user}) => {
 	const [portalVisible, setPortalVisible] = useState(false);
 
 	const handleWelcomeClick = () => {

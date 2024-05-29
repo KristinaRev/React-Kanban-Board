@@ -1,4 +1,4 @@
-import React from 'react';
+import {FC, memo} from 'react';
 import { observer } from "mobx-react-lite";
 import './Footer.scss';
 
@@ -9,7 +9,7 @@ interface FooterProps {
 	readyCount: number;
 }
 
-const Footer: React.FC<FooterProps> = ({ backlogCount, doneCount, inProgressCount, readyCount }) => {
+const Footer: FC<FooterProps> = ({ backlogCount, doneCount, inProgressCount, readyCount }) => {
 	return (
 		<footer className="footer">
 			<div className="counts">
@@ -33,4 +33,4 @@ const Footer: React.FC<FooterProps> = ({ backlogCount, doneCount, inProgressCoun
 	);
 }
 
-export default React.memo(observer(Footer));
+export default memo(observer(Footer));
