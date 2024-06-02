@@ -5,16 +5,10 @@ const Select = (props) => {
     const {options} = props;
     return (
         <>
-            {
-                props.label ?   (
-                    <label>{props.label}</label>
-                ) : (
-                    ''
-                )
-            }
+            {props.label && <label>{props.label}</label>}
             <select className={css.select} {...props}>
-                {options.map(option => (
-                    <option key={option.value} value={option.value}>
+                {options.map((option, index) => (
+                    <option key={`${option.value}-${index}`} value={option.value}>
                         {option.label}
                     </option>
                 ))}
@@ -22,5 +16,6 @@ const Select = (props) => {
         </>
     );
 };
+
 export default Select;
 

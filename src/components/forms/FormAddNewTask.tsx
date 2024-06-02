@@ -1,7 +1,7 @@
-import React, { FC, useContext, useState, ChangeEvent, FormEvent } from 'react';
+import React, {FC, useContext, useState, ChangeEvent, FormEvent} from 'react';
 import Button from '../../ui/button/Button';
-import { StoreContext } from '../../stores/root.store';
-import { observer } from 'mobx-react-lite';
+import {StoreContext} from '../../stores/root.store';
+import {observer} from 'mobx-react-lite';
 import Input from '../../ui/input/Input';
 import Select from '../../ui/select/Select';
 import './Forms.scss';
@@ -17,7 +17,7 @@ interface TaskPriority {
 }
 
 const FormAddNewTask: FC = () => {
-	const { tasksStore } = useContext(StoreContext);
+	const {tasksStore} = useContext(StoreContext);
 	const [showPrompt, setShowPrompt] = useState<boolean>(false);
 
 	const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
@@ -38,9 +38,12 @@ const FormAddNewTask: FC = () => {
 		}
 	};
 
-	const taskPriorities: TaskPriorities[] = Object.values<TaskPriority>(tasksStore.taskPriorities).map((list) => ({
-		value: list.value,
-		label: list.label,
+	const taskPriorities: {
+		label: TaskPriority;
+		value: TaskPriority
+	}[] = Object.values<TaskPriority>(tasksStore.taskPriorities).map((list) => ({
+		value: list,
+		label: list,
 	}));
 
 	return (
