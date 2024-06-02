@@ -6,3 +6,6 @@ declare module '*.module.css' {
 declare module 'uniqid' {
     export default function uniqid(prefix?: string, suffix?: string): string;
 }
+
+declare module "*.jpg";
+declare module "*.png";
