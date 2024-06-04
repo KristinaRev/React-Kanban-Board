@@ -7,8 +7,8 @@ const Select = (props) => {
         <>
             {props.label && <label>{props.label}</label>}
             <select className={css.select} {...props}>
-                {options.map((option, index) => (
-                    <option key={`${option.value}-${index}`} value={option.value}>
+                {options.map((option) => (
+                    <option key={option.value} value={option.value}>
                         {option.label}
                     </option>
                 ))}
