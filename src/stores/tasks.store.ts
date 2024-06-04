@@ -1,11 +1,35 @@
 import {makeAutoObservable} from "mobx";
 import uniqid from "uniqid";
+import { ChangeEvent } from "react";
+
+interface Task {
+    id: string;
+    title: string;
+    description: string;
+    priority: string;
+    created: string;
+    status: string;
+}
+
+interface TaskDetail {
+    isDeleted?: boolean;
+    title: string;
+    description: string;
+    status: string;
+}
+
+interface TaskForm {
+    isVisible?: boolean;
+    title: string;
+    description: string;
+    priority: string;
+}
 
 export class TasksStore {
     constructor() {
         makeAutoObservable(this)
     }
-    tasks = [];
+    tasks: Task[] = [];
 
     taskPriorities = [
         'low',
@@ -21,14 +45,14 @@ export class TasksStore {
         status: ''
     }
 
-    taskForm = {
+    taskForm: TaskForm = {
         isVisible: false,
         title: '',
         description: '',
         priority: ''
     }
 
-    getTasks = async () => {
+    getTasks = async (): Promise<void> => {
         try {
             const response = await fetch(`http://localhost:3001/tasks`);
             if (!response.ok) {
@@ -36,11 +60,15 @@ export class TasksStore {
             }
             this.tasks = await response.json();
         } catch (error) {
-            console.error('Ошибка при получении задач:', error.message);
+            if (error instanceof Error) {
+                console.error('Ошибка при получении задач:', error.message);
+            } else {
+                console.error('Ошибка при получении задач:', error);
+            }
         }
     }
 
-    getTask = async (taskId) => {
+    getTask = async (taskId: string): Promise<void> => {
         try {
             const response = await fetch(`http://localhost:3001/tasks/${taskId}`);
             if (!response.ok) {
@@ -48,11 +76,15 @@ export class TasksStore {
             }
            this.taskDetail = await response.json();
         } catch (error) {
-            console.error('Невозможно получить задачу:', error.message);
+            if (error instanceof Error) {
+                console.error('Невозможно получить задачу:', error.message);
+            } else {
+                console.error('Невозможно получить задачу:', error);
+            }
         }
     }
 
-    updateTaskDescription = async (taskId, localDescription) => {
+    updateTaskDescription = async (taskId: string, localDescription: string): Promise<void> => {
         try {
             this.tasks = this.tasks.map(task => {
                 if (task.id === taskId) {
@@ -72,11 +104,15 @@ export class TasksStore {
                 throw new Error(`Ошибка: ${response.statusText}`);
             }
         } catch (error) {
-            console.error('Ошибка обновления описания задачи на сервере:', error.message);
+            if (error instanceof Error) {
+                console.error('Ошибка обновления описания задачи на сервере:', error.message);
+            } else {
+                console.error('Ошибка обновления описания задачи на сервере:', error);
+            }
         }
     }
 
-    updateTaskStatus = async (taskId, localStatus) => {
+    updateTaskStatus = async (taskId: string, localStatus: string): Promise<void> => {
         try {
             this.tasks = this.tasks.map(task => {
                 if (task.id === taskId) {
@@ -96,11 +132,15 @@ export class TasksStore {
                 throw new Error(`Ошибка: ${response.statusText}`);
             }
         } catch (error) {
-            console.error('Ошибка обновления статуса задачи на сервере:', error.message);
+            if (error instanceof Error) {
+                console.error('Ошибка обновления статуса задачи на сервере:', error.message);
+            } else {
+                console.error('Ошибка обновления статуса задачи на сервере:', error);
+            }
         }
     }
 
-    updateTaskPriority = async (taskId, localPriority) => {
+    updateTaskPriority = async (taskId:string, localPriority:string): Promise<void> => {
         try {
             this.tasks = this.tasks.map(task => {
                 if (task.id === taskId) {
@@ -120,11 +160,15 @@ export class TasksStore {
                 throw new Error(`Ошибка: ${response.statusText}`);
             }
         } catch (error) {
-            console.error('Ошибка обновления приоритета задачи на сервере:', error.message);
+            if (error instanceof Error) {
+                console.error('Ошибка обновления приоритета задачи на сервере:', error.message);
+            } else {
+                console.error('Ошибка обновления приоритета задачи на сервере:', error);
+            }
         }
     }
 
-    addTask = async (title, description, priority) => {
+    addTask = async (title:string, description:string, priority:string) => {
         const newTask = {
             id: uniqid(),
             title,
@@ -159,15 +203,15 @@ export class TasksStore {
         };
     }
 
-    changeFormValue = (e) => {
+    changeFormValue = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>): void => {
         this.taskForm = ({...this.taskForm, [e.target.name]: e.target.value})
     }
 
-    changeTaskDetailsValue = (e) => {
+    changeTaskDetailsValue = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>):void => {
         this.taskDetail = ({...this.taskDetail, [e.target.name]: e.target.value})
     }
 
-    deleteTask = async (taskId) => {
+    deleteTask = async (taskId: string): Promise<void> => {
         this.tasks = this.tasks.filter(task => task.id !== taskId);
 
         fetch(`http://localhost:3001/tasks/${taskId}`, {
@@ -182,22 +226,22 @@ export class TasksStore {
             .catch(error => console.error('Ошибка удаления задачи на сервере:', error.message))
     }
 
-    replaceListTasks = (dragIndex, hoverIndex) => {
+    replaceListTasks = (dragIndex: number, hoverIndex:number):void => {
         const updatedTasks = [...this.tasks];
         const [draggedTask] = updatedTasks.splice(dragIndex, 1);
         updatedTasks.splice(hoverIndex, 0, draggedTask);
         this.tasks = updatedTasks;
     }
 
-    changeFormVisible = (isVisible) => {
+    changeFormVisible = (isVisible: boolean): void => {
         this.taskForm.isVisible = isVisible;
     }
 
-    changeTaskDetailDeleted = (isDeleted ) => {
+    changeTaskDetailDeleted = (isDeleted: boolean ): void => {
         this.taskDetail.isDeleted = isDeleted;
     }
 
-    changeTaskStatus = async (taskId, newStatus) => {
+    changeTaskStatus = async (taskId:string, newStatus: string): Promise<void> => {
         // this.tasks = this.tasks.map(task => task.id === taskId ? {...task, status: newStatus} : task);
         // const taskToUpdate = this.tasks.find(task => task.id === taskId);
 
@@ -206,9 +250,11 @@ export class TasksStore {
         // this.tasks[taskIndex] = {...task, status: newStatus}
 
         const taskToUpdate = this.tasks.find(task => task.id === taskId);
-        taskToUpdate.status = newStatus
-        this.tasks = [...this.tasks]
+
         if (taskToUpdate) {
+            taskToUpdate.status = newStatus
+            this.tasks = [...this.tasks]
+
             fetch(`http://localhost:3001/tasks/${taskId}`, {
                 method: 'PATCH',
                 headers: {

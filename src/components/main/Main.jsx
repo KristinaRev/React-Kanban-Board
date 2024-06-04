@@ -1,4 +1,3 @@
-import React from 'react';
 import { Routes, Route } from "react-router-dom";
 import Board from '../../pages/board/Board';
 import TaskDetail from '../../pages/task-detail/TaskDetail';

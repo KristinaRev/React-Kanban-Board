@@ -4,6 +4,7 @@
 	flex-direction: column;
 	gap: 8px;
 	position: relative;
+	align-items: self-start;
 }
 
 .form label {
@@ -16,8 +17,8 @@
 	color: firebrick;
 	font-size: 12px;
 	position: absolute;
-	left: 0;
-	bottom: 0;
+	left: 20px;
+	bottom: 20px;
 }
 
 

@@ -1,38 +1,47 @@
-import React, {useState, useCallback, useMemo, useContext} from 'react';
+import {FC, useContext} from 'react';
 import { useTransition, animated } from 'react-spring';
-import { useDrag, useDrop } from 'react-dnd';
+import { useDrop } from 'react-dnd';
 import { LIST_TYPES } from '../../config';
 import { ItemTypes } from '../../ItemTypes';
 import FormAddNewTask from '../forms/FormAddNewTask';
 import Task from "../Task/Task";
-import css from './List.module.css';
-import {StoreContext} from "../../stores/root.store";
-import {observer} from "mobx-react-lite";
+import { StoreContext } from "../../stores/root.store";
+import { observer } from "mobx-react-lite";
+import './List.scss';
 
-const List = (props) => {
+interface TaskType {
+	id: string;
+	title: string;
+	status: string;
+	priority: string;
+}
+
+interface ListProps {
+	type: string;
+	title: string;
+	tasks: TaskType[];
+	user: any;
+}
+
+const List: FC<ListProps> = (props) => {
 	const { type, title, tasks, user } = props;
-	const {tasksStore} = useContext(StoreContext);
+	const { tasksStore } = useContext(StoreContext);
 
 	const handleAddNewClick = () => {
 		tasksStore.changeFormVisible(!tasksStore.taskForm.isVisible);
 	}
 
-	const moveTask = async (taskId, newStatus) => {
+	const moveTask = async (taskId: string, newStatus: string) => {
 		await tasksStore.changeTaskStatus(taskId, newStatus);
 	};
 
-	const moveTaskInsideList = (dragIndex, hoverIndex) => {
+	const moveTaskInsideList = (dragIndex: number, hoverIndex: number) => {
 		tasksStore.replaceListTasks(dragIndex, hoverIndex);
 	};
 
-	// 	// Сортировка задач по названию
-	// const sortedTasks = useMemo(() => {
-	// 	return tasks.sort((a, b) => a.title.localeCompare(b.title));
-	// }, [tasks]);
-
 	const [, drop] = useDrop({
 		accept: ItemTypes.TASK,
-		drop: (item) => moveTask(item.id, type),
+		drop: (item: { id: string }) => moveTask(item.id, type),
 	});
 
 	const transitions = useTransition(tasksStore.taskForm.isVisible, {
@@ -40,7 +49,7 @@ const List = (props) => {
 		enter: { opacity: 1 },
 		leave: { opacity: 0 },
 		config: { duration: 500 },
-		onDestroyed: (isVisible) => {
+		onDestroyed: (isVisible: boolean) => {
 			if (!isVisible) {
 				tasksStore.changeFormVisible(true);
 			}
@@ -48,8 +57,8 @@ const List = (props) => {
 	});
 
 	return (
-		<div ref={drop} className={css.list}>
-			<h2 className={css.listTitle}>{title}</h2>
+		<div ref={drop} className="list">
+			<h2 className="listTitle">{title}</h2>
 			{tasks.length ? (
 				tasks.map((task, index) => (
 					<Task
@@ -66,11 +75,11 @@ const List = (props) => {
 				<p>No tasks added yet</p>
 			)}
 			{type === LIST_TYPES.BACKLOG && user && (
-				<button onClick={handleAddNewClick} className={css.addButton}>+ Add new task</button>
+				<button onClick={handleAddNewClick} className="addButton">+ Add new task</button>
 			)}
 			{transitions((style, item) => item && user && type === LIST_TYPES.BACKLOG && (
 				<animated.div style={style}>
-					<FormAddNewTask/>
+					<FormAddNewTask />
 				</animated.div>
 			))}
 		</div>
