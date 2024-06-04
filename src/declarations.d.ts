@@ -3,9 +3,5 @@ declare module '*.module.css' {
     export default classes;
 }
 
-declare module 'uniqid' {
-    export default function uniqid(prefix?: string, suffix?: string): string;
-}
-
 declare module "*.jpg";
 declare module "*.png";
