@@ -2,23 +2,8 @@ import { useEffect, useState } from 'react';
 import Button from "../../ui/button/Button";
 import UserAvatar from '../../assets/user-menu.png';
 import { Link } from "react-router-dom";
+import {useDelayUnmount} from "../../hooks/useDelayUnmount";
 import './Login.scss';
-
-function useDelayUnmount(isMounted: boolean, delayTime: number): boolean {
-    const [showDiv, setShowDiv] = useState(false);
-
-    useEffect(() => {
-        let timeoutId: NodeJS.Timeout;
-        if (isMounted && !showDiv) {
-            setShowDiv(true);
-        } else if (!isMounted && showDiv) {
-            timeoutId = setTimeout(() => setShowDiv(false), delayTime);
-        }
-        return () => clearTimeout(timeoutId);
-    }, [isMounted, delayTime, showDiv]);
-
-    return showDiv;
-}
 
 const mountedcss = { animation: "inAnimation 250ms ease-in" };
 const unmountedcss = {
