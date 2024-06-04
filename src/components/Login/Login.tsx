@@ -27,7 +27,7 @@ const unmountedcss = {
 };
 
 interface LoginProps {
-    user: any;
+    user: string | null;
     onLogin: () => void;
     onLogout: () => void;
 }
