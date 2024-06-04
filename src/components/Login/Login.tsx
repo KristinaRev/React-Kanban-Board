@@ -35,13 +35,14 @@ interface LoginProps {
 export default function Login({ user, onLogin, onLogout }: LoginProps) {
     const [isMounted, setIsMounted] = useState(false);
     const showDiv = useDelayUnmount(isMounted, 250);
+    const iconClass: string = isMounted ? 'icon isopen' : 'icon';
 
     const toggleIsMounted = () => setIsMounted(prevIsMounted => !prevIsMounted);
 
     return (
         <div className="login_wrapper" onClick={toggleIsMounted}>
             <img src={UserAvatar} alt="user avatar" className="user_avatar"/>
-            <div className={`$""icon} ${isMounted ? "isopen" : ''}`} />
+            <div className={iconClass} />
             {showDiv && (
                 <div
                     className="login_dropdown"
