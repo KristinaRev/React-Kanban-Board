@@ -1,4 +1,4 @@
-import {FC, useContext} from 'react';
+import React, { FC, useContext } from 'react';
 import { useTransition, animated } from 'react-spring';
 import { useDrop } from 'react-dnd';
 import { LIST_TYPES } from '../../config';
@@ -23,6 +23,10 @@ interface ListProps {
 	user: any;
 }
 
+interface MoveTaskFunction {
+	(taskIdOrIndex: string | number, newStatusOrIndex: string | number): void | Promise<void>;
+}
+
 const List: FC<ListProps> = (props) => {
 	const { type, title, tasks, user } = props;
 	const { tasksStore } = useContext(StoreContext);
@@ -31,12 +35,12 @@ const List: FC<ListProps> = (props) => {
 		tasksStore.changeFormVisible(!tasksStore.taskForm.isVisible);
 	}
 
-	const moveTask = async (taskId: string, newStatus: string) => {
-		await tasksStore.changeTaskStatus(taskId, newStatus);
+	const moveTask: MoveTaskFunction = async (taskIdOrIndex, newStatusOrIndex) => {
+		await tasksStore.changeTaskStatus(taskIdOrIndex as string, newStatusOrIndex as string);
 	};
 
-	const moveTaskInsideList = (dragIndex: number, hoverIndex: number) => {
-		tasksStore.replaceListTasks(dragIndex, hoverIndex);
+	const moveTaskInsideList: MoveTaskFunction = (dragIndex, hoverIndex) => {
+		tasksStore.replaceListTasks(dragIndex as number, hoverIndex as number);
 	};
 
 	const [, drop] = useDrop({
@@ -87,4 +91,3 @@ const List: FC<ListProps> = (props) => {
 };
 
 export default observer(List);
-

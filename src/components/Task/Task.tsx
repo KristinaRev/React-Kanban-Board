@@ -1,4 +1,4 @@
-import {useContext} from "react";
+import React, { useContext } from "react";
 import { useDrag, useDrop } from 'react-dnd';
 import { ItemTypes } from '../../ItemTypes';
 import { FaTimes } from 'react-icons/fa';
@@ -6,12 +6,20 @@ import { Link } from 'react-router-dom';
 import Button from "../../ui/button/Button";
 import FormattedTitle from "../../ui/formatted-title/FormattedTitle";
 import css from './Task.module.css';
-import {StoreContext} from "../../stores/root.store";
+import { StoreContext } from "../../stores/root.store";
 import Tag from "../../ui/tag/Tag";
 
-const Task = ({ id, index, title, status, moveTask, priority}) => {
+interface TaskProps {
+    id: string;
+    index: number;
+    title: string;
+    status: string;
+    moveTask: (taskIdOrIndex: string | number, newStatusOrIndex: string | number) => void | Promise<void>;
+    priority?: string;
+}
 
-    const {tasksStore} = useContext(StoreContext);
+const Task: React.FC<TaskProps> = ({ id, index, title, status, moveTask, priority }) => {
+    const { tasksStore } = useContext(StoreContext);
 
     const [{ isDragging }, drag] = useDrag({
         type: ItemTypes.TASK,
@@ -23,10 +31,10 @@ const Task = ({ id, index, title, status, moveTask, priority}) => {
 
     const [, drop] = useDrop({
         accept: ItemTypes.TASK,
-        hover: item => {
+        hover: (item: { id: string; index: number; status: string }) => {
             if (item.id !== id && item.status === status) {
                 if (item.index !== index) {
-                    moveTask(item.index, index);
+                    (moveTask as unknown as (dragIndex: number, hoverIndex: number) => void)(item.index, index);
                     item.index = index;
                 }
             }
@@ -42,11 +50,11 @@ const Task = ({ id, index, title, status, moveTask, priority}) => {
     return (
         <div ref={node => drag(drop(node))} style={{ opacity }} className={css.task}>
             <div className={css.task_top}>
-                <FormattedTitle title={title} className={css.title}/>
+                <FormattedTitle title={title} className={css.title} />
                 <Link to={`/tasks/${id}`} className={css.taskDetailsButton}>
                     Detail
                 </Link>
-                <Button type="button" onClick={handleDelete} >
+                <Button type="button" onClick={handleDelete}>
                     <FaTimes />
                 </Button>
             </div>
