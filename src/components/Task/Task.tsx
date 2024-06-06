@@ -15,12 +15,11 @@ interface TaskProps {
     index: number;
     title: string;
     status: string;
-    moveTask?: MoveTask;
     moveTaskInsideList?: MoveTaskInsideList;
     priority?: string;
 }
 
-const Task: React.FC<TaskProps> = ({ id, index, title, status, moveTask, moveTaskInsideList, priority }) => {
+const Task: React.FC<TaskProps> = ({ id, index, title, status, moveTaskInsideList, priority }) => {
     const { tasksStore } = useContext(StoreContext);
 
     const [{ isDragging }, drag] = useDrag({

@@ -76,7 +76,6 @@ const List: FC<ListProps> = (props) => {
 						title={task.title}
 						status={task.status}
 						priority={task.priority}
-						moveTask={task.status !== type ? moveTask : undefined}
 						moveTaskInsideList={task.status === type ? moveTaskInsideList : undefined}
 					/>
 				))
