@@ -15,7 +15,7 @@ interface TaskProps {
     index: number;
     title: string;
     status: string;
-    moveTaskInsideList?: MoveTaskInsideList;
+    moveTaskInsideList: MoveTaskInsideList;
     priority?: string;
 }
 
@@ -35,10 +35,8 @@ const Task: React.FC<TaskProps> = ({ id, index, title, status, moveTaskInsideLis
         hover: (item) => {
             if (item.id !== id && item.status === status) {
                 if (item.index !== index) {
-                    if (moveTaskInsideList) {
-                        moveTaskInsideList(item.index, index);
-                        item.index = index;
-                    }
+                    moveTaskInsideList(item.index, index);
+                    item.index = index;
                 }
             }
         },
