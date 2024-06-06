@@ -4,7 +4,7 @@ import { HTML5Backend } from 'react-dnd-html5-backend';
 import css from './Reg.module.css';
 import Register from "../../components/register/Register";
 
-const Reg = () => {
+const Reg: React.FC = () => {
 
     return (
         <DndProvider backend={HTML5Backend}>
