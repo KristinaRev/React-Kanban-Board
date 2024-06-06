@@ -3,11 +3,21 @@ import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { LIST_TYPES, LIST_COPY } from '../../config';
 import List from '../../components/list/List';
-// import boardReducer from '../board-reducer/BoardReducer';
 import css from './Board.module.css';
 import {StoreContext} from "../../stores/root.store";
 
-const Board = ({ setTasks, user }) => {
+interface BoardProps {
+	user: string | null;
+}
+
+interface Task {
+	id: string;
+	title: string;
+	status: string;
+	priority?: string;
+}
+
+const Board: React.FC<BoardProps>  = ({ user }) => {
 	const {tasksStore} = useContext(StoreContext);
 
 	return (
@@ -18,7 +28,7 @@ const Board = ({ setTasks, user }) => {
 						key={LIST_COPY[type]}
 						type={type}
 						title={LIST_COPY[type]}
-						tasks={tasksStore.tasks.filter(task => task.status === type)}
+						tasks={tasksStore.tasks.filter((task: Task) => task.status === type)}
 						user={user}
 					/>
 				))}

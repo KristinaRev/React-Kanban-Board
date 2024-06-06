@@ -1,4 +1,4 @@
-import {FC, useContext} from 'react';
+import React, { FC, useContext } from 'react';
 import { useTransition, animated } from 'react-spring';
 import { useDrop } from 'react-dnd';
 import { LIST_TYPES } from '../../config';
@@ -23,6 +23,14 @@ interface ListProps {
 	user: any;
 }
 
+export interface MoveTaskInsideList {
+	(dragIndex: number, hoverIndex: number): void;
+}
+
+export interface MoveTask {
+	(taskId: string, newStatus: string): Promise<void>;
+}
+
 const List: FC<ListProps> = (props) => {
 	const { type, title, tasks, user } = props;
 	const { tasksStore } = useContext(StoreContext);
@@ -31,11 +39,11 @@ const List: FC<ListProps> = (props) => {
 		tasksStore.changeFormVisible(!tasksStore.taskForm.isVisible);
 	}
 
-	const moveTask = async (taskId: string, newStatus: string) => {
+	const moveTask: MoveTask = async (taskId, newStatus) => {
 		await tasksStore.changeTaskStatus(taskId, newStatus);
 	};
 
-	const moveTaskInsideList = (dragIndex: number, hoverIndex: number) => {
+	const moveTaskInsideList: MoveTaskInsideList = (dragIndex, hoverIndex) => {
 		tasksStore.replaceListTasks(dragIndex, hoverIndex);
 	};
 
@@ -68,7 +76,7 @@ const List: FC<ListProps> = (props) => {
 						title={task.title}
 						status={task.status}
 						priority={task.priority}
-						moveTask={task.status === type ? moveTask : moveTaskInsideList}
+						moveTaskInsideList={moveTaskInsideList}
 					/>
 				))
 			) : (
@@ -87,4 +95,3 @@ const List: FC<ListProps> = (props) => {
 };
 
 export default observer(List);
-
