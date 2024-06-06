@@ -8,17 +8,19 @@ import FormattedTitle from "../../ui/formatted-title/FormattedTitle";
 import css from './Task.module.css';
 import { StoreContext } from "../../stores/root.store";
 import Tag from "../../ui/tag/Tag";
+import { MoveTask, MoveTaskInsideList } from '../list/List';
 
 interface TaskProps {
     id: string;
     index: number;
     title: string;
     status: string;
-    moveTask: (taskIdOrIndex: string | number, newStatusOrIndex: string | number) => void | Promise<void>;
+    moveTask?: MoveTask;
+    moveTaskInsideList?: MoveTaskInsideList;
     priority?: string;
 }
 
-const Task: React.FC<TaskProps> = ({ id, index, title, status, moveTask, priority }) => {
+const Task: React.FC<TaskProps> = ({ id, index, title, status, moveTask, moveTaskInsideList, priority }) => {
     const { tasksStore } = useContext(StoreContext);
 
     const [{ isDragging }, drag] = useDrag({
@@ -29,13 +31,15 @@ const Task: React.FC<TaskProps> = ({ id, index, title, status, moveTask, priorit
         }),
     });
 
-    const [, drop] = useDrop({
+    const [, drop] = useDrop<{ id: string; index: number; status: string }>({
         accept: ItemTypes.TASK,
-        hover: (item: { id: string; index: number; status: string }) => {
+        hover: (item) => {
             if (item.id !== id && item.status === status) {
                 if (item.index !== index) {
-                    (moveTask as unknown as (dragIndex: number, hoverIndex: number) => void)(item.index, index);
-                    item.index = index;
+                    if (moveTaskInsideList) {
+                        moveTaskInsideList(item.index, index);
+                        item.index = index;
+                    }
                 }
             }
         },

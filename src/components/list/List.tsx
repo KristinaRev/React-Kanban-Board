@@ -23,8 +23,12 @@ interface ListProps {
 	user: any;
 }
 
-interface MoveTaskFunction {
-	(taskIdOrIndex: string | number, newStatusOrIndex: string | number): void | Promise<void>;
+export interface MoveTaskInsideList {
+	(dragIndex: number, hoverIndex: number): void;
+}
+
+export interface MoveTask {
+	(taskId: string, newStatus: string): Promise<void>;
 }
 
 const List: FC<ListProps> = (props) => {
@@ -35,12 +39,12 @@ const List: FC<ListProps> = (props) => {
 		tasksStore.changeFormVisible(!tasksStore.taskForm.isVisible);
 	}
 
-	const moveTask: MoveTaskFunction = async (taskIdOrIndex, newStatusOrIndex) => {
-		await tasksStore.changeTaskStatus(taskIdOrIndex as string, newStatusOrIndex as string);
+	const moveTask: MoveTask = async (taskId, newStatus) => {
+		await tasksStore.changeTaskStatus(taskId, newStatus);
 	};
 
-	const moveTaskInsideList: MoveTaskFunction = (dragIndex, hoverIndex) => {
-		tasksStore.replaceListTasks(dragIndex as number, hoverIndex as number);
+	const moveTaskInsideList: MoveTaskInsideList = (dragIndex, hoverIndex) => {
+		tasksStore.replaceListTasks(dragIndex, hoverIndex);
 	};
 
 	const [, drop] = useDrop({
@@ -72,7 +76,8 @@ const List: FC<ListProps> = (props) => {
 						title={task.title}
 						status={task.status}
 						priority={task.priority}
-						moveTask={task.status === type ? moveTask : moveTaskInsideList}
+						moveTask={task.status !== type ? moveTask : undefined}
+						moveTaskInsideList={task.status === type ? moveTaskInsideList : undefined}
 					/>
 				))
 			) : (
