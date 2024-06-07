@@ -5,7 +5,7 @@ import css from './Profile.module.css';
 import {Link} from "react-router-dom";
 import {observer} from "mobx-react-lite";
 
-const Profile = () => {
+const Profile: React.FC = () => {
 
     return (
         <DndProvider backend={HTML5Backend}>
