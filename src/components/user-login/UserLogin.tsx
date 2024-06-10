@@ -1,22 +1,23 @@
-import {useContext} from 'react';
-import {observer} from "mobx-react-lite";
+import React, { useContext, ChangeEvent } from 'react';
+import { observer } from "mobx-react-lite";
 import Input from "../../ui/input/Input";
-import {StoreContext} from "../../stores/root.store";
-import './UserLogin.scss';
+import { StoreContext } from "../../stores/root.store";
 import Button from "../../ui/button/Button";
+import {WithClassName} from "../../interfaces";
+import './UserLogin.scss';
 
-const UserLogin = () => {
+const UserLogin: React.FC<WithClassName> = ({ className }) => {
+    const { usersStore } = useContext(StoreContext);
 
-    const {usersStore} = useContext(StoreContext);
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => usersStore.changeLoginFormValue(e);
 
-    const handleChange = (e: any) => usersStore.changeLoginFormValue(e);
-
-    const formSubmit = async () => {
+    const formSubmit = async (e: React.FormEvent) => {
+        e.preventDefault()
         // todo
     };
 
     return (
-        <div className="Login">
+        <div className={`Login ${className}`}>
             <form onSubmit={formSubmit} className="form">
                 <Input
                     id='userLogin'

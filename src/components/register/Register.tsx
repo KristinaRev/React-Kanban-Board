@@ -1,11 +1,12 @@
-import {useContext, useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {observer} from "mobx-react-lite";
 import Input from "../../ui/input/Input";
 import {StoreContext} from "../../stores/root.store";
-import './Register.scss';
 import Button from "../../ui/button/Button";
+import {WithClassName} from "../../interfaces";
+import './Register.scss';
 
-const Register = () => {
+const Register: React.FC<WithClassName> = () => {
 
     const {usersStore} = useContext(StoreContext);
     const [showPrompt, setShowPrompt] = useState(false);
