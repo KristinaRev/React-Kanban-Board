@@ -3,7 +3,7 @@ import {observer} from "mobx-react-lite";
 import Input from "../../ui/input/Input";
 import {StoreContext} from "../../stores/root.store";
 import Button from "../../ui/button/Button";
-import {WithClassName} from "../../interfaces";
+import {WithClassName} from "interfaces";
 import './Register.scss';
 
 const Register: React.FC<WithClassName> = () => {
