@@ -5,11 +5,7 @@ import {observer} from 'mobx-react-lite';
 import Input from '../../ui/input/Input';
 import Select from '../../ui/select/Select';
 import './Forms.scss';
-
-interface TaskPriorities {
-	value: string;
-	label: string;
-}
+import {Textarea} from "../../ui/textarea/textarea";
 
 interface TaskPriority {
 	value: string;
@@ -38,12 +34,9 @@ const FormAddNewTask: FC = () => {
 		}
 	};
 
-	const taskPriorities: {
-		label: TaskPriority;
-		value: TaskPriority
-	}[] = Object.values<TaskPriority>(tasksStore.taskPriorities).map((list) => ({
-		value: list,
-		label: list,
+	const taskPriorities: TaskPriority[] = tasksStore.taskPriorities.map((priority: string) => ({
+		value: priority,
+		label: priority,
 	}));
 
 	return (
@@ -64,8 +57,7 @@ const FormAddNewTask: FC = () => {
 				name='priority'
 				label='Приоритет задачи'
 			/>
-			<Input
-				type='textarea'
+			<Textarea
 				id='taskDescription'
 				name='description'
 				placeholder='Введите описание задачи'
