@@ -6,7 +6,10 @@ export class RootStore {
     tasksStore = new TasksStore();
     usersStore = new UsersStore();
 }
-export const StoreContext = createContext();
+
+const rootStore = new RootStore();
+
+export const StoreContext = createContext(rootStore);
 export const StoreProvider = StoreContext.Provider
 
 
