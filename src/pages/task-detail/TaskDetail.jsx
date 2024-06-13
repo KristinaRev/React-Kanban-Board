@@ -9,6 +9,7 @@ import Button from "../../ui/button/Button";
 import Input from "../../ui/input/Input";
 import css from './TaskDetail.module.css';
 import Select from "../../ui/select/Select";
+import {Textarea} from "../../ui/textarea/textarea";
 
 const TaskDetail = () => {
 	const { taskId } = useParams();
@@ -87,8 +88,7 @@ const TaskDetail = () => {
 							onBlur={changePriority}
 							name='priority'
 						/>
-						<Input
-							type='textarea'
+						<Textarea
 							ref={descriptionRef}
 							className={css.details_description}
 							onChange={handleChange}

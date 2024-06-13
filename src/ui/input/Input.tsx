@@ -1,31 +1,18 @@
-import { InputHTMLAttributes, TextareaHTMLAttributes, FC } from 'react';
+import { InputHTMLAttributes, FC } from 'react';
 import css from './Input.module.css';
 
-interface BaseProps {
-    label: string;
-}
-
-interface InputProps extends BaseProps, InputHTMLAttributes<HTMLInputElement> {
+interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
     type?: 'text' | 'password' | 'email' | 'number';
+    label?: string;
 }
 
-interface TextareaProps extends BaseProps, TextareaHTMLAttributes<HTMLTextAreaElement> {
-    type: 'textarea';
-}
-
-type Props = InputProps | TextareaProps;
-
-const Input: FC<Props> = (props) => {
+const Input: FC<InputProps> = (props) => {
     const { label, type, ...rest } = props;
 
     return (
         <>
             <label>{label}</label>
-            {type === 'textarea' ? (
-                <textarea className={css.input} {...(rest as TextareaHTMLAttributes<HTMLTextAreaElement>)} />
-            ) : (
-                <input className={css.input} type={type} {...(rest as InputHTMLAttributes<HTMLInputElement>)} />
-            )}
+            <input className={css.input} type={type} {...rest} />
         </>
     );
 };

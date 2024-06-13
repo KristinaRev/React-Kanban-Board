@@ -5,6 +5,7 @@ import {observer} from 'mobx-react-lite';
 import Input from '../../ui/input/Input';
 import Select from '../../ui/select/Select';
 import './Forms.scss';
+import {Textarea} from "../../ui/textarea/textarea";
 
 interface TaskPriority {
 	value: string;
@@ -56,8 +57,7 @@ const FormAddNewTask: FC = () => {
 				name='priority'
 				label='Приоритет задачи'
 			/>
-			<Input
-				type='textarea'
+			<Textarea
 				id='taskDescription'
 				name='description'
 				placeholder='Введите описание задачи'
