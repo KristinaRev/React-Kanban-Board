@@ -6,11 +6,6 @@ import Input from '../../ui/input/Input';
 import Select from '../../ui/select/Select';
 import './Forms.scss';
 
-interface TaskPriorities {
-	value: string;
-	label: string;
-}
-
 interface TaskPriority {
 	value: string;
 	label: string;
@@ -38,12 +33,9 @@ const FormAddNewTask: FC = () => {
 		}
 	};
 
-	const taskPriorities: {
-		label: TaskPriority;
-		value: TaskPriority
-	}[] = Object.values<TaskPriority>(tasksStore.taskPriorities).map((list) => ({
-		value: list,
-		label: list,
+	const taskPriorities: TaskPriority[] = tasksStore.taskPriorities.map((priority: string) => ({
+		value: priority,
+		label: priority,
 	}));
 
 	return (
