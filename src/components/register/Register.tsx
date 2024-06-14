@@ -1,26 +1,28 @@
-import React, {useContext, useState} from 'react';
-import {observer} from "mobx-react-lite";
+import React, { useContext, useState } from 'react';
+import { observer } from "mobx-react-lite";
 import Input from "../../ui/input/Input";
-import {StoreContext} from "../../stores/root.store";
 import Button from "../../ui/button/Button";
-import {WithClassName} from "interfaces";
+import { StoreContext } from "../../stores/root.store";
+import { WithClassName } from "interfaces";
 import './Register.scss';
 
 const Register: React.FC<WithClassName> = () => {
-
-    const {usersStore} = useContext(StoreContext);
+    const { usersStore } = useContext(StoreContext);
     const [showPrompt, setShowPrompt] = useState(false);
 
-    const handleChange = (e: any) => usersStore.changeRegFormValue(e);
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        usersStore.changeRegFormValue(e);
+    };
 
-    const formSubmit = async (e: { preventDefault: () => void; }) => {
+    const formSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        if (usersStore.userRegForm.login && usersStore.userRegForm.password && usersStore.userRegForm.fullName) {
-            await usersStore.addUser(usersStore.userRegForm.login, usersStore.userRegForm.password, usersStore.userRegForm.fullName);
-            //todo вывести окно, что успешно зарегистрировался
+        const { login, password, fullName } = usersStore.userRegForm;
+        if (login && password && fullName) {
+            await usersStore.addUser(login, password, fullName);
+            // Todo: показать сообщение об успешной регистрации
         } else {
-            setShowPrompt(true)
-            // todo добавить подсказки
+            setShowPrompt(true);
+            // Todo: добавить подсказки или обработку ошибок
         }
     };
 
@@ -33,7 +35,7 @@ const Register: React.FC<WithClassName> = () => {
                     type='text'
                     placeholder='Введите логин'
                     onChange={handleChange}
-                    value={usersStore.userLoginForm.login}
+                    value={usersStore.userRegForm.login}
                     label='Логин'
                 />
                 <Input
@@ -42,7 +44,7 @@ const Register: React.FC<WithClassName> = () => {
                     type='password'
                     placeholder='Введите пароль'
                     onChange={handleChange}
-                    value={usersStore.userLoginForm.password}
+                    value={usersStore.userRegForm.password}
                     label='Пароль'
                 />
                 <Input
@@ -51,14 +53,14 @@ const Register: React.FC<WithClassName> = () => {
                     type='text'
                     placeholder='Введите полное имя'
                     onChange={handleChange}
-                    value={usersStore.userLoginForm.fullName}
+                    value={usersStore.userRegForm.fullName}
                     label='Имя'
                 />
                 <Button type="submit">Зарегистрироваться</Button>
             </form>
             <Button>Войти</Button>
         </div>
-    )
-}
+    );
+};
 
 export default observer(Register);

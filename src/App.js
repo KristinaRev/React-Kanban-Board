@@ -11,7 +11,6 @@ import {StoreContext} from "./stores/root.store";
 function App() {
     const storedUser = JSON.parse(window.localStorage.getItem('user'));
     const [user, setUser] = useState(storedUser || null);
-    const [tasks, setTasks] = useState([]);
 
     const {tasksStore} = useContext(StoreContext)
 
@@ -29,7 +28,7 @@ function App() {
     const handleLogout = useCallback(() => {
         window.localStorage.removeItem('user');
         setUser(null);
-        setTasks([]);
+        // setTasks([]); todo
     }, []);
 
     const resultCountTask = useMemo(() => countTask(tasksStore.tasks), [tasksStore.tasks]);
@@ -38,7 +37,7 @@ function App() {
         <BrowserRouter>
             <div>
                 <Header user={user} onLogin={handleLogin} onLogout={handleLogout} />
-                <Main user={user} tasks={tasks} setTasks={setTasks} />
+                <Main user={user} />
                 <Footer
                     backlogCount={resultCountTask.backlog}
                     doneCount={resultCountTask.done}

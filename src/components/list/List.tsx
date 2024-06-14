@@ -9,6 +9,10 @@ import { StoreContext } from "../../stores/root.store";
 import { observer } from "mobx-react-lite";
 import './List.scss';
 
+interface AnimationConfig {
+	opacity: number;
+}
+
 interface TaskType {
 	id: string;
 	title: string;
@@ -52,7 +56,7 @@ const List: FC<ListProps> = (props) => {
 		drop: (item: { id: string }) => moveTask(item.id, type),
 	});
 
-	const transitions = useTransition(tasksStore.taskForm.isVisible, {
+	const transitions = useTransition<boolean, AnimationConfig>(tasksStore.taskForm.isVisible ?? false, {
 		from: { opacity: 0 },
 		enter: { opacity: 1 },
 		leave: { opacity: 0 },
