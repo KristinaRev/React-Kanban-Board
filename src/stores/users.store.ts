@@ -68,7 +68,7 @@ export class UsersStore {
             }
             this.userDetail = await response.json();
         } catch (error) {
-            const errorText: string = 'Невозможно получить пользователя:'
+            const errorText:string = 'Невозможно получить пользователя:'
             if (error instanceof Error) {
                 console.error(errorText, error.message);
             }
@@ -95,7 +95,7 @@ export class UsersStore {
                 throw new Error(`Ошибка: ${response.statusText}`);
             }
         } catch (error) {
-            const errorText: string = 'Ошибка обновления имени пользователя:'
+            const errorText:string = 'Ошибка обновления имени пользователя:'
             if (error instanceof Error) {
                 console.error(errorText, error.message);
             }
@@ -125,7 +125,7 @@ export class UsersStore {
             const data = await response.json();
             this.users = [...this.users, data];
         } catch (error) {
-            const errorText: string = 'Ошибка при добавлении пользователя:'
+            const errorText:string = 'Ошибка при добавлении пользователя:'
             if (error instanceof Error) {
                 console.error(errorText, error.message);
             }
@@ -162,7 +162,7 @@ export class UsersStore {
             }
             console.log(`Юзер ${userId} успешно удален на сервере`);
         } catch (error) {
-            const errorText: string = 'Ошибка удаления юзера на сервере:'
+            const errorText:string = 'Ошибка удаления юзера на сервере:'
             if (error instanceof Error) {
                 console.error(errorText, error.message);
             }
