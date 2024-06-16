@@ -1,9 +1,11 @@
-import { useEffect, useState } from 'react';
+import React, {useContext, useState} from 'react';
 import Button from "../../ui/button/Button";
 import UserAvatar from '../../assets/user-menu.png';
 import { Link } from "react-router-dom";
 import {useDelayUnmount} from "../../hooks/useDelayUnmount";
 import './Login.scss';
+import {StoreContext} from "../../stores/root.store";
+import {ROUTES} from "../../routes";
 
 const mountedcss = { animation: "inAnimation 250ms ease-in" };
 const unmountedcss = {
@@ -12,12 +14,11 @@ const unmountedcss = {
 };
 
 interface LoginProps {
-    user: string | null;
-    onLogin: () => void;
     onLogout: () => void;
 }
 
-export default function Login({ user, onLogin, onLogout }: LoginProps) {
+export default function Login({ onLogout }: LoginProps) {
+    const { usersStore } = useContext(StoreContext);
     const [isMounted, setIsMounted] = useState(false);
     const showDiv = useDelayUnmount(isMounted, 250);
     const iconClass: string = isMounted ? 'icon isopen' : 'icon';
@@ -34,9 +35,13 @@ export default function Login({ user, onLogin, onLogout }: LoginProps) {
                     style={isMounted ? mountedcss : unmountedcss}
                 >
                     <Link to={`/profile`} className="login_dropdown_button">Profile</Link>
-                    <Button className="login_dropdown_button" onClick={user ? onLogout : onLogin}>
-                        {user ? "Log Out" : "Log In"}
-                    </Button>
+                    {usersStore.login ? (
+                        <Button className="login_dropdown_button" onClick={onLogout}>
+                            Log Out
+                        </Button>
+                    ) :
+                        <Link to={ROUTES.AUTHORIZATION} className="login_dropdown_button">Log In</Link>
+                    }
                 </div>
             )}
         </div>

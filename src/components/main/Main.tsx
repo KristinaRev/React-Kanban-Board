@@ -7,13 +7,10 @@ import {ROUTES} from "../../routes";
 import Profile from "../../pages/profile/Profile";
 import Auth from "../../pages/auth/Auth";
 import Reg from "../../pages/reg/Reg";
+import Admin from "../../pages/admin/Admin";
 import css from './Main.module.css';
 
-interface MainProps {
-	user: string | null;
-}
-
-const Main: FC<MainProps> = (props) => {
+const Main: FC= (props) => {
 	return (
 		<main className={css.main}>
 			<Routes>
@@ -23,6 +20,7 @@ const Main: FC<MainProps> = (props) => {
 				<Route path={ROUTES.PROFILE} element={<Profile/>}/>
 				<Route path={ROUTES.AUTHORIZATION} element={<Auth/>}/>
 				<Route path={ROUTES.REGISTRATION} element={<Reg/>}/>
+				<Route path={ROUTES.ADMIN} element={<Admin/>}/>
 			</Routes>
 		</main>
 	);

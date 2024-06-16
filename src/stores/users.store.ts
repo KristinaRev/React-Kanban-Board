@@ -1,6 +1,8 @@
 import {makeAutoObservable} from "mobx";
 import uniqid from "uniqid";
 import React from "react";
+import {formatDate} from "../utils";
+import {findAllByRole} from "@testing-library/react";
 
 interface User {
     id: string;
@@ -27,6 +29,7 @@ interface UserLoginForm {
 
 export class UsersStore {
     login: boolean = false;
+    currentUser: User | null = null;
     users: User[] = [];
     userDetail: UserDetail = {
         fullName: '',
@@ -57,6 +60,27 @@ export class UsersStore {
             if (error instanceof Error) {
                 console.error(errorText, error.message);
             }
+        }
+    }
+
+    logOut = async (): Promise<void> => {
+        this.login = false;
+        this.currentUser = null;
+    }
+
+    loginUser = async (login: string, password: string): Promise<boolean> => {
+        try {
+            const user = this.users.find(user => user.login === login && user.password === password);
+            if (user) {
+                this.login = true;
+                this.currentUser = user;
+                return true;
+            } else {
+                return false;
+            }
+        } catch (error) {
+            console.error('Ошибка авторизации:', error);
+            return false;
         }
     }
 
@@ -108,7 +132,7 @@ export class UsersStore {
             login,
             password,
             fullName,
-            dateRegister: new Date().toISOString(),
+            dateRegister: formatDate(new Date().toISOString()),
         };
 
         try {

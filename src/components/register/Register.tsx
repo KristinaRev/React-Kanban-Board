@@ -5,6 +5,8 @@ import Button from "../../ui/button/Button";
 import { StoreContext } from "../../stores/root.store";
 import { WithClassName } from "interfaces";
 import './Register.scss';
+import {ROUTES} from "../../routes";
+import {Link} from "react-router-dom";
 
 const Register: React.FC<WithClassName> = () => {
     const { usersStore } = useContext(StoreContext);
@@ -58,7 +60,7 @@ const Register: React.FC<WithClassName> = () => {
                 />
                 <Button type="submit">Зарегистрироваться</Button>
             </form>
-            <Button>Войти</Button>
+            <Link to={ROUTES.AUTHORIZATION} className="link">Войти</Link>
         </div>
     );
 };

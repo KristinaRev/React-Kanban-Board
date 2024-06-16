@@ -1,4 +1,4 @@
-import {useState, useEffect, useMemo, useCallback, useContext, FC} from 'react';
+import {useState, useEffect, useMemo, useCallback, useContext, FC, useLayoutEffect} from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import Header from './components/header/Header';
 import Footer from './components/footer/Footer';
@@ -17,23 +17,26 @@ const App: FC = observer(() => {
     const storedUser: User | null = storedUserJSON ? JSON.parse(storedUserJSON) : null;
     const [user, setUser] = useState<User | null>(storedUser);
 
-    const { tasksStore } = useContext(StoreContext);
+    const { tasksStore, usersStore } = useContext(StoreContext);
 
-    useEffect(() => {
-        if (user) {
+    useLayoutEffect(() => {
+        if (usersStore.login) {
             tasksStore.getTasks();
         }
-    }, [user, tasksStore]);
+    }, [tasksStore]);
 
-    const handleLogin = useCallback(() => {
-        const USER_NAME_TO_LOGIN: string = 'SPIKS';
-        setUser({ name: USER_NAME_TO_LOGIN });
-        window.localStorage.setItem('user', JSON.stringify({ name: USER_NAME_TO_LOGIN }));
-    }, []);
+    useEffect(() => {
+        usersStore.getUsers();
+    }, [usersStore]);
+
+    // const handleLogin = useCallback(() => {
+    //     const USER_NAME_TO_LOGIN: string = 'SPIKS';
+    //     setUser({ name: USER_NAME_TO_LOGIN });
+    //     window.localStorage.setItem('user', JSON.stringify({ name: USER_NAME_TO_LOGIN }));
+    // }, []);
 
     const handleLogout = useCallback(() => {
-        window.localStorage.removeItem('user');
-        setUser(null);
+        usersStore.logOut();
         tasksStore.removeTasks();
     }, []);
 
@@ -42,8 +45,8 @@ const App: FC = observer(() => {
     return (
         <BrowserRouter>
             <div>
-                <Header user={user?.name || null} onLogin={handleLogin} onLogout={handleLogout} />
-                <Main user={user?.name || null} />
+                <Header onLogout={handleLogout} />
+                <Main/>
                 <Footer
                     backlogCount={resultCountTask.backlog}
                     doneCount={resultCountTask.done}

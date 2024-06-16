@@ -24,7 +24,6 @@ interface ListProps {
 	type: string;
 	title: string;
 	tasks: TaskType[];
-	user: any;
 }
 
 export interface MoveTaskInsideList {
@@ -36,8 +35,8 @@ export interface MoveTask {
 }
 
 const List: FC<ListProps> = (props) => {
-	const { type, title, tasks, user } = props;
-	const { tasksStore } = useContext(StoreContext);
+	const { type, title, tasks} = props;
+	const { tasksStore, usersStore } = useContext(StoreContext);
 
 	const handleAddNewClick = () => {
 		tasksStore.changeFormVisible(!tasksStore.taskForm.isVisible);
@@ -86,10 +85,10 @@ const List: FC<ListProps> = (props) => {
 			) : (
 				<p>No tasks added yet</p>
 			)}
-			{type === LIST_TYPES.BACKLOG && user && (
+			{type === LIST_TYPES.BACKLOG && usersStore.login && (
 				<button onClick={handleAddNewClick} className="addButton">+ Add new task</button>
 			)}
-			{transitions((style, item) => item && user && type === LIST_TYPES.BACKLOG && (
+			{transitions((style, item) => item && usersStore.login && type === LIST_TYPES.BACKLOG && (
 				<animated.div style={style}>
 					<FormAddNewTask />
 				</animated.div>
