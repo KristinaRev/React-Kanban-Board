@@ -5,11 +5,12 @@ import Button from "../../ui/button/Button";
 import { StoreContext } from "../../stores/root.store";
 import { WithClassName } from "interfaces";
 import './Register.scss';
-import {ROUTES} from "../../routes";
-import {Link} from "react-router-dom";
+import { ROUTES } from "../../routes";
+import { Link, useNavigate } from "react-router-dom";
 
 const Register: React.FC<WithClassName> = () => {
     const { usersStore } = useContext(StoreContext);
+    const navigate = useNavigate();
     const [showPrompt, setShowPrompt] = useState(false);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -21,10 +22,14 @@ const Register: React.FC<WithClassName> = () => {
         const { login, password, fullName } = usersStore.userRegForm;
         if (login && password && fullName) {
             await usersStore.addUser(login, password, fullName);
-            // Todo: показать сообщение об успешной регистрации
+            if (!usersStore.userExistsError) {
+                setShowPrompt(false);
+                navigate(ROUTES.AUTHORIZATION);
+            } else {
+                setShowPrompt(true);
+            }
         } else {
             setShowPrompt(true);
-            // Todo: добавить подсказки или обработку ошибок
         }
     };
 
@@ -59,6 +64,11 @@ const Register: React.FC<WithClassName> = () => {
                     label='Имя'
                 />
                 <Button type="submit">Зарегистрироваться</Button>
+                {showPrompt && (
+                    usersStore.userExistsError
+                        ? <span className="errorReg">Пользователь с таким логином уже существует</span>
+                        : <span className="errorReg">Заполните все поля</span>
+                )}
             </form>
             <Link to={ROUTES.AUTHORIZATION} className="link">Войти</Link>
         </div>
@@ -66,3 +76,4 @@ const Register: React.FC<WithClassName> = () => {
 };
 
 export default observer(Register);
+

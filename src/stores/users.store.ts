@@ -2,7 +2,6 @@ import {makeAutoObservable} from "mobx";
 import uniqid from "uniqid";
 import React from "react";
 import {formatDate} from "../utils";
-import {findAllByRole} from "@testing-library/react";
 
 interface User {
     id: string;
@@ -31,6 +30,7 @@ export class UsersStore {
     login: boolean = false;
     currentUser: User | null = null;
     users: User[] = [];
+    userExistsError: boolean = false;
     userDetail: UserDetail = {
         fullName: '',
     };
@@ -84,6 +84,10 @@ export class UsersStore {
         }
     }
 
+    checkUserExists = (login: string): boolean => {
+        return this.users.some(user => user.login === login);
+    }
+
     getUser = async (userId: string): Promise<void> => {
         try {
             const response = await fetch(`http://localhost:3001/users/${userId}`);
@@ -127,6 +131,11 @@ export class UsersStore {
     }
 
     addUser = async (login: string, password: string, fullName: string): Promise<void> => {
+        if (this.checkUserExists(login)) {
+            this.userExistsError = true;
+            return;
+        }
+
         const newUser: User = {
             id: uniqid(),
             login,
@@ -148,6 +157,7 @@ export class UsersStore {
             }
             const data = await response.json();
             this.users = [...this.users, data];
+            this.userExistsError = false;
         } catch (error) {
             const errorText:string = 'Ошибка при добавлении пользователя:'
             if (error instanceof Error) {
