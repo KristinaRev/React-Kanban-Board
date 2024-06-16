@@ -46,6 +46,17 @@ export class UsersStore {
 
     constructor() {
         makeAutoObservable(this);
+
+        const storedLogin: string | null = localStorage.getItem('login');
+        const storedUserFullName: string | null = localStorage.getItem('currentUser');
+
+        if (storedLogin) {
+            this.login = JSON.parse(storedLogin);
+        }
+
+        if (storedUserFullName) {
+            this.currentUser = { id: '', login: '', password: '', fullName: JSON.parse(storedUserFullName), dateRegister: '' };
+        }
     }
 
     getUsers = async (): Promise<void> => {
@@ -66,6 +77,8 @@ export class UsersStore {
     logOut = async (): Promise<void> => {
         this.login = false;
         this.currentUser = null;
+        localStorage.removeItem('login');
+        localStorage.removeItem('currentUser');
     }
 
     loginUser = async (login: string, password: string): Promise<boolean> => {
@@ -74,6 +87,8 @@ export class UsersStore {
             if (user) {
                 this.login = true;
                 this.currentUser = user;
+                localStorage.setItem('login', JSON.stringify(true));
+                localStorage.setItem('currentUser', JSON.stringify(user.fullName));
                 return true;
             } else {
                 return false;
