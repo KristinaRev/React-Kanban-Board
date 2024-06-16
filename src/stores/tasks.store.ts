@@ -42,7 +42,8 @@ export class TasksStore {
         isDeleted: false,
         title: '',
         description: '',
-        status: ''
+        status: '',
+        priority: ''
     }
 
     taskForm: TaskForm = {
@@ -224,6 +225,10 @@ export class TasksStore {
                 console.log(`Задача ${taskId} успешно удалена на сервере`);
             })
             .catch(error => console.error('Ошибка удаления задачи на сервере:', error.message))
+    }
+
+    removeTasks = async (): Promise<void> => {
+        this.tasks = [];
     }
 
     replaceListTasks = (dragIndex: number, hoverIndex:number):void => {

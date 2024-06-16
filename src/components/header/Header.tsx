@@ -20,7 +20,6 @@ const Header: FC<HeaderProps> = ({onLogin, onLogout, user}) => {
 
 	useEffect(() => {
 		const handleClickOutside = (e: MouseEvent) => {
-			// Проверка на наличие root и e.target
 			if (root && e.target instanceof Node && !root.contains(e.target)) {
 				setPortalVisible(false);
 			}
