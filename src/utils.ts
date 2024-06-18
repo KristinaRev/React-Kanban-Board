@@ -3,7 +3,7 @@
  * @param {string} stringDate - Строка с датой
  * @returns {string} Отформатированная дата
  */
-export function formatDate (stringDate)  {
+export function formatDate(stringDate: string): string {
 	const date = new Date(stringDate);
 	return date.toLocaleString('ru-RU');
 }
@@ -13,7 +13,11 @@ export function formatDate (stringDate)  {
  * @param {Array} tasks - Массив задач
  * @returns {Object} Объект с количеством задач в каждом статусе
  */
-export function countTask(tasks) {
+export interface Task {
+	status: string;
+}
+
+export function countTask(tasks: Task[]) {
 	const counts = {
 		backlog: 0,
 		inProgress: 0,

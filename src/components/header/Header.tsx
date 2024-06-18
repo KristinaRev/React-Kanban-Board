@@ -1,17 +1,18 @@
-import {FC, memo, useEffect, useState} from 'react';
+import {FC, useContext, useEffect, useState} from 'react';
 import Login from "../Login/Login";
 import Portal from "../Portal";
 import {root} from "../Portal/Portal";
 import FormattedTitle from "../../ui/formatted-title/FormattedTitle";
 import './Header.scss';
+import {StoreContext} from "../../stores/root.store";
+import {observer} from "mobx-react-lite";
 
 type HeaderProps = {
-	onLogin: () => void;
 	onLogout: () => void;
-	user: string | null;
 };
 
-const Header: FC<HeaderProps> = ({onLogin, onLogout, user}) => {
+const Header: FC<HeaderProps> = ({onLogout}) => {
+	const { usersStore } = useContext(StoreContext);
 	const [portalVisible, setPortalVisible] = useState(false);
 
 	const handleWelcomeClick = () => {
@@ -20,7 +21,6 @@ const Header: FC<HeaderProps> = ({onLogin, onLogout, user}) => {
 
 	useEffect(() => {
 		const handleClickOutside = (e: MouseEvent) => {
-			// Проверка на наличие root и e.target
 			if (root && e.target instanceof Node && !root.contains(e.target)) {
 				setPortalVisible(false);
 			}
@@ -35,10 +35,10 @@ const Header: FC<HeaderProps> = ({onLogin, onLogout, user}) => {
 	return (
 		<header className="header">
 			<h1 className="header_title">Awesome Kanban Board</h1>
-			{user && (
-				<p className="header_user" onClick={handleWelcomeClick}>Welcome, {user}!</p>
+			{usersStore.login && (
+				<p className="header_user" onClick={onLogout}>Welcome, {usersStore.currentUser?.fullName}!</p>
 			)}
-			<Login onLogin={onLogin} onLogout={onLogout} user={user}/>
+			<Login onLogout={onLogout}/>
 			{portalVisible && (
 				<Portal className="MyPortal" element="span">
 					<FormattedTitle title='Have a good day!' className="Title"/>
@@ -48,4 +48,4 @@ const Header: FC<HeaderProps> = ({onLogin, onLogout, user}) => {
 	);
 }
 
-export default memo(Header);
+export default observer(Header);

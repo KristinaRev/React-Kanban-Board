@@ -6,10 +6,6 @@ import List from '../../components/list/List';
 import css from './Board.module.css';
 import {StoreContext} from "../../stores/root.store";
 
-interface BoardProps {
-	user: string | null;
-}
-
 interface Task {
 	id: string;
 	title: string;
@@ -17,7 +13,7 @@ interface Task {
 	priority?: string;
 }
 
-const Board: React.FC<BoardProps>  = ({ user }) => {
+const Board: React.FC  = () => {
 	const {tasksStore} = useContext(StoreContext);
 
 	return (
@@ -29,7 +25,7 @@ const Board: React.FC<BoardProps>  = ({ user }) => {
 						type={type}
 						title={LIST_COPY[type]}
 						tasks={tasksStore.tasks.filter((task: Task) => task.status === type)}
-						user={user}
+
 					/>
 				))}
 			</div>

@@ -1,7 +1,8 @@
 .Register {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 10px;
+  min-width: 500px;
   align-items: center;
 }
 
@@ -10,4 +11,11 @@
   flex-direction: column;
   gap: 4px;
   align-items: center;
+}
+
+.errorReg {
+  color: firebrick;
+  font-size: 12px;
+  width: 100%;
+  text-align: center;
 }

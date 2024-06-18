@@ -3,6 +3,7 @@ import css from './Textarea.module.css';
 
 interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
     label?: string;
+    ref?: any; //todo: определить тип
 }
 
 export const Textarea: FC<TextareaProps> = (props) => {

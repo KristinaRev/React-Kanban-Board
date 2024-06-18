@@ -1,3 +1,4 @@
+import {FC} from 'react';
 import {Routes, Route} from "react-router-dom";
 import Board from '../../pages/board/Board';
 import TaskDetail from '../../pages/task-detail/TaskDetail';
@@ -6,15 +7,10 @@ import {ROUTES} from "../../routes";
 import Profile from "../../pages/profile/Profile";
 import Auth from "../../pages/auth/Auth";
 import Reg from "../../pages/reg/Reg";
+import Admin from "../../pages/admin/Admin";
 import css from './Main.module.css';
-import React from "react";
 
-interface MainProps {
-	user: string | null;
-}
-
-const Main: React.FC<MainProps> = (props) => {
-
+const Main: FC= (props) => {
 	return (
 		<main className={css.main}>
 			<Routes>
@@ -24,6 +20,7 @@ const Main: React.FC<MainProps> = (props) => {
 				<Route path={ROUTES.PROFILE} element={<Profile/>}/>
 				<Route path={ROUTES.AUTHORIZATION} element={<Auth/>}/>
 				<Route path={ROUTES.REGISTRATION} element={<Reg/>}/>
+				<Route path={ROUTES.ADMIN} element={<Admin/>}/>
 			</Routes>
 		</main>
 	);

@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useContext} from 'react';
+import {useEffect, useRef, useContext, ChangeEvent, FC} from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { FaTimes } from 'react-icons/fa';
 import FormattedTitle from '../../ui/formatted-title/FormattedTitle';
@@ -6,23 +6,26 @@ import {StoreContext} from "../../stores/root.store";
 import {observer} from "mobx-react-lite";
 import {LIST_COPY, LIST_TYPES} from "../../config";
 import Button from "../../ui/button/Button";
-import Input from "../../ui/input/Input";
-import css from './TaskDetail.module.css';
 import Select from "../../ui/select/Select";
 import {Textarea} from "../../ui/textarea/textarea";
+import css from './TaskDetail.module.css';
 
-const TaskDetail = () => {
-	const { taskId } = useParams();
-	const {tasksStore} = useContext(StoreContext);
+const TaskDetail: FC = () => {
+	const { taskId } = useParams<{ taskId: string }>();
+	const { tasksStore } = useContext(StoreContext);
+
 	const localDescription = tasksStore.taskDetail.description;
 	const localStatus = tasksStore.taskDetail.status;
 	const localTitle = tasksStore.taskDetail.title;
 	const localPriority = tasksStore.taskDetail.priority;
-	const descriptionRef = useRef(null);
+
+	const descriptionRef = useRef<HTMLTextAreaElement>(null);
 
 	useEffect(() => {
-		tasksStore.getTask(taskId);
-	}, [taskId]);
+		if (taskId) {
+			tasksStore.getTask(taskId);
+		}
+	}, [tasksStore, taskId])
 
 	useEffect(() => {
 		if (descriptionRef.current) {
@@ -30,35 +33,36 @@ const TaskDetail = () => {
 		}
 	}, [tasksStore.taskDetail]);
 
-	const handleChange = e => tasksStore.changeTaskDetailsValue(e);
+	const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) =>
+		tasksStore.changeTaskDetailsValue(e);
 
 	const addDescription = async () => {
-		await tasksStore.updateTaskDescription(taskId, localDescription);
+		if(taskId) await tasksStore.updateTaskDescription(taskId, localDescription);
 	};
 
 	const changeStatus = async () => {
-		await tasksStore.updateTaskStatus(taskId, localStatus);
+		if(taskId) await tasksStore.updateTaskStatus(taskId, localStatus);
 	};
 
 	const changePriority = async () => {
-		await tasksStore.updateTaskPriority(taskId, localPriority);
+		if(taskId) await tasksStore.updateTaskPriority(taskId, localPriority);
 	};
 
 	const handleBtnClick = async () => {
-		if (!tasksStore.taskDetail.isDeleted) {
+		if (!tasksStore.taskDetail.isDeleted && taskId) {
 			await tasksStore.deleteTask(taskId);
 		} else {
-			await tasksStore.addTask(localTitle, localDescription, localStatus)
+			await tasksStore.addTask(localTitle, localDescription, localStatus);
 		}
 		tasksStore.changeTaskDetailDeleted(!tasksStore.taskDetail.isDeleted);
 	};
 
-	const selectOptions = Object.values(LIST_TYPES).map(list => ({
+	const selectOptions = Object.values(LIST_TYPES).map((list) => ({
 		value: list,
 		label: LIST_COPY[list],
 	}));
 
-	const taskPriorities = Object.values(tasksStore.taskPriorities).map(list => ({
+	const taskPriorities = Object.values(tasksStore.taskPriorities).map((list) => ({
 		value: list,
 		label: list,
 	}));

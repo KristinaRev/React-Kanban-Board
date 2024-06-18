@@ -3,17 +3,26 @@ import { observer } from "mobx-react-lite";
 import Input from "../../ui/input/Input";
 import { StoreContext } from "../../stores/root.store";
 import Button from "../../ui/button/Button";
-import {WithClassName} from "interfaces";
+import { WithClassName } from "interfaces";
 import './UserLogin.scss';
+import css from "../../pages/profile/Profile.module.css";
+import {Link} from "react-router-dom";
+import {ROUTES} from "../../routes";
 
-const UserLogin: React.FC<WithClassName> = ({ className }) => {
+const UserLogin: React.FC<WithClassName & { onLogin: () => void }> = ({ className, onLogin }) => {
     const { usersStore } = useContext(StoreContext);
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => usersStore.changeLoginFormValue(e);
 
     const formSubmit = async (e: React.FormEvent) => {
-        e.preventDefault()
-        // todo
+        e.preventDefault();
+        const { login, password } = usersStore.userLoginForm;
+        const loggedIn = await usersStore.loginUser(login, password);
+        if (loggedIn) {
+            onLogin();
+        } else {
+            console.log('Неправильный логин или пароль');
+        }
     };
 
     return (
@@ -39,7 +48,7 @@ const UserLogin: React.FC<WithClassName> = ({ className }) => {
                 />
                 <Button type="submit">Войти</Button>
             </form>
-            <Button>Регистрация</Button>
+            <Link to={ROUTES.REGISTRATION} className="link">Зарегистрироваться</Link>
         </div>
     )
 }

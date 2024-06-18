@@ -2,5 +2,6 @@ export const ROUTES = {
     PORTAL: '/portal',
     PROFILE: '/profile',
     REGISTRATION: '/reg',
-    AUTHORIZATION: '/auth'
+    AUTHORIZATION: '/auth',
+    ADMIN: '/admin'
 }

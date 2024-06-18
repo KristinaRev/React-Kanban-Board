@@ -1,6 +1,7 @@
 import {makeAutoObservable} from "mobx";
 import uniqid from "uniqid";
 import React from "react";
+import {formatDate} from "../utils";
 
 interface User {
     id: string;
@@ -27,7 +28,9 @@ interface UserLoginForm {
 
 export class UsersStore {
     login: boolean = false;
+    currentUser: User | null = null;
     users: User[] = [];
+    userExistsError: boolean = false;
     userDetail: UserDetail = {
         fullName: '',
     };
@@ -43,6 +46,17 @@ export class UsersStore {
 
     constructor() {
         makeAutoObservable(this);
+
+        const storedLogin: string | null = localStorage.getItem('login');
+        const storedUserFullName: string | null = localStorage.getItem('currentUser');
+
+        if (storedLogin) {
+            this.login = JSON.parse(storedLogin);
+        }
+
+        if (storedUserFullName) {
+            this.currentUser = { id: '', login: '', password: '', fullName: JSON.parse(storedUserFullName), dateRegister: '' };
+        }
     }
 
     getUsers = async (): Promise<void> => {
@@ -58,6 +72,35 @@ export class UsersStore {
                 console.error(errorText, error.message);
             }
         }
+    }
+
+    logOut = (): void => {
+        this.login = false;
+        this.currentUser = null;
+        localStorage.removeItem('login');
+        localStorage.removeItem('currentUser');
+    }
+
+    loginUser = (login: string, password: string): boolean => {
+        try {
+            const user = this.users.find(user => user.login === login && user.password === password);
+            if (user) {
+                this.login = true;
+                this.currentUser = user;
+                localStorage.setItem('login', JSON.stringify(true));
+                localStorage.setItem('currentUser', JSON.stringify(user.fullName));
+                return true;
+            } else {
+                return false;
+            }
+        } catch (error) {
+            console.error('Ошибка авторизации:', error);
+            return false;
+        }
+    }
+
+    checkUserExists = (login: string): boolean => {
+        return this.users.some(user => user.login === login);
     }
 
     getUser = async (userId: string): Promise<void> => {
@@ -103,12 +146,17 @@ export class UsersStore {
     }
 
     addUser = async (login: string, password: string, fullName: string): Promise<void> => {
+        if (this.checkUserExists(login)) {
+            this.userExistsError = true;
+            return;
+        }
+
         const newUser: User = {
             id: uniqid(),
             login,
             password,
             fullName,
-            dateRegister: new Date().toISOString(),
+            dateRegister: formatDate(new Date().toISOString()),
         };
 
         try {
@@ -124,6 +172,7 @@ export class UsersStore {
             }
             const data = await response.json();
             this.users = [...this.users, data];
+            this.userExistsError = false;
         } catch (error) {
             const errorText:string = 'Ошибка при добавлении пользователя:'
             if (error instanceof Error) {
