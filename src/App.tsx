@@ -19,7 +19,7 @@ const App: FC = observer(() => {
 
     const { tasksStore, usersStore } = useContext(StoreContext);
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         if (usersStore.login) {
             tasksStore.getTasks();
         }
@@ -29,11 +29,6 @@ const App: FC = observer(() => {
         usersStore.getUsers();
     }, [usersStore]);
 
-    // const handleLogin = useCallback(() => {
-    //     const USER_NAME_TO_LOGIN: string = 'SPIKS';
-    //     setUser({ name: USER_NAME_TO_LOGIN });
-    //     window.localStorage.setItem('user', JSON.stringify({ name: USER_NAME_TO_LOGIN }));
-    // }, []);
 
     const handleLogout = useCallback(() => {
         usersStore.logOut();

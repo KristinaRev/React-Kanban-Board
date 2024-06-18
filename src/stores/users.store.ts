@@ -74,14 +74,14 @@ export class UsersStore {
         }
     }
 
-    logOut = async (): Promise<void> => {
+    logOut = (): void => {
         this.login = false;
         this.currentUser = null;
         localStorage.removeItem('login');
         localStorage.removeItem('currentUser');
     }
 
-    loginUser = async (login: string, password: string): Promise<boolean> => {
+    loginUser = (login: string, password: string): boolean => {
         try {
             const user = this.users.find(user => user.login === login && user.password === password);
             if (user) {

@@ -10,9 +10,7 @@ import Select from "../../ui/select/Select";
 import {Textarea} from "../../ui/textarea/textarea";
 import css from './TaskDetail.module.css';
 
-interface TaskDetailProps {}
-
-const TaskDetail: FC<TaskDetailProps> = () => {
+const TaskDetail: FC = () => {
 	const { taskId } = useParams<{ taskId: string }>();
 	const { tasksStore } = useContext(StoreContext);
 

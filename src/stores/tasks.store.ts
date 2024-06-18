@@ -227,7 +227,7 @@ export class TasksStore {
             .catch(error => console.error('Ошибка удаления задачи на сервере:', error.message))
     }
 
-    removeTasks = async (): Promise<void> => {
+    removeTasks = (): void => {
         this.tasks = [];
     }
 
