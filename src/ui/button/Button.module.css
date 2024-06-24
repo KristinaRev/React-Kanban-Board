@@ -1,22 +1,22 @@
 .button {
-    background: #465671;
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    padding: 4px 8px;
-    height: 30px;
-    width: max-content;
-    cursor: pointer;
-    align-self: flex-end;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  background: #465671;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 4px 8px;
+  height: 30px;
+  width: max-content;
+  cursor: pointer;
+  align-self: flex-end;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .button:hover {
-    background: #5d7194;
+  background: #5d7194;
 }
 
 .button:active {
-    background: #404f6a;
+  background: #404f6a;
 }

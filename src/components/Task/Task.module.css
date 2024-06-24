@@ -1,63 +1,63 @@
 .task {
-    background-color: rgba(255, 255, 255, 1);
-    color: rgba(0, 0, 0, 1);
-    margin: 7px 0;
-    padding: 8px;
-    border-radius: 8px;
-    overflow: hidden;
-    cursor: grab;
-    font-weight: 500;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 4px;
+  background-color: rgba(255, 255, 255, 1);
+  color: rgba(0, 0, 0, 1);
+  margin: 7px 0;
+  padding: 8px;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: grab;
+  font-weight: 500;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
 }
 
 .title {
-    max-width: calc(100% - 100px);
-    white-space: pre-wrap;
-    overflow: hidden;
+  max-width: calc(100% - 100px);
+  white-space: pre-wrap;
+  overflow: hidden;
 }
 
-.task_top, .task_bottom {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    width: 100%;
+.task_top,
+.task_bottom {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  width: 100%;
 }
 
 .taskLink {
-    text-decoration: none;
+  text-decoration: none;
 }
 
 .taskDetailsButton {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: rgba(0, 121, 191, 1);
-    text-decoration: none;
-    width: max-content;
-    box-sizing: border-box;
-    cursor: pointer;
-    background: #465671;
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    padding: 4px 8px;
-    height: 30px;
-    align-self: flex-end;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(0, 121, 191, 1);
+  text-decoration: none;
+  width: max-content;
+  box-sizing: border-box;
+  cursor: pointer;
+  background: #465671;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 4px 8px;
+  height: 30px;
+  align-self: flex-end;
 }
 
 .taskDetailsButton:hover {
-    background: #5d7194;
+  background: #5d7194;
 }
 
 .taskDetailsButton:active {
-    background: #404f6a;
+  background: #404f6a;
 }
 
 .taskDetailsButton {
-
-    margin-right: 4px;
-    margin-left: auto;
+  margin-right: 4px;
+  margin-left: auto;
 }
