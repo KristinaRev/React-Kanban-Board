@@ -1,11 +1,11 @@
 .Auth {
-    width: 60vw;
-    margin: auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  width: 60vw;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 h1 {
-    color: #ffffff;
+  color: #ffffff;
 }

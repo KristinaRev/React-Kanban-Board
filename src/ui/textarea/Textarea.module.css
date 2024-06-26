@@ -1,20 +1,20 @@
 .input {
-    font-family: 'Lato', sans-serif;
-    display: block;
-    border: 1px solid #465671;
-    border-radius: 8px;
-    padding: 8px;
-    background: transparent;
-    resize: none;
-    color: black;
-    transition: .3s ease;
-    width: 100%;
+  font-family: 'Lato', sans-serif;
+  display: block;
+  border: 1px solid #465671;
+  border-radius: 8px;
+  padding: 8px;
+  background: transparent;
+  resize: none;
+  color: black;
+  transition: 0.3s ease;
+  width: 100%;
 }
 
 .input::placeholder {
-    color: #465671;
+  color: #465671;
 }
 
 .input:hover {
-    border: 1px solid black;
+  border: 1px solid black;
 }

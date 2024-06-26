@@ -1,18 +1,18 @@
 .container {
-    display: flex;
-    background-color: azure;
-    border-radius: 5px;
-    padding: 5px;
-    gap: 7px;
-    justify-content: space-between;
+  display: flex;
+  background-color: azure;
+  border-radius: 5px;
+  padding: 5px;
+  gap: 7px;
+  justify-content: space-between;
 }
 
 .info {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }
 
 .name {
-    font-weight: 500;
+  font-weight: 500;
 }

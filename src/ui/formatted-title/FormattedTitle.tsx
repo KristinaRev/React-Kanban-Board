@@ -1,16 +1,16 @@
-import { useMemo, FC } from "react";
-import {WithClassName} from "interfaces";
+import { useMemo, FC } from 'react';
+import { WithClassName } from 'interfaces';
 
 interface FormattedTitleProps extends WithClassName {
-    title: string;
+  title: string;
 }
 
 const FormattedTitle: FC<FormattedTitleProps> = ({ title, className }) => {
-    const formattedTitle = useMemo(() => {
-        return title.toUpperCase();
-    }, [title]);
+  const formattedTitle = useMemo(() => {
+    return title.toUpperCase();
+  }, [title]);
 
-    return <span className={className}>{formattedTitle}</span>;
+  return <span className={className}>{formattedTitle}</span>;
 };
 
 export default FormattedTitle;
