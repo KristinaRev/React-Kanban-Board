@@ -1,0 +1,26 @@
+.form {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  position: relative;
+  align-items: self-start;
+}
+
+.form label {
+  font-size: 12px;
+  opacity: 0.7;
+  margin: 0;
+}
+
+.error {
+  color: firebrick;
+  font-size: 12px;
+  position: absolute;
+  left: 20px;
+  bottom: 20px;
+}
+
+.additionalSelectClass {
+  width: 100%;
+}

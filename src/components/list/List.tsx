@@ -1,4 +1,4 @@
-import React, { FC, useContext } from 'react';
+import { FC, useContext } from 'react';
 import { useTransition, animated } from 'react-spring';
 import { useDrop } from 'react-dnd';
 import { LIST_TYPES } from '../../config';
@@ -7,7 +7,7 @@ import FormAddNewTask from '../forms/FormAddNewTask';
 import Task from '../Task/Task';
 import { StoreContext } from '../../stores/root.store';
 import { observer } from 'mobx-react-lite';
-import './List.scss';
+import css from './List.module.css';
 
 interface AnimationConfig {
   opacity: number;
@@ -71,8 +71,8 @@ const List: FC<ListProps> = (props) => {
   );
 
   return (
-    <div ref={drop} className="list">
-      <h2 className="listTitle">{title}</h2>
+    <div ref={drop} className={css.list}>
+      <h2 className={css.listTitle}>{title}</h2>
       {tasks.length ? (
         tasks.map((task, index) => (
           <Task
@@ -89,7 +89,7 @@ const List: FC<ListProps> = (props) => {
         <p>No tasks added yet</p>
       )}
       {type === LIST_TYPES.BACKLOG && usersStore.login && (
-        <button onClick={handleAddNewClick} className="addButton">
+        <button onClick={handleAddNewClick} className={css.addButton}>
           + Add new task
         </button>
       )}

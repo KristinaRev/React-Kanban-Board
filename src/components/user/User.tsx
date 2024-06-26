@@ -1,4 +1,4 @@
-import React, { FC, useContext } from 'react';
+import { FC, useContext } from 'react';
 import { observer } from 'mobx-react-lite';
 import { StoreContext } from '../../stores/root.store';
 import css from './User.module.css';

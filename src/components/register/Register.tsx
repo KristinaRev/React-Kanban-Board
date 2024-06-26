@@ -1,14 +1,14 @@
-import React, { useContext, useState } from 'react';
+import { FC, useContext, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import Input from '../../ui/input/Input';
 import Button from '../../ui/button/Button';
 import { StoreContext } from '../../stores/root.store';
 import { WithClassName } from 'interfaces';
-import './Register.scss';
 import { ROUTES } from '../../routes';
 import { Link, useNavigate } from 'react-router-dom';
+import css from './Register.module.css';
 
-const Register: React.FC<WithClassName> = () => {
+const Register: FC<WithClassName> = () => {
   const { usersStore } = useContext(StoreContext);
   const navigate = useNavigate();
   const [showPrompt, setShowPrompt] = useState(false);
@@ -34,8 +34,8 @@ const Register: React.FC<WithClassName> = () => {
   };
 
   return (
-    <div className="Register">
-      <form onSubmit={formSubmit} className="form">
+    <div className={css.Register}>
+      <form onSubmit={formSubmit} className={css.form}>
         <Input
           id="userLogin"
           name="login"

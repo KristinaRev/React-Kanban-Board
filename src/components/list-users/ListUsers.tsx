@@ -1,8 +1,8 @@
-import React, { FC, useContext } from 'react';
+import { FC, useContext } from 'react';
 import { observer } from 'mobx-react-lite';
 import { StoreContext } from '../../stores/root.store';
-import css from './ListUsers.module.css';
 import User from '../user/User';
+import css from './ListUsers.module.css';
 
 const ListUsers: FC = () => {
   const { usersStore } = useContext(StoreContext);

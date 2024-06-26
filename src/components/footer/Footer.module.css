@@ -1,0 +1,47 @@
+.footer {
+  padding: 17px 19px 17px 21px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(0, 103, 163, 1);
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 21px;
+  color: #ffffff;
+  flex: 0 0 auto;
+  width: 100vw;
+  height: 55px;
+  max-width: 100%;
+}
+
+.counts {
+  display: flex;
+}
+
+.count {
+  position: relative;
+  margin-right: 30px;
+}
+
+.count + .count::before {
+  content: '';
+  display: block;
+  background: #fff;
+  width: 1px;
+  height: 100%;
+  position: absolute;
+  left: -15px;
+  top: 0;
+}
+
+.copy {
+  margin-left: auto;
+}
+
+a {
+  color: #fff;
+  font-weight: bold;
+}
