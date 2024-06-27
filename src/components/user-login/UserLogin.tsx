@@ -1,14 +1,14 @@
-import React, { useContext, ChangeEvent } from 'react';
+import { useContext, ChangeEvent, FC } from 'react';
 import { observer } from 'mobx-react-lite';
 import Input from '../../ui/input/Input';
 import { StoreContext } from '../../stores/root.store';
 import Button from '../../ui/button/Button';
 import { WithClassName } from 'interfaces';
-import './UserLogin.scss';
 import { Link } from 'react-router-dom';
 import { ROUTES } from '../../routes';
+import css from './UserLogin.module.css';
 
-const UserLogin: React.FC<WithClassName & { onLogin: () => void }> = ({ className, onLogin }) => {
+const UserLogin: FC<WithClassName & { onLogin: () => void }> = ({ className, onLogin }) => {
   const { usersStore } = useContext(StoreContext);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => usersStore.changeLoginFormValue(e);
@@ -25,8 +25,8 @@ const UserLogin: React.FC<WithClassName & { onLogin: () => void }> = ({ classNam
   };
 
   return (
-    <div className={`Login ${className}`}>
-      <form onSubmit={formSubmit} className="form">
+    <div className={`${css.Login} ${className}`}>
+      <form onSubmit={formSubmit} className={css.form}>
         <Input
           id="userLogin"
           name="login"
@@ -47,7 +47,7 @@ const UserLogin: React.FC<WithClassName & { onLogin: () => void }> = ({ classNam
         />
         <Button type="submit">Войти</Button>
       </form>
-      <Link to={ROUTES.REGISTRATION} className="link">
+      <Link to={ROUTES.REGISTRATION} className={css.link}>
         Зарегистрироваться
       </Link>
     </div>

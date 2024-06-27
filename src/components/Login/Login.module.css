@@ -1,8 +1,8 @@
 .login_wrapper {
-    position: relative;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 .user_avatar {
@@ -50,7 +50,7 @@
   position: absolute;
   bottom: 100%;
   right: 18px;
-  content: "";
+  content: '';
 }
 
 .login_dropdown_button {
@@ -59,7 +59,7 @@
   background-color: #fff;
   border: none;
   cursor: pointer;
-  font-family: "Roboto", sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-size: 14px;
   line-height: 16px;
   transition: all 0.5s ease-in-out;

@@ -1,11 +1,11 @@
-import React, { FC, useContext, useState, ChangeEvent, FormEvent } from 'react';
+import { FC, useContext, useState, ChangeEvent, FormEvent } from 'react';
 import Button from '../../ui/button/Button';
 import { StoreContext } from '../../stores/root.store';
 import { observer } from 'mobx-react-lite';
 import Input from '../../ui/input/Input';
 import Select from '../../ui/select/Select';
-import './Forms.scss';
 import { Textarea } from '../../ui/textarea/textarea';
+import css from './Forms.module.css';
 
 interface TaskPriority {
   value: string;
@@ -42,7 +42,7 @@ const FormAddNewTask: FC = () => {
   }));
 
   return (
-    <form onSubmit={formSubmit} className="form">
+    <form onSubmit={formSubmit} className={css.form}>
       <Input
         id="taskTitle"
         name="title"
@@ -58,6 +58,7 @@ const FormAddNewTask: FC = () => {
         onChange={handleChange}
         name="priority"
         label="Приоритет задачи"
+        additionalClass={css.additionalSelectClass}
       />
       <Textarea
         id="taskDescription"

@@ -1,11 +1,11 @@
-import React, { useContext, useState } from 'react';
+import { useContext, useState } from 'react';
 import Button from '../../ui/button/Button';
 import UserAvatar from '../../assets/user-menu.png';
 import { Link } from 'react-router-dom';
 import { useDelayUnmount } from '../../hooks/useDelayUnmount';
-import './Login.scss';
 import { StoreContext } from '../../stores/root.store';
 import { ROUTES } from '../../routes';
+import css from './Login.module.css';
 
 const mountedcss = { animation: 'inAnimation 250ms ease-in' };
 const unmountedcss = {
@@ -26,20 +26,20 @@ export default function Login({ onLogout }: LoginProps) {
   const toggleIsMounted = () => setIsMounted((prevIsMounted) => !prevIsMounted);
 
   return (
-    <div className="login_wrapper" onClick={toggleIsMounted}>
-      <img src={UserAvatar} alt="user avatar" className="user_avatar" />
+    <div className={css.login_wrapper} onClick={toggleIsMounted}>
+      <img src={UserAvatar} alt="user avatar" className={css.user_avatar} />
       <div className={iconClass} />
       {showDiv && (
-        <div className="login_dropdown" style={isMounted ? mountedcss : unmountedcss}>
-          <Link to={`/profile`} className="login_dropdown_button">
+        <div className={css.login_dropdown} style={isMounted ? mountedcss : unmountedcss}>
+          <Link to={`/profile`} className={css.login_dropdown_button}>
             Profile
           </Link>
           {usersStore.login ? (
-            <Button className="login_dropdown_button" onClick={onLogout}>
+            <Button className={css.login_dropdown_button} onClick={onLogout}>
               Log Out
             </Button>
           ) : (
-            <Link to={ROUTES.AUTHORIZATION} className="login_dropdown_button">
+            <Link to={ROUTES.AUTHORIZATION} className={css.login_dropdown_button}>
               Log In
             </Link>
           )}

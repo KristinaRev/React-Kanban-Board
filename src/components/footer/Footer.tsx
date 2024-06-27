@@ -1,6 +1,6 @@
 import { FC, memo } from 'react';
 import { observer } from 'mobx-react-lite';
-import './Footer.scss';
+import css from './Footer.module.css';
 
 interface FooterProps {
   backlogCount: number;
@@ -11,14 +11,14 @@ interface FooterProps {
 
 const Footer: FC<FooterProps> = ({ backlogCount, doneCount, inProgressCount, readyCount }) => {
   return (
-    <footer className="footer">
-      <div className="counts">
-        <p className="count">backlog: {backlogCount}</p>
-        <p className="count">done: {doneCount}</p>
-        <p className="count">inProgress: {inProgressCount}</p>
-        <p className="count">ready: {readyCount}</p>
+    <footer className={css.footer}>
+      <div className={css.counts}>
+        <p className={css.count}>backlog: {backlogCount}</p>
+        <p className={css.count}>done: {doneCount}</p>
+        <p className={css.count}>inProgress: {inProgressCount}</p>
+        <p className={css.count}>ready: {readyCount}</p>
       </div>
-      <div className="copy">
+      <div className={css.copy}>
         Created by{' '}
         <a href="https://github.com/KristinaRev" target="_blank" rel="noreferrer">
           Kris Kipper

@@ -3,9 +3,9 @@ import Login from '../Login/Login';
 import Portal from '../Portal';
 import { root } from '../Portal/Portal';
 import FormattedTitle from '../../ui/formatted-title/FormattedTitle';
-import './Header.scss';
 import { StoreContext } from '../../stores/root.store';
 import { observer } from 'mobx-react-lite';
+import css from './Header.module.css';
 
 type HeaderProps = {
   onLogout: () => void;
@@ -33,17 +33,17 @@ const Header: FC<HeaderProps> = ({ onLogout }) => {
   }, []);
 
   return (
-    <header className="header">
-      <h1 className="header_title">Awesome Kanban Board</h1>
+    <header className={css.header}>
+      <h1 className={css.header_title}>Awesome Kanban Board</h1>
       {usersStore.login && (
-        <p className="header_user" onClick={onLogout}>
+        <p className={css.header_user} onClick={onLogout}>
           Welcome, {usersStore.currentUser?.fullName}!
         </p>
       )}
       <Login onLogout={onLogout} />
       {portalVisible && (
-        <Portal className="MyPortal" element="span">
-          <FormattedTitle title="Have a good day!" className="Title" />
+        <Portal className={css.MyPortal} element="span">
+          <FormattedTitle title="Have a good day!" className={css.Title} />
         </Portal>
       )}
     </header>

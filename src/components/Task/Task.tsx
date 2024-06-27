@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import { FC, useContext } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
 import { ItemTypes } from '../../ItemTypes';
 import { FaTimes } from 'react-icons/fa';
@@ -19,7 +19,7 @@ interface TaskProps {
   priority?: string;
 }
 
-const Task: React.FC<TaskProps> = ({ id, index, title, status, moveTaskInsideList, priority }) => {
+const Task: FC<TaskProps> = ({ id, index, title, status, moveTaskInsideList, priority }) => {
   const { tasksStore } = useContext(StoreContext);
 
   const [{ isDragging }, drag] = useDrag({
