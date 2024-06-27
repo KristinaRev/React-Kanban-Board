@@ -26,9 +26,7 @@ describe('Login', () => {
 
   test('performs logout action', async () => {
     const onLogoutMock = jest.fn();
-    const { getByAltText, queryByText } = render(
-      <Login user={{}} onLogout={onLogoutMock} />
-    );
+    const { getByAltText, queryByText } = render(<Login user={{}} onLogout={onLogoutMock} />);
     const userAvatar = getByAltText('user avatar');
     fireEvent.click(userAvatar);
     const logoutButton = queryByText(/Log Out/i);
