@@ -1,4 +1,5 @@
 import { SelectHTMLAttributes, FC } from 'react';
+import cn from "classnames";
 import css from './Select.module.css';
 
 interface Option {
@@ -9,14 +10,14 @@ interface Option {
 interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
   label?: string;
   options: Option[];
-  additionalClass?: string;
+  className?: string;
 }
 
-const Select: FC<SelectProps> = ({ label, options, additionalClass, ...rest }) => {
+const Select: FC<SelectProps> = ({ label, options, className, ...rest }) => {
   return (
     <>
       {label && <label>{label}</label>}
-      <select className={`${css.select} ${additionalClass}`} {...rest}>
+      <select className={cn(css.select, className)} {...rest}>
         {options.map((option) => (
           <option key={option.value} value={option.value}>
             {option.label}
