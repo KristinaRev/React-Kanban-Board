@@ -3,11 +3,11 @@ import { Routes, Route } from 'react-router-dom';
 import Board from '../../pages/Board/Board';
 import TaskDetail from '../../pages/Task-detail/TaskDetail';
 import PortalPage from '../../pages/PortalPage';
-import { ROUTES } from '../../routes';
 import Profile from '../../pages/Profile/Profile';
 import Auth from '../../pages/Auth/Auth';
 import Reg from '../../pages/Reg/Reg';
 import Admin from '../../pages/Admin/Admin';
+import { ROUTES } from '../../constants';
 import css from './Main.module.css';
 
 const Main: FC = (props) => {

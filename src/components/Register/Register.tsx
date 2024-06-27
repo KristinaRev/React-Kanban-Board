@@ -4,7 +4,7 @@ import Input from '../../ui/input/Input';
 import Button from '../../ui/button/Button';
 import { StoreContext } from '../../stores/root.store';
 import { WithClassName } from 'interfaces';
-import { ROUTES } from '../../routes';
+import { ROUTES } from '../../constants';
 import { Link, useNavigate } from 'react-router-dom';
 import css from './Register.module.css';
 

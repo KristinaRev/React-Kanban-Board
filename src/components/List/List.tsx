@@ -1,9 +1,9 @@
 import { FC, useContext } from 'react';
 import { useTransition, animated } from 'react-spring';
 import { useDrop } from 'react-dnd';
-import { LIST_TYPES } from '../../config';
-import { ItemTypes } from '../../ItemTypes';
 import FormAddNewTask from '../Forms/FormAddNewTask';
+import { LIST_TYPES } from '../../constants/config';
+import { ItemTypes } from '../../constants/ItemTypes';
 import Task from '../Task/Task';
 import { StoreContext } from '../../stores/root.store';
 import { observer } from 'mobx-react-lite';

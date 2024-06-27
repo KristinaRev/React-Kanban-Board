@@ -4,7 +4,7 @@ import UserAvatar from '../../assets/user-menu.png';
 import { Link } from 'react-router-dom';
 import { useDelayUnmount } from '../../hooks/useDelayUnmount';
 import { StoreContext } from '../../stores/root.store';
-import { ROUTES } from '../../routes';
+import { ROUTES } from '../../constants';
 import css from './Login.module.css';
 
 const mountedcss = { animation: 'inAnimation 250ms ease-in' };

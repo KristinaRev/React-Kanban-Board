@@ -5,7 +5,7 @@ import { StoreContext } from '../../stores/root.store';
 import Button from '../../ui/button/Button';
 import { WithClassName } from 'interfaces';
 import { Link } from 'react-router-dom';
-import { ROUTES } from '../../routes';
+import { ROUTES } from '../../constants';
 import css from './UserLogin.module.css';
 
 const UserLogin: FC<WithClassName & { onLogin: () => void }> = ({ className, onLogin }) => {

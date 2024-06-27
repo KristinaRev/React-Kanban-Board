@@ -1,6 +1,6 @@
 import { FC, useContext } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
-import { ItemTypes } from '../../ItemTypes';
+import { ItemTypes } from '../../constants/ItemTypes';
 import { FaTimes } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import Button from '../../ui/button/Button';
