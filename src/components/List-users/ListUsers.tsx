@@ -1,7 +1,7 @@
 import { FC, useContext } from 'react';
 import { observer } from 'mobx-react-lite';
 import { StoreContext } from '../../stores/root.store';
-import User from '../user/User';
+import User from '../User/User';
 import css from './ListUsers.module.css';
 
 const ListUsers: FC = () => {

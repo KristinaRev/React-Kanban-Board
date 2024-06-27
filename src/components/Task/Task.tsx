@@ -8,7 +8,7 @@ import FormattedTitle from '../../ui/formatted-title/FormattedTitle';
 import css from './Task.module.css';
 import { StoreContext } from '../../stores/root.store';
 import Tag from '../../ui/tag/Tag';
-import { MoveTaskInsideList } from '../list/List';
+import { MoveTaskInsideList } from '../List/List';
 
 interface TaskProps {
   id: string;

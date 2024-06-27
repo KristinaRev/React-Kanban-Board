@@ -58,7 +58,7 @@ const FormAddNewTask: FC = () => {
         onChange={handleChange}
         name="priority"
         label="Приоритет задачи"
-        additionalClass={css.additionalSelectClass}
+        className={css.additionalSelectClass}
       />
       <Textarea
         id="taskDescription"
