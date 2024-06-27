@@ -4,7 +4,7 @@ import { FaTimes } from 'react-icons/fa';
 import FormattedTitle from '../../ui/formatted-title/FormattedTitle';
 import { StoreContext } from '../../stores/root.store';
 import { observer } from 'mobx-react-lite';
-import { LIST_COPY, LIST_TYPES } from '../../config';
+import { LIST_COPY, LIST_TYPES } from '../../constants/config';
 import Button from '../../ui/button/Button';
 import Select from '../../ui/select/Select';
 import { Textarea } from '../../ui/textarea/textarea';

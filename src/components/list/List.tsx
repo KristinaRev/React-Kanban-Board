@@ -1,8 +1,8 @@
 import { FC, useContext } from 'react';
 import { useTransition, animated } from 'react-spring';
 import { useDrop } from 'react-dnd';
-import { LIST_TYPES } from '../../config';
-import { ItemTypes } from '../../ItemTypes';
+import { LIST_TYPES } from '../../constants/config';
+import { ItemTypes } from '../../constants/ItemTypes';
 import FormAddNewTask from '../forms/FormAddNewTask';
 import Task from '../Task/Task';
 import { StoreContext } from '../../stores/root.store';

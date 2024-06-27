@@ -3,7 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import Board from '../../pages/board/Board';
 import TaskDetail from '../../pages/task-detail/TaskDetail';
 import PortalPage from '../../pages/PortalPage';
-import { ROUTES } from '../../routes';
+import { ROUTES } from '../../constants';
 import Profile from '../../pages/profile/Profile';
 import Auth from '../../pages/auth/Auth';
 import Reg from '../../pages/reg/Reg';
