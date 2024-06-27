@@ -1,5 +1,5 @@
 import { SelectHTMLAttributes, FC } from 'react';
-import cn from "classnames";
+import cn from 'classnames';
 import css from './Select.module.css';
 
 interface Option {
