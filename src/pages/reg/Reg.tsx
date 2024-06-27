@@ -2,7 +2,7 @@ import React from 'react';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import css from './Reg.module.css';
-import Register from '../../components/register/Register';
+import Register from '../../components/Register/Register';
 
 const Reg: React.FC = () => {
   return (

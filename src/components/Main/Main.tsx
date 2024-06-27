@@ -1,13 +1,13 @@
 import { FC } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import Board from '../../pages/board/Board';
-import TaskDetail from '../../pages/task-detail/TaskDetail';
+import Board from '../../pages/Board/Board';
+import TaskDetail from '../../pages/Task-detail/TaskDetail';
 import PortalPage from '../../pages/PortalPage';
 import { ROUTES } from '../../routes';
-import Profile from '../../pages/profile/Profile';
-import Auth from '../../pages/auth/Auth';
+import Profile from '../../pages/Profile/Profile';
+import Auth from '../../pages/Auth/Auth';
 import Reg from '../../pages/reg/Reg';
-import Admin from '../../pages/admin/Admin';
+import Admin from '../../pages/Admin/Admin';
 import css from './Main.module.css';
 
 const Main: FC = (props) => {

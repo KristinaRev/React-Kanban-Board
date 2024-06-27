@@ -3,7 +3,7 @@ import { useTransition, animated } from 'react-spring';
 import { useDrop } from 'react-dnd';
 import { LIST_TYPES } from '../../config';
 import { ItemTypes } from '../../ItemTypes';
-import FormAddNewTask from '../forms/FormAddNewTask';
+import FormAddNewTask from '../Forms/FormAddNewTask';
 import Task from '../Task/Task';
 import { StoreContext } from '../../stores/root.store';
 import { observer } from 'mobx-react-lite';
