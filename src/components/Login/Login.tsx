@@ -14,7 +14,7 @@ const unmountedcss = {
 };
 
 interface LoginProps {
-  onLogout: () => void;
+  onLogout?: () => void;
 }
 
 export default function Login({ onLogout }: LoginProps) {
