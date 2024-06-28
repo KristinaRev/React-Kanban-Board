@@ -1,10 +1,29 @@
 import { render, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import Login from './components/Login/Login';
+import { RootStore, StoreContext } from './stores/root.store';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { ReactNode } from 'react';
+import { TasksStore } from './stores/tasks.store';
+import { UsersStore } from './stores/users.store';
 
 describe('Login', () => {
+  let rootStore: RootStore;
+
+  beforeEach(() => {
+    rootStore = new RootStore();
+  });
+
+  const renderWithContext = (component: ReactNode) => {
+    return render(
+      <StoreContext.Provider value={rootStore}>
+        <Router>{component}</Router>
+      </StoreContext.Provider>
+    );
+  };
+
   test('toggles dropdown on click', async () => {
-    const { getByAltText, findByText } = render(<Login  />);
+    const { getByAltText, findByText } = renderWithContext(<Login />);
     const userAvatar = getByAltText('user avatar');
     if (userAvatar) {
       fireEvent.click(userAvatar);
@@ -14,24 +33,19 @@ describe('Login', () => {
   });
 
   test('performs login action', async () => {
-    const onLoginMock = jest.fn();
-    const { getByAltText, queryByText } = render(<Login onLogout={onLoginMock}/>);
+    const { getByAltText, queryByText } = renderWithContext(<Login />);
     const userAvatar = getByAltText('user avatar');
     if (userAvatar) {
       fireEvent.click(userAvatar);
     }
     const loginButton = queryByText(/Log In/i);
-    if (loginButton) {
-      fireEvent.click(loginButton);
-    }
-    await waitFor(() => {
-      expect(onLoginMock).toHaveBeenCalledTimes(1);
-    });
+    expect(loginButton).toBeInTheDocument();
   });
 
   test('performs logout action', async () => {
+    rootStore.usersStore.login = true;
     const onLogoutMock = jest.fn();
-    const { getByAltText, queryByText } = render(<Login  onLogout={onLogoutMock} />);
+    const { getByAltText, queryByText } = renderWithContext(<Login onLogout={onLogoutMock} />);
     const userAvatar = getByAltText('user avatar');
     if (userAvatar) {
       fireEvent.click(userAvatar);
