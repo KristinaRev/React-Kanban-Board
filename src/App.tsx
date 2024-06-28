@@ -3,7 +3,7 @@ import { BrowserRouter } from 'react-router-dom';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 import Main from './components/Main/Main';
-import { countTask } from './utils';
+import { countTask } from './utils/helpers/utils';
 import { observer } from 'mobx-react-lite';
 import { StoreContext } from './stores/root.store';
 import './App.css';
