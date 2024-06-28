@@ -1,10 +1,11 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { LIST_TYPES, LIST_COPY } from '../../constants/config';
 import List from '../../components/List/List';
-import css from './Board.module.css';
 import { StoreContext } from '../../stores/root.store';
+import { observer } from 'mobx-react-lite';
+import css from './Board.module.css';
 
 interface Task {
   id: string;
@@ -13,7 +14,7 @@ interface Task {
   priority?: string;
 }
 
-const Board: React.FC = () => {
+const Board: React.FC = observer(() => {
   const { tasksStore } = useContext(StoreContext);
 
   return (
@@ -30,6 +31,6 @@ const Board: React.FC = () => {
       </div>
     </DndProvider>
   );
-};
+});
 
 export default Board;
