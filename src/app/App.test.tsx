@@ -1,11 +1,9 @@
 import { render, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
-import Login from './components/Login/Login';
-import { RootStore, StoreContext } from './stores/root.store';
+import Login from '../components/Login/Login';
+import { RootStore, StoreContext } from '../stores/root.store';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { ReactNode } from 'react';
-import { TasksStore } from './stores/tasks.store';
-import { UsersStore } from './stores/users.store';
 
 describe('Login', () => {
   let rootStore: RootStore;
