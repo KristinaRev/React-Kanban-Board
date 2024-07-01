@@ -1,6 +1,7 @@
 import { makeAutoObservable } from 'mobx';
 import uniqid from 'uniqid';
 import { ChangeEvent } from 'react';
+import { showErrorNotification } from '../utils/helpers/utils';
 
 interface Task {
   id: string;
@@ -49,11 +50,7 @@ export class TasksStore {
       }
       this.tasks = await response.json();
     } catch (error) {
-      if (error instanceof Error) {
-        console.error('Ошибка при получении задач:', error.message);
-      } else {
-        console.error('Ошибка при получении задач:', error);
-      }
+      showErrorNotification('Ошибка при получении задач', error);
     }
   };
 
@@ -65,11 +62,7 @@ export class TasksStore {
       }
       this.taskDetail = await response.json();
     } catch (error) {
-      if (error instanceof Error) {
-        console.error('Невозможно получить задачу:', error.message);
-      } else {
-        console.error('Невозможно получить задачу:', error);
-      }
+      showErrorNotification('Невозможно получить задачу', error);
     }
   };
 
@@ -93,11 +86,7 @@ export class TasksStore {
         throw new Error(`Ошибка: ${response.statusText}`);
       }
     } catch (error) {
-      if (error instanceof Error) {
-        console.error('Ошибка обновления описания задачи на сервере:', error.message);
-      } else {
-        console.error('Ошибка обновления описания задачи на сервере:', error);
-      }
+      showErrorNotification('Ошибка обновления описания задачи на сервере', error);
     }
   };
 
@@ -121,11 +110,7 @@ export class TasksStore {
         throw new Error(`Ошибка: ${response.statusText}`);
       }
     } catch (error) {
-      if (error instanceof Error) {
-        console.error('Ошибка обновления статуса задачи на сервере:', error.message);
-      } else {
-        console.error('Ошибка обновления статуса задачи на сервере:', error);
-      }
+      showErrorNotification('Ошибка обновления статуса задачи на сервере', error);
     }
   };
 
@@ -149,11 +134,7 @@ export class TasksStore {
         throw new Error(`Ошибка: ${response.statusText}`);
       }
     } catch (error) {
-      if (error instanceof Error) {
-        console.error('Ошибка обновления приоритета задачи на сервере:', error.message);
-      } else {
-        console.error('Ошибка обновления приоритета задачи на сервере:', error);
-      }
+      showErrorNotification('Ошибка обновления приоритета задачи на сервере', error);
     }
   };
 
@@ -182,7 +163,7 @@ export class TasksStore {
         }
       })
       .catch((error) => {
-        console.error('Error adding task:', error.message);
+        showErrorNotification('Ошибка при добавлении задачи', error);
       });
 
     this.tasks = [...this.tasks, newTask];
@@ -217,7 +198,9 @@ export class TasksStore {
         }
         console.log(`Задача ${taskId} успешно удалена на сервере`);
       })
-      .catch((error) => console.error('Ошибка удаления задачи на сервере:', error.message));
+      .catch((error) => {
+        showErrorNotification('Ошибка удаления задачи на сервере', error);
+      });
   };
 
   removeTasks = (): void => {
@@ -240,13 +223,6 @@ export class TasksStore {
   };
 
   changeTaskStatus = async (taskId: string, newStatus: string): Promise<void> => {
-    // this.tasks = this.tasks.map(task => task.id === taskId ? {...task, status: newStatus} : task);
-    // const taskToUpdate = this.tasks.find(task => task.id === taskId);
-
-    // const taskIndex = this.tasks.findIndex(task => task.id === taskId)
-    // const task = this.tasks[taskIndex];
-    // this.tasks[taskIndex] = {...task, status: newStatus}
-
     const taskToUpdate = this.tasks.find((task) => task.id === taskId);
 
     if (taskToUpdate) {
@@ -265,7 +241,9 @@ export class TasksStore {
             throw new Error(`Ошибка: ${response.statusText}`);
           }
         })
-        .catch((error) => console.error('Описание задачи не обновлено:', error.message));
+        .catch((error) => {
+          showErrorNotification('Описание задачи не обновлено', error);
+        });
     }
   };
 }

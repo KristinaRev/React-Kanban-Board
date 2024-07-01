@@ -1,7 +1,7 @@
 import { makeAutoObservable } from 'mobx';
 import uniqid from 'uniqid';
 import React, { ChangeEvent } from 'react';
-import { formatDate } from '../utils/helpers/utils';
+import { formatDate, showErrorNotification } from '../utils/helpers/utils';
 
 interface User {
   id: string;
@@ -93,11 +93,7 @@ export class UsersStore {
         throw new Error(`Ошибка: ${response.statusText}`);
       }
     } catch (error) {
-      if (error instanceof Error) {
-        console.error('Ошибка обновления полного имени пользователя на сервере:', error.message);
-      } else {
-        console.error('Ошибка обновления полного имени пользователя на сервере:', error);
-      }
+      showErrorNotification('Ошибка обновления полного имени пользователя на сервере', error);
     }
   };
 
@@ -121,11 +117,7 @@ export class UsersStore {
         throw new Error(`Ошибка: ${response.statusText}`);
       }
     } catch (error) {
-      if (error instanceof Error) {
-        console.error('Ошибка обновления пароля на сервере:', error.message);
-      } else {
-        console.error('Ошибка обновления пароля на сервере:', error);
-      }
+      showErrorNotification('Ошибка обновления пароля на сервере', error);
     }
   };
 
@@ -137,10 +129,7 @@ export class UsersStore {
       }
       this.users = await response.json();
     } catch (error) {
-      const errorText: string = 'Ошибка при получении пользователей:';
-      if (error instanceof Error) {
-        console.error(errorText, error.message);
-      }
+      showErrorNotification('Ошибка при получении пользователей', error);
     }
   };
 
@@ -168,7 +157,7 @@ export class UsersStore {
         return false;
       }
     } catch (error) {
-      console.error('Ошибка авторизации:', error);
+      showErrorNotification('Ошибка авторизации', error);
       return false;
     }
   };
@@ -191,10 +180,7 @@ export class UsersStore {
         rights: user.rights
       };
     } catch (error) {
-      const errorText: string = 'Невозможно получить пользователя:';
-      if (error instanceof Error) {
-        console.error(errorText, error.message);
-      }
+      showErrorNotification('Невозможно получить пользователя', error);
     }
   };
 
@@ -218,10 +204,7 @@ export class UsersStore {
         throw new Error(`Ошибка: ${response.statusText}`);
       }
     } catch (error) {
-      const errorText: string = 'Ошибка обновления имени пользователя:';
-      if (error instanceof Error) {
-        console.error(errorText, error.message);
-      }
+      showErrorNotification('Ошибка обновления имени пользователя', error);
     }
   };
 
@@ -255,10 +238,7 @@ export class UsersStore {
       this.users = [...this.users, data];
       this.userExistsError = false;
     } catch (error) {
-      const errorText: string = 'Ошибка при добавлении пользователя:';
-      if (error instanceof Error) {
-        console.error(errorText, error.message);
-      }
+      showErrorNotification('Ошибка при добавлении пользователя', error);
     }
 
     this.userRegForm = {
@@ -299,12 +279,11 @@ export class UsersStore {
       if (!response.ok) {
         throw new Error(`Ошибка: ${response.statusText}`);
       }
-      console.log(`Юзер ${userId} успешно удален на сервере`);
+      const notificationText = `Юзер ${userId} успешно удален на сервере`;
+      alert(notificationText);
+      console.log(notificationText);
     } catch (error) {
-      const errorText: string = 'Ошибка удаления юзера на сервере:';
-      if (error instanceof Error) {
-        console.error(errorText, error.message);
-      }
+      showErrorNotification('Ошибка удаления юзера на сервере', error);
     }
   };
 }
