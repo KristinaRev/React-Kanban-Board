@@ -4,7 +4,6 @@
   border-radius: 5px;
   padding: 5px;
   gap: 7px;
-  justify-content: space-between;
 }
 
 .info {
@@ -15,4 +14,24 @@
 
 .name {
   font-weight: 500;
+}
+.userDetailsButton {
+  background: #465671;
+  color: #fff;
+  text-decoration: none;
+  padding: 5px;
+  box-sizing: border-box;
+  cursor: pointer;
+  margin: 0 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.userDetailsButton:hover {
+  background: #5d7194;
+}
+
+.userDetailsButton:active {
+  background: #404f6a;
 }

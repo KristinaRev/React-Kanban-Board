@@ -1,5 +1,26 @@
 .profile {
+  height: calc(100vh - 110px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 50px 0;
+  gap: 30px;
+}
+
+h1 {
+  font-weight: bold;
+  font-size: 40px;
 }
 
 .link {
+  text-transform: uppercase;
+  margin: 0 0 0 auto;
+}
+
+.board {
+  height: 100%;
+  display: flex;
+  align-items: flex-start;
+  gap: 30px;
+  justify-content: space-between;
 }

@@ -1,3 +1,19 @@
+.wrapper {
+  height: 100%;
+  background: rgba(235, 236, 240, 1);
+  padding: 20px;
+  border-radius: 8px;
+  box-sizing: border-box;
+  box-shadow: 2px 2px 8px rgb(0 0 0 / 20%);
+  overflow-x: hidden;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  width: calc(50% - 15px);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
 .button {
   background: #465671;
   color: #fff;
@@ -13,6 +29,7 @@
   justify-content: center;
   gap: 6px;
   transition: ease.3s ease;
+  text-decoration: none;
 }
 
 .button:hover {

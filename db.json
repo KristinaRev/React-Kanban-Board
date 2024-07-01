@@ -77,6 +77,14 @@
       "priority": "",
       "created": "2024-06-28T13:24:00.668Z",
       "status": "backlog"
+    },
+    {
+      "id": "ly1o8khn",
+      "title": "cvc",
+      "description": "",
+      "priority": "blocker",
+      "created": "2024-06-30T14:53:42.202Z",
+      "status": "backlog"
     }
   ],
   "users": [
@@ -84,22 +92,33 @@
       "id": "123",
       "login": "Kris",
       "password": "Kris",
+      "rights": "admin",
       "fullName": "KrisKipper",
       "dateRegister": "19.05.2024"
     },
     {
       "id": "lwdhcuk1",
       "login": "sf_student1",
+      "rights": "user",
       "password": "5",
       "fullName": "tgyrg",
       "dateRegister": "2024-05-19T11:54:54.000Z"
     },
     {
-      "id": "lwdhecak",
-      "login": "a",
-      "password": "s",
-      "fullName": "cdcdscsfefewf",
-      "dateRegister": "2024-05-19T11:56:03.643Z"
+      "id": "ly2u7gph",
+      "login": "Зуенф",
+      "rights": "user",
+      "password": "Kris1111111111111111111111111111111111111",
+      "fullName": "Петя",
+      "dateRegister": "01.07.2024, 13:28:34"
+    },
+    {
+      "id": "ly2u7w8r",
+      "login": "!21212",
+      "rights": "user",
+      "password": "Kris1",
+      "fullName": "12222",
+      "dateRegister": "01.07.2024, 13:28:54"
     }
   ]
 }
