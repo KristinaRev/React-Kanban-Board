@@ -5,7 +5,6 @@ import { observer } from 'mobx-react-lite';
 import './App.css';
 
 const App: FC = observer(() => {
-
   return (
     <BrowserRouter>
       <RoutingPage />

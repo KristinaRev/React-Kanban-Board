@@ -1,11 +1,12 @@
 import { makeAutoObservable } from 'mobx';
 import uniqid from 'uniqid';
-import React from 'react';
-import { formatDate } from '../utils/helpers/utils';
+import React, { ChangeEvent } from 'react';
+import { formatDate, showErrorNotification } from '../utils/helpers/utils';
 
 interface User {
   id: string;
   login: string;
+  rights: string;
   password: string;
   fullName: string;
   dateRegister: string;
@@ -13,6 +14,9 @@ interface User {
 
 interface UserDetail {
   fullName: string;
+  password: string;
+  login: string;
+  rights: string;
 }
 
 interface UserRegForm {
@@ -32,7 +36,10 @@ export class UsersStore {
   users: User[] = [];
   userExistsError: boolean = false;
   userDetail: UserDetail = {
-    fullName: ''
+    fullName: '',
+    password: '',
+    login: '',
+    rights: ''
   };
   userRegForm: UserRegForm = {
     login: '',
@@ -58,12 +65,61 @@ export class UsersStore {
       this.currentUser = {
         id: '',
         login: '',
+        rights: '',
         password: '',
         fullName: JSON.parse(storedUserFullName),
         dateRegister: ''
       };
     }
   }
+
+  updateUserFullName = async (userId: string, localFullName: string): Promise<void> => {
+    try {
+      this.users = this.users.map((user) => {
+        if (user.id === userId) {
+          user.fullName = localFullName;
+        }
+        return user;
+      });
+
+      const response = await fetch(`http://localhost:3001/users/${userId}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ fullName: localFullName })
+      });
+      if (!response.ok) {
+        throw new Error(`Ошибка: ${response.statusText}`);
+      }
+    } catch (error) {
+      showErrorNotification('Ошибка обновления полного имени пользователя на сервере', error);
+    }
+  };
+
+  updatePassword = async (userId: string, localPassword: string): Promise<void> => {
+    try {
+      this.users = this.users.map((user) => {
+        if (user.id === userId) {
+          user.password = localPassword;
+        }
+        return user;
+      });
+
+      const response = await fetch(`http://localhost:3001/users/${userId}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ password: localPassword })
+      });
+      if (!response.ok) {
+        throw new Error(`Ошибка: ${response.statusText}`);
+      }
+    } catch (error) {
+      showErrorNotification('Ошибка обновления пароля на сервере', error);
+    }
+  };
 
   getUsers = async (): Promise<void> => {
     try {
@@ -73,10 +129,7 @@ export class UsersStore {
       }
       this.users = await response.json();
     } catch (error) {
-      const errorText: string = 'Ошибка при получении пользователей:';
-      if (error instanceof Error) {
-        console.error(errorText, error.message);
-      }
+      showErrorNotification('Ошибка при получении пользователей', error);
     }
   };
 
@@ -85,6 +138,8 @@ export class UsersStore {
     this.currentUser = null;
     localStorage.removeItem('login');
     localStorage.removeItem('currentUser');
+    localStorage.removeItem('currentUserId');
+    localStorage.removeItem('currentUserRights');
   };
 
   loginUser = (login: string, password: string): boolean => {
@@ -95,12 +150,14 @@ export class UsersStore {
         this.currentUser = user;
         localStorage.setItem('login', JSON.stringify(true));
         localStorage.setItem('currentUser', JSON.stringify(user.fullName));
+        localStorage.setItem('currentUserId', user.id);
+        localStorage.setItem('currentUserRights', user.rights);
         return true;
       } else {
         return false;
       }
     } catch (error) {
-      console.error('Ошибка авторизации:', error);
+      showErrorNotification('Ошибка авторизации', error);
       return false;
     }
   };
@@ -115,12 +172,15 @@ export class UsersStore {
       if (!response.ok) {
         throw new Error(`Ошибка: ${response.statusText}`);
       }
-      this.userDetail = await response.json();
+      const user = await response.json();
+      this.userDetail = {
+        fullName: user.fullName,
+        password: user.password,
+        login: user.login,
+        rights: user.rights
+      };
     } catch (error) {
-      const errorText: string = 'Невозможно получить пользователя:';
-      if (error instanceof Error) {
-        console.error(errorText, error.message);
-      }
+      showErrorNotification('Невозможно получить пользователя', error);
     }
   };
 
@@ -144,10 +204,7 @@ export class UsersStore {
         throw new Error(`Ошибка: ${response.statusText}`);
       }
     } catch (error) {
-      const errorText: string = 'Ошибка обновления имени пользователя:';
-      if (error instanceof Error) {
-        console.error(errorText, error.message);
-      }
+      showErrorNotification('Ошибка обновления имени пользователя', error);
     }
   };
 
@@ -160,6 +217,7 @@ export class UsersStore {
     const newUser: User = {
       id: uniqid(),
       login,
+      rights: 'user',
       password,
       fullName,
       dateRegister: formatDate(new Date().toISOString())
@@ -180,10 +238,7 @@ export class UsersStore {
       this.users = [...this.users, data];
       this.userExistsError = false;
     } catch (error) {
-      const errorText: string = 'Ошибка при добавлении пользователя:';
-      if (error instanceof Error) {
-        console.error(errorText, error.message);
-      }
+      showErrorNotification('Ошибка при добавлении пользователя', error);
     }
 
     this.userRegForm = {
@@ -201,11 +256,20 @@ export class UsersStore {
     this.userRegForm = { ...this.userRegForm, [e.target.name]: e.target.value };
   };
 
-  changeUserDetailsValue = (e: React.ChangeEvent<HTMLInputElement>): void => {
+  changeUserDetailsValue = (
+    e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+  ): void => {
     this.userDetail = { ...this.userDetail, [e.target.name]: e.target.value };
   };
 
-  deleteUser = async (userId: string): Promise<void> => {
+  deleteUser = async (userId: string | null | undefined): Promise<void> => {
+    const user = this.users.find((user) => user.id === userId);
+
+    if (user && user.rights === 'admin') {
+      alert(`Невозможно удалить пользователя с правами администратора`);
+      return;
+    }
+
     this.users = this.users.filter((user) => user.id !== userId);
 
     try {
@@ -215,12 +279,11 @@ export class UsersStore {
       if (!response.ok) {
         throw new Error(`Ошибка: ${response.statusText}`);
       }
-      console.log(`Юзер ${userId} успешно удален на сервере`);
+      const notificationText = `Юзер ${userId} успешно удален на сервере`;
+      alert(notificationText);
+      console.log(notificationText);
     } catch (error) {
-      const errorText: string = 'Ошибка удаления юзера на сервере:';
-      if (error instanceof Error) {
-        console.error(errorText, error.message);
-      }
+      showErrorNotification('Ошибка удаления юзера на сервере', error);
     }
   };
 }

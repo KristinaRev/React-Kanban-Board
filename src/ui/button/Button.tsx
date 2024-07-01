@@ -1,14 +1,15 @@
 import { ButtonHTMLAttributes, FC } from 'react';
 import css from './Button.module.css';
+import cn from 'classnames';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  theme?: string | undefined;
+  className?: string;
 }
 
-const Button: FC<ButtonProps> = (props) => {
+const Button: FC<ButtonProps> = ({ className, children, ...rest }) => {
   return (
-    <button className={css.button} {...props}>
-      {props.children}
+    <button className={cn(css.button, className)} {...rest}>
+      {children}
     </button>
   );
 };
