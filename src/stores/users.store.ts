@@ -286,7 +286,7 @@ export class UsersStore {
     const user = this.users.find((user) => user.id === userId);
 
     if (user && user.rights === 'admin') {
-      console.log(`Невозможно удалить администратора с id ${userId}`);
+      alert(`Невозможно удалить пользователя с правами администратора`);
       return;
     }
 
