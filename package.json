@@ -9,6 +9,7 @@
     "@testing-library/user-event": "^13.5.0",
     "@types/uniqid": "^5.3.4",
     "classnames": "^2.5.1",
+    "eslint-config-react-app": "^7.0.1",
     "gh-pages": "^5.0.0",
     "mobx": "^6.12.3",
     "mobx-react-lite": "^4.0.7",
@@ -34,15 +35,12 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
     "start-server": "json-server --watch db.json --port 3001",
-    "lint": "eslint .",
-    "lint:fix": "eslint --fix",
-    "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+    "lint:check": "eslint src --max-warnings=0",
+    "lint:fix": "eslint src --fix --max-warnings=0",
+    "ts:check": "npx tsc",
+    "prettier:fix": "prettier src --write",
+    "prettier:check": "prettier src --check",
+    "check": "npm run ts:check && npm run lint:check && npm run prettier:check"
   },
   "browserslist": {
     "production": [

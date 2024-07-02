@@ -104,8 +104,7 @@ const TaskDetail: FC = () => {
             <Button type="button" onClick={handleBtnClick}>
               <FormattedTitle
                 title={tasksStore.taskDetail.isDeleted ? 'Восстановить задачу' : 'Удалить задачу'}
-                className="delete-btn"
-              ></FormattedTitle>
+                className="delete-btn"></FormattedTitle>
             </Button>
           </>
         ) : (
