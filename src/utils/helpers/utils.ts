@@ -1,6 +1,3 @@
-import { Simulate } from 'react-dom/test-utils';
-import error = Simulate.error;
-
 /**
  * Форматирование даты в строке
  * @param {string} stringDate - Строка с датой
