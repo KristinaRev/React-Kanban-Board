@@ -60,6 +60,7 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@commitlint/config-conventional": "^19.2.2",
     "@eslint/compat": "^1.1.0",
     "@types/css-modules": "^1.0.5",
     "@types/jest": "^29.5.12",
