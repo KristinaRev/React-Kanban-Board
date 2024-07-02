@@ -97,9 +97,6 @@ jobs:
       - name: Install npm dependencies
         run: npm ci --prefer-offline --cache=./.npm
 
-      - name: Generate api types
-        run: npm run generate
-
       - name: Run build
         run: npm run build
 
