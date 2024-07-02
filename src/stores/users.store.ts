@@ -31,10 +31,10 @@ interface UserLoginForm {
 }
 
 export class UsersStore {
-  login: boolean = false;
+  login = false;
   currentUser: User | null = null;
   users: User[] = [];
-  userExistsError: boolean = false;
+  userExistsError = false;
   userDetail: UserDetail = {
     fullName: '',
     password: '',
