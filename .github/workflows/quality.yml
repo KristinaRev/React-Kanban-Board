@@ -1,0 +1,105 @@
+name: Quality Assurance
+
+on: pull_request
+
+concurrency:
+  group: ${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Cache dependencies
+        id: cache
+        uses: actions/cache@v3
+        with:
+          path: ./.npm
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-npm-
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18.15.0'
+
+      - name: Install npm dependencies
+        run: npm ci --prefer-offline --cache=./.npm
+
+      - name: Run check
+        run: npm run check
+
+  unit-testing:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Cache dependencies
+        id: cache
+        uses: actions/cache@v3
+        with:
+          path: ./.npm
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-npm-
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18.15.0'
+
+      - name: Install npm dependencies
+        run: npm ci --prefer-offline --cache=./.npm
+
+      - name: Run unit tests
+        run: npm run test
+
+  commitLint:
+    if: ${{ github.actor != 'dependabot[bot]' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout current
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Fetch base
+        run: git fetch --no-tags origin $GITHUB_BASE_REF:$GITHUB_BASE_REF
+      - name: Fetch current
+        run: git fetch --no-tags origin $GITHUB_HEAD_REF:$GITHUB_HEAD_REF
+      - name: Run commitlint
+        run: npx commitlint --from $GITHUB_BASE_REF --to $GITHUB_HEAD_REF --config .commitlintrc.json
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Cache dependencies
+        id: cache
+        uses: actions/cache@v3
+        with:
+          path: ./.npm
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-npm-
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18.15.0'
+
+      - name: Install npm dependencies
+        run: npm ci --prefer-offline --cache=./.npm
+
+      - name: Generate api types
+        run: npm run generate
+
+      - name: Run build
+        run: npm run build
+
