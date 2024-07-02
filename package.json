@@ -34,9 +34,12 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
     "start-server": "json-server --watch db.json --port 3001",
-    "lint": "eslint .",
-    "lint:fix": "eslint --fix",
-    "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc"
+    "lint:check": "eslint src --max-warnings=0",
+    "lint:fix": "eslint src --fix --max-warnings=0",
+    "ts:check": "npx tsc",
+    "prettier:fix": "prettier src --write",
+    "prettier:check": "prettier src --check",
+    "check": "npm run ts:check && npm run lint:check && npm run prettier:check"
   },
   "eslintConfig": {
     "extends": [
