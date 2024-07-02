@@ -1,4 +1,4 @@
-import { FC, useContext, useState } from 'react';
+import React, { FC, useContext, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import Input from '../../ui/input/Input';
 import Button from '../../ui/button/Button';
