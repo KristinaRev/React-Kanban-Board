@@ -28,7 +28,8 @@ const FormAddNewTask: FC = () => {
       await tasksStore.addTask(
         tasksStore.taskForm.title,
         tasksStore.taskForm.description,
-        tasksStore.taskForm.priority
+        tasksStore.taskForm.priority,
+        tasksStore.taskForm.expectedTime
       );
       tasksStore.changeFormVisible(false);
     } else {
@@ -59,6 +60,15 @@ const FormAddNewTask: FC = () => {
         name="priority"
         label="Приоритет задачи"
         className={css.additionalSelectClass}
+      />
+      <Input
+        id="taskExpectedTime"
+        name="expectedTime"
+        type="text"
+        placeholder="Введите ожидаемое время на задачу"
+        onChange={handleChange}
+        value={tasksStore.taskForm.expectedTime}
+        label="Ожидаемое время"
       />
       <Textarea
         id="taskDescription"

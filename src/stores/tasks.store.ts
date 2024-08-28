@@ -10,6 +10,8 @@ interface Task {
   priority: string;
   created: string;
   status: string;
+  creator: string | null;
+  expectedTime: string;
 }
 
 interface TaskForm {
@@ -17,6 +19,8 @@ interface TaskForm {
   title: string;
   description: string;
   priority: string;
+  expectedTime: string;
+  creator: string | null;
 }
 
 export class TasksStore {
@@ -32,14 +36,17 @@ export class TasksStore {
     title: '',
     description: '',
     status: '',
-    priority: ''
+    priority: '',
+    expectedTime: ''
   };
 
   taskForm: TaskForm = {
     isVisible: false,
     title: '',
     description: '',
-    priority: ''
+    priority: '',
+    expectedTime: '',
+    creator: ''
   };
 
   getTasks = async (): Promise<void> => {
@@ -87,6 +94,30 @@ export class TasksStore {
       }
     } catch (error) {
       showErrorNotification('Ошибка обновления описания задачи на сервере', error);
+    }
+  };
+
+  updateExpectedTime = async (taskId: string, localExpectedTime: string): Promise<void> => {
+    try {
+      this.tasks = this.tasks.map((task) => {
+        if (task.id === taskId) {
+          task.expectedTime = localExpectedTime;
+        }
+        return task;
+      });
+
+      const response = await fetch(`http://localhost:3001/tasks/${taskId}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ expectedTime: localExpectedTime })
+      });
+      if (!response.ok) {
+        throw new Error(`Ошибка: ${response.statusText}`);
+      }
+    } catch (error) {
+      showErrorNotification('Ошибка обновления ожидаемого времени на сервере', error);
     }
   };
 
@@ -138,14 +169,16 @@ export class TasksStore {
     }
   };
 
-  addTask = async (title: string, description: string, priority: string) => {
+  addTask = async (title: string, description: string, priority: string, expectedTime: string) => {
     const newTask = {
       id: uniqid(),
       title,
       description,
       priority,
       created: new Date().toISOString(),
-      status: 'backlog'
+      status: 'backlog',
+      expectedTime,
+      creator: localStorage.getItem('currentUser')
       //todo добавить ожидаемое время на выполнение задачи expectedTime: '',
       //todo добавить имя создателя задачи
     };
@@ -170,7 +203,9 @@ export class TasksStore {
     this.taskForm = {
       title: '',
       description: '',
-      priority: ''
+      priority: '',
+      expectedTime: '',
+      creator: ''
     };
   };
 

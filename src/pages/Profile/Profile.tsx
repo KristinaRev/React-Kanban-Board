@@ -35,6 +35,3 @@ const Profile: React.FC = () => {
 };
 
 export default observer(Profile);
-
-//todo выводить инфо по юзеру
-//todo добавить метод удаления профиля

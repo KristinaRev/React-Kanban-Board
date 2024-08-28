@@ -9,6 +9,7 @@ import Button from '../../ui/button/Button';
 import Select from '../../ui/select/Select';
 import { Textarea } from '../../ui/textarea/textarea';
 import css from './TaskDetail.module.css';
+import Input from '../../ui/input/Input';
 
 const TaskDetail: FC = () => {
   const { taskId } = useParams<{ taskId: string }>();
@@ -18,6 +19,7 @@ const TaskDetail: FC = () => {
   const localStatus = tasksStore.taskDetail.status;
   const localTitle = tasksStore.taskDetail.title;
   const localPriority = tasksStore.taskDetail.priority;
+  const localExpectedTime = tasksStore.taskDetail.expectedTime;
 
   const descriptionRef = useRef<HTMLTextAreaElement>(null);
 
@@ -37,8 +39,12 @@ const TaskDetail: FC = () => {
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => tasksStore.changeTaskDetailsValue(e);
 
-  const addDescription = async () => {
+  const changeDescription = async () => {
     if (taskId) await tasksStore.updateTaskDescription(taskId, localDescription);
+  };
+
+  const changeExpectedTime = async () => {
+    if (taskId) await tasksStore.updateExpectedTime(taskId, localExpectedTime);
   };
 
   const changeStatus = async () => {
@@ -53,7 +59,7 @@ const TaskDetail: FC = () => {
     if (!tasksStore.taskDetail.isDeleted && taskId) {
       await tasksStore.deleteTask(taskId);
     } else {
-      await tasksStore.addTask(localTitle, localDescription, localStatus);
+      await tasksStore.addTask(localTitle, localDescription, localStatus, localExpectedTime);
     }
     tasksStore.changeTaskDetailDeleted(!tasksStore.taskDetail.isDeleted);
   };
@@ -97,9 +103,16 @@ const TaskDetail: FC = () => {
               ref={descriptionRef}
               className={css.details_description}
               onChange={handleChange}
-              onBlur={addDescription}
+              onBlur={changeDescription}
               value={localDescription}
               name="description"
+            />
+            <Input
+              name="expectedTime"
+              type="text"
+              onChange={handleChange}
+              onBlur={changeExpectedTime}
+              value={localExpectedTime}
             />
             <Button type="button" onClick={handleBtnClick}>
               <FormattedTitle

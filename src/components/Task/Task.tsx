@@ -17,9 +17,18 @@ interface TaskProps {
   status: string;
   moveTaskInsideList: MoveTaskInsideList;
   priority?: string;
+  expectedTime?: string;
 }
 
-const Task: FC<TaskProps> = ({ id, index, title, status, moveTaskInsideList, priority }) => {
+const Task: FC<TaskProps> = ({
+  id,
+  index,
+  title,
+  status,
+  moveTaskInsideList,
+  priority,
+  expectedTime
+}) => {
   const { tasksStore } = useContext(StoreContext);
 
   const [{ isDragging }, drag] = useDrag({
@@ -61,6 +70,7 @@ const Task: FC<TaskProps> = ({ id, index, title, status, moveTaskInsideList, pri
       </div>
       <div className={css.task_bottom}>
         <Tag>{priority}</Tag>
+        <Tag>{expectedTime}</Tag>
       </div>
     </div>
   );

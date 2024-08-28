@@ -18,6 +18,7 @@ interface TaskType {
   title: string;
   status: string;
   priority: string;
+  expectedTime: string;
 }
 
 interface ListProps {
@@ -82,6 +83,7 @@ const List: FC<ListProps> = (props) => {
             title={task.title}
             status={task.status}
             priority={task.priority}
+            expectedTime={task.expectedTime}
             moveTaskInsideList={moveTaskInsideList}
           />
         ))
