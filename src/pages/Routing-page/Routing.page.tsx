@@ -10,12 +10,13 @@ import Admin from '../Admin/Admin';
 import { ROUTES } from '../../constants';
 import MainLayout from '../../components/MainLayout/MainLayout';
 import UserPage from '../UserPage/UserPage';
+import { PrivateRoute } from '../PrivateRoute/PrivateRoute';
 
 const RoutingPage: FC = () => {
   return (
     <Routes>
       <Route element={<MainLayout />}>
-        <Route path={ROUTES.root} element={<Board />} />
+        <Route path={ROUTES.root} element={<PrivateRoute component={Board} />} />
         <Route path={ROUTES.task} element={<TaskDetail />} />
         <Route path={ROUTES.userPage} element={<UserPage />} />
         <Route path={ROUTES.PORTAL} element={<PortalPage />} />

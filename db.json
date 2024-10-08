@@ -21,7 +21,7 @@
       "title": "Что-то пофиксить",
       "description": "",
       "created": "2024-02-11T12:56:17.269Z",
-      "status": "backlog"
+      "status": "done"
     },
     {
       "id": "lshjoyjv",
@@ -35,7 +35,7 @@
       "title": "Покушать",
       "description": "",
       "created": "2024-03-05T09:42:51.239Z",
-      "status": "ready",
+      "status": "inProgress",
       "priority": "medium"
     },
     {
@@ -68,7 +68,7 @@
       "description": "куекупц",
       "priority": "",
       "created": "2024-06-28T13:15:56.410Z",
-      "status": "backlog"
+      "status": "ready"
     },
     {
       "id": "lxyq5iql",
@@ -76,7 +76,7 @@
       "description": "",
       "priority": "",
       "created": "2024-06-28T13:24:00.668Z",
-      "status": "backlog"
+      "status": "inProgress"
     },
     {
       "id": "ly1o8khn",
@@ -84,7 +84,7 @@
       "description": "",
       "priority": "blocker",
       "created": "2024-06-30T14:53:42.202Z",
-      "status": "backlog"
+      "status": "inProgress"
     }
   ],
   "users": [
@@ -95,14 +95,6 @@
       "rights": "admin",
       "fullName": "KrisKipper",
       "dateRegister": "19.05.2024"
-    },
-    {
-      "id": "lwdhcuk1",
-      "login": "sf_student1",
-      "rights": "user",
-      "password": "5",
-      "fullName": "tgyrg",
-      "dateRegister": "2024-05-19T11:54:54.000Z"
     },
     {
       "id": "ly2u7gph",
