@@ -2,7 +2,7 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   width: 100%;
-  height: calc(100vh - 110px);
+  height: 100%;
   gap: 10px;
   -ms-overflow-style: none;
   overflow: -moz-scrollbars-none;

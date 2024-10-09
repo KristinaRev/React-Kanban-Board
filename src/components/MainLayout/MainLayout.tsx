@@ -33,7 +33,9 @@ const MainLayout: FC = observer(() => {
   return (
     <div className={css.main}>
       <Header onLogout={handleLogout} />
-      <Outlet />
+      <div className={css.content}>
+        <Outlet />
+      </div>
       <Footer
         backlogCount={resultCountTask.backlog}
         doneCount={resultCountTask.done}
