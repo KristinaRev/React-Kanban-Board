@@ -36,7 +36,7 @@ const Header: FC<HeaderProps> = ({ onLogout }) => {
     <header className={css.header}>
       <h1 className={css.header_title}>Awesome Kanban Board</h1>
       {usersStore.login && (
-        <p className={css.header_user} onClick={onLogout}>
+        <p className={css.header_user} onClick={() => setPortalVisible(true)}>
           Welcome, {usersStore.currentUser?.fullName}!
         </p>
       )}
