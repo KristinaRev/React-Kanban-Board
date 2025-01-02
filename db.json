@@ -111,6 +111,14 @@
       "password": "Kris1",
       "fullName": "12222",
       "dateRegister": "01.07.2024, 13:28:54"
+    },
+    {
+      "id": "m5f1zzc1",
+      "login": "+7 (888) 888-88-88",
+      "rights": "user",
+      "password": "12345678Qq",
+      "fullName": "ф",
+      "dateRegister": "02.01.2025, 15:17:52"
     }
   ]
 }

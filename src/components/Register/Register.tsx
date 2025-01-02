@@ -1,12 +1,12 @@
 import { FC, useContext, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import Input from '../../ui/input/Input';
-import Button from '../../ui/button/Button';
 import { StoreContext } from '../../stores/root.store';
 import { WithClassName } from 'interfaces';
 import { ROUTES } from '../../constants';
 import { Link, useNavigate } from 'react-router-dom';
 import css from './Register.module.css';
+import { Form } from '../Form/Form';
 
 const Register: FC<WithClassName> = () => {
   const { usersStore } = useContext(StoreContext);
@@ -33,9 +33,17 @@ const Register: FC<WithClassName> = () => {
     }
   };
 
+  const errorMessage = usersStore.userExistsError
+    ? 'Пользователь с таким логином уже существует'
+    : 'Заполните все поля';
+
   return (
     <div className={css.Register}>
-      <form onSubmit={formSubmit} className={css.form}>
+      <Form
+        onSubmit={formSubmit}
+        submitText={'Зарегистрироваться'}
+        error={showPrompt ? errorMessage : null}
+      >
         <Input
           id="userLogin"
           name="login"
@@ -63,14 +71,7 @@ const Register: FC<WithClassName> = () => {
           value={usersStore.userRegForm.fullName}
           label="Имя"
         />
-        <Button type="submit">Зарегистрироваться</Button>
-        {showPrompt &&
-          (usersStore.userExistsError ? (
-            <span className="errorReg">Пользователь с таким логином уже существует</span>
-          ) : (
-            <span className="errorReg">Заполните все поля</span>
-          ))}
-      </form>
+      </Form>
       <Link to={ROUTES.AUTHORIZATION} className="link">
         Войти
       </Link>
