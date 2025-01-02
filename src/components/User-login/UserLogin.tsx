@@ -1,32 +1,35 @@
-import { useContext, ChangeEvent, FC } from 'react';
+import { ChangeEvent, FC, useContext, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import Input from '../../ui/input/Input';
 import { StoreContext } from '../../stores/root.store';
-import Button from '../../ui/button/Button';
 import { WithClassName } from 'interfaces';
 import { Link } from 'react-router-dom';
 import { ROUTES } from '../../constants';
 import css from './UserLogin.module.css';
+import { Form } from '../Form/Form';
 
 const UserLogin: FC<WithClassName & { onLogin: () => void }> = ({ className, onLogin }) => {
   const { usersStore } = useContext(StoreContext);
+  const [error, setError] = useState<string | null>(null);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => usersStore.changeLoginFormValue(e);
 
   const formSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const { login, password } = usersStore.userLoginForm;
-    const loggedIn = await usersStore.loginUser(login, password);
+    const loggedIn = usersStore.loginUser(login, password);
+
     if (loggedIn) {
       onLogin();
+      setError(null);
     } else {
-      console.log('Неправильный логин или пароль');
+      setError('Неправильный логин или пароль');
     }
   };
 
   return (
     <div className={`${css.Login} ${className}`}>
-      <form onSubmit={formSubmit} className={css.form}>
+      <Form submitText={'Войти'} onSubmit={formSubmit} error={error}>
         <Input
           id="userLogin"
           name="login"
@@ -45,8 +48,7 @@ const UserLogin: FC<WithClassName & { onLogin: () => void }> = ({ className, onL
           value={usersStore.userLoginForm.password}
           label="Пароль"
         />
-        <Button type="submit">Войти</Button>
-      </form>
+      </Form>
       <Link to={ROUTES.REGISTRATION} className={css.link}>
         Зарегистрироваться
       </Link>

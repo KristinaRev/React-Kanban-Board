@@ -1,0 +1,15 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: #ffffff;
+  padding: 10px;
+  border-radius: 2px;
+  min-width: 24vw;
+}
+
+.error {
+  color: red;
+  margin: 5px 0;
+  font-size: 14px;
+}
